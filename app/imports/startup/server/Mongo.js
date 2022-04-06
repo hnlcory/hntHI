@@ -9,6 +9,8 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Interests } from '../../api/interests/Interests';
 // Added the Following Insert
 import { Users } from '../../api/users/Users';
+import { Locations } from '../../api/locations/Locations';
+import { UsersLocations } from '../../api/users/UsersLocations';
 
 /* eslint-disable no-console */
 
@@ -26,11 +28,10 @@ function addInterest(interest) {
   Interests.collection.update({ name: interest }, { $set: { name: interest } }, { upsert: true });
 }
 
-/** Define a location. Has no effect if the location already exists.
+/** Define a location. Has no effect if the location already exists. */
 function addLocation(location) {
   Locations.collection.update({ name: location }, { $set: { name: location } }, { upsert: true });
 }
- */
 
 /** Defines a new user and associated profile. Error if user already exists. */
 function addProfile({ firstName, lastName, bio, title, interests, projects, picture, email, role }) {
@@ -56,14 +57,12 @@ function addProject({ name, homepage, description, interests, picture }) {
 }
 
 // Define a new user. Error if user already exists. (ADDED)
-function addUser({ email, firstName, lastName, role, profilePicture, location, bio, arriveTime, leaveTime, contact }) {
+function addUser({ email, firstName, lastName, role, profilePicture, locations, bio, arriveTime, leaveTime, contact }) {
   console.log(`Defining user ${firstName}`);
-  Users.collection.insert({ email, firstName, lastName, role, profilePicture, location, bio, arriveTime, leaveTime, contact });
-  /* Do later
-  locations.map(location => ProfilesLocations.collection.insert({ profile: email, interest }));
+  Users.collection.insert({ email, firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact });
+  locations.map(location => UsersLocations.collection.insert({ profile: email, location }));
   // Make sure locations are defined in the Location collection if they weren't already.
   locations.map(location => addLocation(location));
-   */
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */

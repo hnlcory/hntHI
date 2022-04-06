@@ -14,15 +14,15 @@ class UsersCollection {
     // Define the structure of each variable in collection
     this.schema = new SimpleSchema({
       email: { type: String, index: true, unique: true },
-      firstName: { type: String, optional: false },
-      lastName: { type: String, optional: false },
-      role: { type: String, optional: false },
-      profilePicture: { type: String, optional: false },
-      location: { type: String, optional: false },
-      bio: { type: String, optional: false },
-      arriveTime: { type: String, optional: false },
-      leaveTime: { type: String, optional: false },
-      contact: { type: String, optional: false },
+      firstName: { type: String, optional: true },
+      lastName: { type: String, optional: true },
+      role: { type: String, optional: true },
+      profilePicture: { type: String, optional: true },
+      location: { type: String, optional: true },
+      bio: { type: String, optional: true },
+      arriveTime: { type: String, optional: true },
+      leaveTime: { type: String, optional: true },
+      contact: { type: String, optional: true },
     }, { tracker: Tracker });
     // Ensure collection documents obey schema
     this.collection.attachSchema(this.schema);
