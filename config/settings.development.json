@@ -130,5 +130,31 @@
       "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2019/01/LAVAlogo-300x192-300x192.png"
     }
   ],
+  "defaultUsers": [
+    {
+      "email": "miller@gmail.com",
+      "firstName": "Spencer",
+      "lastName": "Miller",
+      "role": "Driver",
+      "profilePicture": "https://cdn.discordapp.com/attachments/930054006812844065/960850735979970570/20211206_022911.jpg",
+      "location": "Pearl City",
+      "bio": "Guys I am Spencer Miller and I am cool and awesome and stuff.",
+      "arriveTime": "6:00 am",
+      "leaveTime": "4:00 pm",
+      "contact": "808-222-2342"
+    },
+    {
+      "email": "sheung@gmail.com",
+      "firstName": "Sheung Yee",
+      "lastName": "Yiu",
+      "role": "Rider",
+      "profilePicture": "https://cdn.discordapp.com/attachments/930054006812844065/961148822698995742/456.PNG",
+      "location": "Mililani",
+      "bio": "Goo Goo Gah Gah",
+      "arriveTime": "8:00 am",
+      "leaveTime": "2:30 pm",
+      "contact": "808-232-3483"
+    }
+  ],
   "loadAssetsFile":  false
 }
