@@ -7,6 +7,8 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Interests } from '../../api/interests/Interests';
+// Added the Following Insert
+import { Users } from '../../api/users/Users';
 
 /* eslint-disable no-console */
 
@@ -23,6 +25,12 @@ function createUser(email, role) {
 function addInterest(interest) {
   Interests.collection.update({ name: interest }, { $set: { name: interest } }, { upsert: true });
 }
+
+/** Define a location. Has no effect if the location already exists.
+function addLocation(location) {
+  Locations.collection.update({ name: location }, { $set: { name: location } }, { upsert: true });
+}
+ */
 
 /** Defines a new user and associated profile. Error if user already exists. */
 function addProfile({ firstName, lastName, bio, title, interests, projects, picture, email, role }) {
@@ -47,13 +55,28 @@ function addProject({ name, homepage, description, interests, picture }) {
   interests.map(interest => addInterest(interest));
 }
 
+// Define a new user. Error if user already exists. (ADDED)
+function addUser({ email, firstName, lastName, role, profilePicture, location, bio, arriveTime, leaveTime, contact }) {
+  console.log(`Defining user ${firstName}`);
+  Users.collection.insert({ email, firstName, lastName, role, profilePicture, location, bio, arriveTime, leaveTime, contact });
+  /* Do later
+  locations.map(location => ProfilesLocations.collection.insert({ profile: email, interest }));
+  // Make sure locations are defined in the Location collection if they weren't already.
+  locations.map(location => addLocation(location));
+   */
+}
+
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */
 if (Meteor.users.find().count() === 0) {
-  if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles) {
+  // Added Meteor.settings.defaultUsers
+  if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles && Meteor.settings.defaultUsers) {
     console.log('Creating the default profiles');
     Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
     console.log('Creating the default projects');
     Meteor.settings.defaultProjects.map(project => addProject(project));
+    // Added users section to be created
+    console.log('Creating the default projects');
+    Meteor.settings.defaultUsers.map(user => addUser(user));
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }
