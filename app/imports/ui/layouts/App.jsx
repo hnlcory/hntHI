@@ -9,10 +9,14 @@ import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import Home from '../pages/Home';
 import Profiles from '../pages/Profiles';
-import AddProject from '../pages/AddProject';
-import Projects from '../pages/Projects';
-import Filter from '../pages/Filter';
-import Interests from '../pages/Interests';
+import DriverHome from '../pages/DriverHome';
+import RiderHome from '../pages/RiderHome';
+import FastRideFeed from '../pages/FastRideFeed';
+import FastRideForm from '../pages/FastRideForm';
+import DriverSearch from '../pages/DriverSearch';
+import RiderSearch from '../pages/RiderSearch';
+import User from '../pages/User';
+import UserEdit from '../pages/UserEdit';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -30,10 +34,14 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <ProtectedRoute path="/home" component={Home}/>
               <Route path="/profiles" component={Profiles}/>
-              <Route path="/projects" component={Projects}/>
-              <Route path="/interests" component={Interests}/>
-              <ProtectedRoute path="/addproject" component={AddProject}/>
-              <ProtectedRoute path="/filter" component={Filter}/>
+              <Route path="/drivers" component={DriverHome}/>
+              <Route path="/riders" component={RiderHome}/>
+              <Route path="/fastridefeed" component={FastRideFeed}/>
+              <Route path="/fastrideform" component={FastRideForm}/>
+              <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
+              <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
+              <Route path="/user" component={User}/>
+              <Route path="/useredit" component={UserEdit}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <ProtectedRoute path="/signout" component={Signout}/>
