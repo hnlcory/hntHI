@@ -24,14 +24,17 @@ class NavBar extends React.Component {
           <span className='bowfolio-green' style={{ fontWeight: 800, fontSize: '24px' }}>Carpool-And-Go</span>
         </Menu.Item>
         {this.props.currentUser ? (
-          [<Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home'>Home</Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>My Account</Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Edit Account</Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Drivers
+          [<Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/drivers" key='homeD'>Home</Menu.Item>,
+            <Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/riders" key='homeR'>Home</Menu.Item>,
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/user" key='profile'>My Account</Menu.Item>,
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/useredit" key='profileEdit'>Edit Account</Menu.Item>,
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/driverssearch" key='drivers'>Drivers
               <Icon name={'car'}/></Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Riders
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/riderssearch" key='riders'>Riders
               <Icon name={'male'}/></Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Fast Ride
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/fastrideform" key='fastRideReq'>Fast Ride Request
+              <Icon name={'bolt'}/></Menu.Item>,
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/fastridefeed" key='fastRideFeed'>Fast Ride Feed
               <Icon name={'bolt'}/></Menu.Item>]
         ) : ''}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
