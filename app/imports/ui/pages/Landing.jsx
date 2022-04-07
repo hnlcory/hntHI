@@ -6,18 +6,19 @@ class Landing extends React.Component {
   render() {
     return (
       <div id="landing-page">
-        <div className='landing-green-background'>
+        <div className='landing-picture-background'>
           <Container textAlign='center'>
-            <Header style={{ paddingTop: '20px', color: 'white', fontSize: '36pt' }} as='h1'>
-                Welcome to Bowfolios
+            <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '10px' }}/>
+            <Header style={{ color: 'white', fontSize: '36pt' }} as='h1'>
+                Welcome to Carpool-And-Go
             </Header>
             <Header style={{ paddingBottom: '20px', color: 'white' }} as='h3'>
-                Profiles, projects, and interest areas for the UH Community
+              Allowing drivers to offer rides, and riders to search for nearby rides
             </Header>
           </Container>
         </div>
         <div className='landing-white-background'>
-          <Header style={{ color: '#376551' }} as='h2' textAlign='center'>Start by making your profile....</Header>
+          <Header style={{ color: '#376551' }} as='h2' textAlign='center'>Create your profile as a Driver or Rider</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
               <Image src="/images/home-page.png"/>
@@ -28,7 +29,7 @@ class Landing extends React.Component {
           </Grid>
         </div>
         <div className='landing-green-background'>
-          <Header style={{ color: 'white' }} as='h2' textAlign='center'>...then add your projects</Header>
+          <Header style={{ color: 'white' }} as='h2' textAlign='center'>Sort by area to connect with others leaving at similar times</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
               <Image src="/images/add-project-page.png"/>
@@ -40,7 +41,7 @@ class Landing extends React.Component {
         </div>
         <div className='landing-white-background'>
           <Header style={{ color: '#376551' }} as='h2' textAlign='center'>
-              Connect to people and projects with shared interests!
+              Connect quickly with others for last-minute rides using Fast Ride
           </Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
