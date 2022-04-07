@@ -6,13 +6,14 @@ class Landing extends React.Component {
   render() {
     return (
       <div id="landing-page">
-        <div className='landing-green-background'>
+        <div className='landing-picture-background'>
           <Container textAlign='center'>
-            <Header style={{ paddingTop: '20px', color: 'white', fontSize: '36pt' }} as='h1'>
-                Welcome to Bowfolios
+            <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '10px' }}/>
+            <Header style={{ color: 'white', fontSize: '36pt' }} as='h1'>
+                Welcome to Carpool-And-Go
             </Header>
             <Header style={{ paddingBottom: '20px', color: 'white' }} as='h3'>
-                Profiles, projects, and interest areas for the UH Community
+              Allowing drivers to offer rides, and riders to search for nearby rides
             </Header>
           </Container>
         </div>
