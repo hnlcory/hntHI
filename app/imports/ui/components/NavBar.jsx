@@ -27,8 +27,10 @@ class NavBar extends React.Component {
           [<Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home'>Home</Menu.Item>,
             <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>My Account</Menu.Item>,
             <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Edit Account</Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Drivers</Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Riders</Menu.Item>,
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Drivers
+              <Icon name={'car'}/></Menu.Item>,
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Riders
+              <Icon name={'male'}/></Menu.Item>,
             <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'>Fast Ride
               <Icon name={'bolt'}/></Menu.Item>]
         ) : ''}
