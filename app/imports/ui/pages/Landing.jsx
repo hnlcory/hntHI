@@ -18,7 +18,7 @@ class Landing extends React.Component {
           </Container>
         </div>
         <div className='landing-white-background'>
-          <Header style={{ color: '#376551' }} as='h2' textAlign='center'>Start by making your profile....</Header>
+          <Header style={{ color: '#376551' }} as='h2' textAlign='center'>Create your profile as a Driver or Rider</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
               <Image src="/images/home-page.png"/>
@@ -29,7 +29,7 @@ class Landing extends React.Component {
           </Grid>
         </div>
         <div className='landing-green-background'>
-          <Header style={{ color: 'white' }} as='h2' textAlign='center'>...then add your projects</Header>
+          <Header style={{ color: 'white' }} as='h2' textAlign='center'>Sort by area to connect with others leaving at similar times</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
               <Image src="/images/add-project-page.png"/>
@@ -41,7 +41,7 @@ class Landing extends React.Component {
         </div>
         <div className='landing-white-background'>
           <Header style={{ color: '#376551' }} as='h2' textAlign='center'>
-              Connect to people and projects with shared interests!
+              Connect quickly with others for last-minute rides using Fast Ride
           </Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
