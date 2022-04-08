@@ -22,10 +22,10 @@ class Landing extends React.Component {
           <Header style={{ color: '#376551' }} as='h2' textAlign='center'>Create your profile as a Driver or Rider</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
-              <Image src="/images/home-page.png"/>
+              <Image src="/images/profiles-page.png"/>
             </Grid.Column>
             <Grid.Column>
-              <Image src="/images/profiles-page.png"/>
+              <Image size='huge' src="/images/driver.jpeg"/>
             </Grid.Column>
           </Grid>
         </div>
@@ -47,7 +47,7 @@ class Landing extends React.Component {
           </Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
-              <Image src="/images/interests-page.png"/>
+              <Image src="/images/signup.png"/>
             </Grid.Column>
             <Grid.Column>
               <Image src="/images/filter-page.png"/>
@@ -65,7 +65,6 @@ class Landing extends React.Component {
                 <Header style={{ paddingTop: '100px' }} as='h2' inverted>
                   Request a ride now
                 </Header>
-                <Image src="/images/signup.png"/>
                 <Button.Group size='large'>
                   <Button color='olive' as={Link} to='/signin'>Login</Button>
                   <Button.Or />
