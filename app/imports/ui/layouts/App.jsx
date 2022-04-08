@@ -9,8 +9,6 @@ import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import Home from '../pages/Home';
 import Profiles from '../pages/Profiles';
-import DriverHome from '../pages/DriverHome';
-import RiderHome from '../pages/RiderHome';
 import FastRideFeed from '../pages/FastRideFeed';
 import FastRideForm from '../pages/FastRideForm';
 import DriverSearch from '../pages/DriverSearch';
@@ -21,6 +19,7 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
+import HomeDR from '../pages/HomeDR';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -34,8 +33,7 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <ProtectedRoute path="/home" component={Home}/>
               <Route path="/profiles" component={Profiles}/>
-              <Route path="/drivers" component={DriverHome}/>
-              <Route path="/riders" component={RiderHome}/>
+              <Route path="/homedr" component={HomeDR}/>
               <Route path="/fastridefeed" component={FastRideFeed}/>
               <Route path="/fastrideform" component={FastRideForm}/>
               <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
