@@ -12,7 +12,16 @@
 .landing-picture-background {
   background: url("https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/EyvF0jkPg/videoblocks-drone-turns-right-over-beautiful-mountain-road-aerial-top-view-of-summer-serpentine-empty-driveway-4k-background-shot_hx7f8hidg_thumbnail-1080_01.png") no-repeat center center fixed;
   background-size: cover;
+}
 
+.landing-person-background {
+  background: url("https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,w_3810,h_1288/v1613521692/assets/d9/ce6c00-32b0-4b93-9f0d-6f927d93da08/original/Rider_Home_bg_desktop2x.png") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.landing-driver-background {
+  background: url("https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,w_956,h_537/v1566972723/assets/8c/f777bf-ad1a-44f5-9b09-e42aad298e51/original/DPBasics.jpg") no-repeat center center fixed;
+  background-size: cover;
 }
 
 .landing-white-background {
