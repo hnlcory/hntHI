@@ -65,6 +65,7 @@ class Landing extends React.Component {
                 <Header style={{ paddingTop: '100px' }} as='h2' inverted>
                   Request a ride now
                 </Header>
+                <Image src="/images/signup.png"/>
                 <Button.Group size='large'>
                   <Button color='olive' as={Link} to='/signin'>Login</Button>
                   <Button.Or />
