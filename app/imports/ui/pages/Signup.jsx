@@ -49,7 +49,7 @@ class Signup extends React.Component {
       <Container id="signup-page">
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>
-            <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '5px' }}/>
+            <Image src='/images/signup-image.jpeg' centered circular style={{ paddingTop: '5px' }}/>
             <Header as="h2" textAlign="center">
                 Sign up for a new Carpool-And-Go account
             </Header>
