@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Users } from '../../api/users/Users';
 import User from '../components/User';
 
-class RiderSearch extends React.Component {
+class UserPage extends React.Component {
 
   // If the subscription(s) have been received, render the page, otherwise show a loading icon.
   render() {
@@ -27,7 +27,7 @@ class RiderSearch extends React.Component {
 }
 
 // Require an array of Stuff documents in the props.
-RiderSearch.propTypes = {
+UserPage.propTypes = {
   users: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
@@ -44,4 +44,4 @@ export default withTracker(() => {
     users,
     ready,
   };
-})(RiderSearch);
+})(UserPage);
