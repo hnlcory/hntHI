@@ -23,10 +23,10 @@ class HomeDR extends React.Component {
               <Header style={{ color: 'white', fontSize: '40pt', paddingTop: '10px' }} as='h2'>
                 Looking to Drive?
               </Header>
-              <Image size='huge' src="/images/driver.jpeg"/>
+              <Image style={{ paddingBottom: '10px' }} size='huge' src="/images/driver.jpeg"/>
             </Grid.Column>
-            <Grid.Column>
-              <Header style={{ color: 'white', paddingTop: '50px' }} as='h3'>
+            <Grid.Column style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+              <Header style={{ color: 'white', paddingTop: '40px' }} as='h3'>
                 UH Carpool and Go offers a safe space to give drivers the chance to offer rides to those in need.
                 Look for possible riders in your area!
               </Header>
@@ -40,14 +40,24 @@ class HomeDR extends React.Component {
           </Grid>
         </div>
         <div className='landing-person-background'>
-          <Header style={{ color: 'white', paddingTop: '20px' }} as='h2' textAlign='center'>
-            Sort by area to connect with others leaving at similar times</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
-              <Image src="/images/add-project-page.png"/>
+              <Header style={{ color: 'white', fontSize: '40pt', paddingTop: '10px' }} as='h2'>
+                Looking to Drive?
+              </Header>
+              <Image style={{ paddingBottom: '10px' }} size='huge' src="/images/driver.jpeg"/>
             </Grid.Column>
-            <Grid.Column>
-              <Image src="/images/projects-page.png"/>
+            <Grid.Column style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+              <Header style={{ color: 'white', paddingTop: '40px' }} as='h3'>
+                UH Carpool and Go offers a safe space to give drivers the chance to offer rides to those in need.
+                Look for possible riders in your area!
+              </Header>
+              <Button color='olive' as={Link} to='/riderssearch' size='large'>Let's Pickup!</Button>
+              <Header style={{ color: 'white', paddingTop: '25px' }} as='h3'>
+                As a driver, it is important to keep all of your driver information up to date in your profile.
+                You can make sure everything is correct here:
+              </Header>
+              <Button color='olive' as={Link} to='/useredit' size='large'>Edit My User</Button>
             </Grid.Column>
           </Grid>
         </div>
