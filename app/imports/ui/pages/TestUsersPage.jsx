@@ -22,7 +22,7 @@ const makeSchema = (allLocations) => new SimpleSchema({
 
 function getProfileData(email) {
   const data = Users.collection.findOne({ email });
-  const locations = _.pluck(UsersLocations.collection.find({ profile: email, role: 'Rider' }).fetch(), 'location');
+  const locations = _.pluck(UsersLocations.collection.find({ profile: email }).fetch(), 'location');
   return _.extend({ }, data, locations);
 }
 
@@ -73,7 +73,7 @@ class Filter extends React.Component {
     const allLocations = _.pluck(Locations.collection.find().fetch(), 'name');
     const formSchema = makeSchema(allLocations);
     const bridge = new SimpleSchema2Bridge(formSchema);
-    const emails = _.pluck(UsersLocations.collection.find({ location: { $in: this.state.locations } }).fetch(), 'profile');
+    const emails = _.pluck(UsersLocations.collection.find({ location: { $in: this.state.locations }, role: 'Driver' }).fetch(), 'profile');
     const profileData = _.uniq(emails).map(email => getProfileData(email));
     return (
       <Container id="filter-page">
@@ -83,7 +83,7 @@ class Filter extends React.Component {
             <SubmitField id='submit' value='Submit'/>
           </Segment>
         </AutoForm>
-        <Card.Group style={{ paddingTop: '10px' }}>
+        <Card.Group style={{ paddingTop: '10px' }} centered>
           {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
         </Card.Group>
       </Container>

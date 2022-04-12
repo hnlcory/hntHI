@@ -156,6 +156,30 @@
       "contact": "808-325-3432"
     },
     {
+      "email": "raven@gmail.com",
+      "firstName": "Raven",
+      "lastName": "Birdman",
+      "role": "Rider",
+      "profilePicture": "https://cdn.discordapp.com/attachments/963276887084367924/963276894021767229/unknown.png",
+      "locations": [ "Honolulu" ],
+      "bio": "I hate Kenji Sanehira and George Wilkens",
+      "arriveTime": "12:00 pm",
+      "leaveTime": "12:01 pm",
+      "contact": "808-421-4132"
+    },
+    {
+      "email": "zak@gmail.com",
+      "firstName": "Zakary",
+      "lastName": "Shima",
+      "role": "Rider",
+      "profilePicture": "https://cdn.discordapp.com/attachments/784741954272755763/963276736135589928/unknown.png",
+      "locations": [ "Pearl City" ],
+      "bio": "Funny Monkey Moment. I love Kenji Sanehira.",
+      "arriveTime": "6:00 am",
+      "leaveTime": "2:00 pm",
+      "contact": "808-111-2222"
+    },
+    {
       "email": "sheung@gmail.com",
       "firstName": "Sheung Yee",
       "lastName": "Yiu",

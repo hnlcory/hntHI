@@ -13,6 +13,7 @@ class UsersLocationsCollection {
     /* Define the structure of the collection elements, which would just be the profile and the location */
     this.schema = new SimpleSchema({
       profile: String,
+      role: String,
       location: String,
     }, { tracker: Tracker });
     // Ensure collection documents obey schema.
