@@ -22,7 +22,6 @@ import Signout from '../pages/Signout';
 import HomeDR from '../pages/HomeDR';
 // Testing
 import Filter from '../pages/Filter';
-import TestRiders from '../pages/TestUsersPage';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -46,7 +45,6 @@ class App extends React.Component {
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/test" component={Filter}/>
-              <Route path="/testriders" component={TestRiders}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
