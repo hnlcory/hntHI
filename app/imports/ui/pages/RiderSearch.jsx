@@ -2,11 +2,12 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Label, Segment, Header } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { AutoForm, SubmitField } from 'uniforms-semantic';
+import { Link } from 'react-router-dom';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 
 // Added import Statements
@@ -29,18 +30,20 @@ function getProfileData(email) {
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='small' src={props.profile.profilePicture} />
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
-        <span className='date'>{props.profile.role}</span>
+        <span className='date'> Location: FIX HERE LATER</span>
       </Card.Meta>
       <Card.Description>
         {props.profile.bio}
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      {_.map(props.profile.locations,
-        (interest, index) => <Label key={index} size='tiny' color='teal'>{interest}</Label>)}
+      Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
+    </Card.Content>
+    <Card.Content extra>
+      Contact me: {props.profile.contact}
     </Card.Content>
   </Card>
 );
@@ -74,6 +77,22 @@ class RiderSearch extends React.Component {
     const bridge = new SimpleSchema2Bridge(formSchema);
     const emails = _.pluck(UsersLocations.collection.find({ location: { $in: this.state.locations }, role: 'Rider' }).fetch(), 'profile');
     const profileData = _.uniq(emails).map(email => getProfileData(email));
+    if (emails.length === 0) {
+      return (
+        <Container id="filter-page">
+          <Header as="h1" textAlign='center'>Search for Riders in your Area!</Header>
+          <Header as="h4" textAlign='center'>Browse through a list of riders or search by location!</Header>
+          <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
+            <Segment>
+              <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
+              <SubmitField id='submit' value='Submit'/>
+            </Segment>
+          </AutoForm>
+          <Header sub textAlign='center'>If there are no riders in your specified area, consider checking the
+            <Link to='/fastridefeed'> FastRide Feed.</Link></Header>
+        </Container>
+      );
+    }
     return (
       <Container id="filter-page">
         <Header as="h1" textAlign='center'>Search for Riders in your Area!</Header>

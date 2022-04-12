@@ -15,7 +15,6 @@ import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 import { Locations } from '../../api/locations/Locations';
 
-
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allLocations) => new SimpleSchema({
   locations: { type: Array, label: 'Locations', optional: true },
@@ -31,18 +30,20 @@ function getProfileData(email) {
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='small' src={props.profile.profilePicture} />
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
-        <span className='date'>{props.profile.role}</span>
+        <span className='date'> Location: FIX HERE LATER</span>
       </Card.Meta>
       <Card.Description>
         {props.profile.bio}
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      {_.map(props.profile.locations,
-        (interest, index) => <Label key={index} size='tiny' color='teal'>{interest}</Label>)}
+        Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
+    </Card.Content>
+    <Card.Content extra>
+        Contact me: {props.profile.contact}
     </Card.Content>
   </Card>
 );
