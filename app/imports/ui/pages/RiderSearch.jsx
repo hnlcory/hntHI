@@ -17,7 +17,7 @@ class RiderSearch extends React.Component {
   renderPage() {
     return (
       <Container>
-        <Header inverted as="h2" textAlign="center">List Contacts</Header>
+        <Header as="h2" textAlign="center">Current Riders</Header>
         <Card.Group centered>
           {this.props.users.map((user, index) => <User key={index} user={user}/>)}
         </Card.Group>
@@ -39,7 +39,7 @@ export default withTracker(() => {
   // Determine if the subscription is ready
   const ready = subscription.ready();
   // Get the Stuff documents
-  const users = Users.collection.find({}).fetch();
+  const users = Users.collection.find({ role: 'Rider' }).fetch();
   return {
     users,
     ready,

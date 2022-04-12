@@ -144,6 +144,18 @@
       "contact": "808-222-2342"
     },
     {
+      "email": "kenji@gmail.com",
+      "firstName": "Kenji",
+      "lastName": "Sanehira",
+      "role": "Rider",
+      "profilePicture": "https://www.looper.com/img/gallery/every-mcu-character-who-wore-iron-man-armor-in-the-infinity-saga/l-intro-1601069930.jpg",
+      "locations": [ "Honolulu" ],
+      "bio": "Computer Science Student",
+      "arriveTime": "11:00 am",
+      "leaveTime": "1:20 pm",
+      "contact": "808-325-3432"
+    },
+    {
       "email": "sheung@gmail.com",
       "firstName": "Sheung Yee",
       "lastName": "Yiu",
