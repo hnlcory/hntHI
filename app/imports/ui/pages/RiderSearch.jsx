@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Label, Segment } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Segment, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -76,6 +76,8 @@ class RiderSearch extends React.Component {
     const profileData = _.uniq(emails).map(email => getProfileData(email));
     return (
       <Container id="filter-page">
+        <Header as="h1" textAlign='center'>Search for Riders in your Area!</Header>
+        <Header as="h4" textAlign='center'>Browse through a list of riders or search by location!</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)} >
           <Segment>
             <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>

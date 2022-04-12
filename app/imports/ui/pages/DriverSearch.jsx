@@ -2,17 +2,19 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Label, Segment } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Segment, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { AutoForm, SubmitField } from 'uniforms-semantic';
+import { Link } from 'react-router-dom';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 
 // Added import Statements
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 import { Locations } from '../../api/locations/Locations';
+
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allLocations) => new SimpleSchema({
@@ -74,9 +76,27 @@ class DriverSearch extends React.Component {
     const bridge = new SimpleSchema2Bridge(formSchema);
     const emails = _.pluck(UsersLocations.collection.find({ location: { $in: this.state.locations }, role: 'Driver' }).fetch(), 'profile');
     const profileData = _.uniq(emails).map(email => getProfileData(email));
+    if (emails.length === 0) {
+      return (
+        <Container id="filter-page">
+          <Header as="h1" textAlign='center'>Search for Drivers in your Area!</Header>
+          <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
+          <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
+            <Segment>
+              <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
+              <SubmitField id='submit' value='Submit'/>
+            </Segment>
+          </AutoForm>
+          <Header sub textAlign='center'>If there are no drivers in your area, consider filling out a
+            <Link to='/fastrideform'> FastRide Request Form.</Link></Header>
+        </Container>
+      );
+    }
     return (
       <Container id="filter-page">
-        <AutoForm schema={bridge} onSubmit={data => this.submit(data)} >
+        <Header as="h1" textAlign='center'>Search for Drivers in your Area!</Header>
+        <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
+        <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
           <Segment>
             <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
             <SubmitField id='submit' value='Submit'/>
