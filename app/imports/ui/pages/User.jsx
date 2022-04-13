@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Label, Header } from 'semantic-ui-react';
+import { Container, Loader, Card, Image } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -9,41 +9,28 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import { Users } from '../../api/users/Users';
+import { UsersLocations } from '../../api/users/UsersLocations';
 
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
-
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
-// function getProfileData(email) {
-//
-//   const data = Profiles.collection.findOne({ email });
-//   console.log(data);
-//   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
-//   const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
-//   const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
-//   // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
-//   return _.extend({ }, data, { interests, projects: projectPictures });
-// }
-
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='mini' src={props.profile.profilePicture} />
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
-        <span className='date'>{props.profile.title}</span>
+        <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
       </Card.Meta>
       <Card.Description>
         {props.profile.bio}
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      {_.map(props.profile.interests,
-        (interest, index) => <Label key={index} size='tiny' color='teal'>{interest}</Label>)}
+        Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
     </Card.Content>
     <Card.Content extra>
-      <Header as='h5'>Projects</Header>
-      {_.map(props.profile.projects, (project, index) => <Image key={index} size='mini' src={project}/>)}
+        Contact me: {props.profile.contact}
     </Card.Content>
   </Card>
 );
@@ -66,14 +53,6 @@ class ProfilesPage extends React.Component {
     console.log(usrEmail);
     const usrAccount = Users.collection.findOne({ email: usrEmail });
     console.log(usrAccount);
-    // const usrAccount = Meteor.user();
-    // console.log(usrAccount);
-
-    //const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
-    //const profileData = getProfileData(usrAccount.username);
-    //console.log(profileData);
-
-    //<MakeCard profile={profileData}/>
     return (
       <Container id="profiles-page">
         <Card.Group centered>
