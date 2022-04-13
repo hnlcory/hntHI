@@ -8,6 +8,7 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
+import { Users } from '../../api/users/Users';
 
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 
@@ -15,7 +16,12 @@ import { Projects } from '../../api/projects/Projects';
 function getProfileData(email) {
   const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
   console.log(usrEmail);
+
+  const usrAccount = Users.collection.findOne({ email: usrEmail });
+  console.log(usrAccount);
+
   const data = Profiles.collection.findOne({ email });
+  console.log(data);
   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
   const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
@@ -63,6 +69,7 @@ class ProfilesPage extends React.Component {
   renderPage() {
     const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
     const profileData = emails.map(email => getProfileData(email));
+    console.log(profileData);
     return (
       <Container id="profiles-page">
         <Card.Group>
@@ -84,7 +91,8 @@ export default withTracker(() => {
   const sub2 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesProjects.userPublicationName);
   const sub4 = Meteor.subscribe(Projects.userPublicationName);
+  const subUsers = Meteor.subscribe(Users.userPublicationName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && subUsers.ready(),
   };
 })(ProfilesPage);
