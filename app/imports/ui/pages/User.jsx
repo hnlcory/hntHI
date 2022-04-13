@@ -13,7 +13,6 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
-/** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
@@ -50,9 +49,9 @@ class ProfilesPage extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
-    console.log(usrEmail);
+    // console.log(usrEmail);
     const usrAccount = Users.collection.findOne({ email: usrEmail });
-    console.log(usrAccount);
+    // console.log(usrAccount);
     return (
       <Container id="profiles-page">
         <Card.Group centered>
