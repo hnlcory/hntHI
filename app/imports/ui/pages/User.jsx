@@ -13,27 +13,22 @@ import { Users } from '../../api/users/Users';
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
-function getProfileData(email) {
-  const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
-  console.log(usrEmail);
-
-  const usrAccount = Users.collection.findOne({ email: usrEmail });
-  console.log(usrAccount);
-
-  const data = Profiles.collection.findOne({ email });
-  console.log(data);
-  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
-  const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
-  const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
-  // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
-  return _.extend({ }, data, { interests, projects: projectPictures });
-}
+// function getProfileData(email) {
+//
+//   const data = Profiles.collection.findOne({ email });
+//   console.log(data);
+//   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
+//   const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
+//   const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
+//   // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
+//   return _.extend({ }, data, { interests, projects: projectPictures });
+// }
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='mini' src={props.profile.picture} />
+      <Image floated='right' size='mini' src={props.profile.profilePicture} />
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
         <span className='date'>{props.profile.title}</span>
@@ -67,13 +62,22 @@ class ProfilesPage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
-    const profileData = emails.map(email => getProfileData(email));
-    console.log(profileData);
+    const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
+    console.log(usrEmail);
+    const usrAccount = Users.collection.findOne({ email: usrEmail });
+    console.log(usrAccount);
+    // const usrAccount = Meteor.user();
+    // console.log(usrAccount);
+
+    //const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
+    //const profileData = getProfileData(usrAccount.username);
+    //console.log(profileData);
+
+    //<MakeCard profile={profileData}/>
     return (
       <Container id="profiles-page">
-        <Card.Group>
-          {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
+        <Card.Group centered>
+          <MakeCard profile={usrAccount}/>
         </Card.Group>
       </Container>
     );
