@@ -80,8 +80,7 @@ class DriverSearch extends React.Component {
     if (emails.length === 0) {
       return (
         <Container id="filter-page">
-          <Header as="h1" textAlign='center'>Admin Overview</Header>
-          <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
+          <Header as="h1" textAlign='center' color='red'>Admin Overview</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
             <Segment>
               <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
@@ -94,8 +93,7 @@ class DriverSearch extends React.Component {
     }
     return (
       <Container id="filter-page">
-        <Header as="h1" textAlign='center'>Admin Overview</Header>
-        <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
+        <Header as="h1" textAlign='center' color='red'>Admin Overview</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
           <Segment>
             <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
