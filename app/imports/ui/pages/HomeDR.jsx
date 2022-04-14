@@ -57,7 +57,7 @@ class HomeDR extends React.Component {
                 Need a ride to school? Students and staff can use Carpool and Go! to find drivers nearby their locations.
                 Find those near you now:
               </Header>
-              <Button color='olive' as={Link} to='/riderssearch' size='large'>Find a Ride!</Button>
+              <Button color='olive' as={Link} to='/driverssearch' size='large'>Find a Ride!</Button>
               <Header style={{ color: 'green', paddingTop: '25px' }} as='h3'>
                 As a rider, it is important to keep other riders updated on which drivers have offered good services! We strive to create
                 a community of safe drivers and allow riders ways to commute with ease of worry. Been on a ride recently? Rate them here:
