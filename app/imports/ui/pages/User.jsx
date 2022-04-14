@@ -58,7 +58,7 @@ class ProfilesPage extends React.Component {
     // console.log(usrEmail);
     // console.log(usrAccount);
 
-    if (typeof usrAccount === 'undefined') {
+    if (typeof usrAccount.firstName === 'undefined') {
       return (
         <Container id="profiles-page">
           <Header as="h1" textAlign='center'>Your Profile</Header>
