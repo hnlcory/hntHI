@@ -22,7 +22,6 @@ import Signout from '../pages/Signout';
 import HomeDR from '../pages/HomeDR';
 // Testing
 import Filter from '../pages/Filter';
-import TestRiders from '../pages/TestUsersPage';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -35,18 +34,17 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={Landing}/>
               <ProtectedRoute path="/home" component={Home}/>
-              <Route path="/profiles" component={Profiles}/>
-              <Route path="/homedr" component={HomeDR}/>
-              <Route path="/fastridefeed" component={FastRideFeed}/>
-              <Route path="/fastrideform" component={FastRideForm}/>
+              <ProtectedRoute path="/profiles" component={Profiles}/>
+              <ProtectedRoute path="/homedr" component={HomeDR}/>
+              <ProtectedRoute path="/fastridefeed" component={FastRideFeed}/>
+              <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
               <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
               <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
-              <Route path="/user" component={User}/>
-              <Route path="/useredit" component={UserEdit}/>
+              <ProtectedRoute path="/user" component={User}/>
+              <ProtectedRoute path="/useredit" component={UserEdit}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/test" component={Filter}/>
-              <Route path="/testriders" component={TestRiders}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
