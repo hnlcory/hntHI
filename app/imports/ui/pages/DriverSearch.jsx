@@ -1,54 +1,69 @@
 import React from 'react';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Label, Header } from 'semantic-ui-react';
+import SimpleSchema from 'simpl-schema';
+import { Container, Loader, Card, Image, Segment, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
-import { Profiles } from '../../api/profiles/Profiles';
-import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
-import { Projects } from '../../api/projects/Projects';
+import { AutoForm, SubmitField } from 'uniforms-semantic';
+import { Link } from 'react-router-dom';
+import MultiSelectField from '../forms/controllers/MultiSelectField';
 
-/** Returns the Profile and associated Projects and Interests associated with the passed user email. */
+// Added import Statements
+import { Users } from '../../api/users/Users';
+import { UsersLocations } from '../../api/users/UsersLocations';
+import { Locations } from '../../api/locations/Locations';
+
+/** Create a schema to specify the structure of the data to appear in the form. */
+const makeSchema = (allLocations) => new SimpleSchema({
+  locations: { type: Array, label: 'Locations', optional: true },
+  'locations.$': { type: String, allowedValues: allLocations },
+});
 function getProfileData(email) {
-  const data = Profiles.collection.findOne({ email });
-  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
-  const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
-  const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
-  // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
-  return _.extend({ }, data, { interests, projects: projectPictures });
+  const data = Users.collection.findOne({ email });
+  const locations = _.pluck(UsersLocations.collection.find({ profile: email }).fetch(), 'location');
+  return _.extend({ }, data, locations);
 }
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='mini' src={props.profile.picture} />
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
-        <span className='date'>{props.profile.title}</span>
+        <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
       </Card.Meta>
       <Card.Description>
         {props.profile.bio}
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      {_.map(props.profile.interests,
-        (interest, index) => <Label key={index} size='tiny' color='teal'>{interest}</Label>)}
+        Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
     </Card.Content>
     <Card.Content extra>
-      <Header as='h5'>Projects</Header>
-      {_.map(props.profile.projects, (project, index) => <Image key={index} size='mini' src={project}/>)}
+        Contact me: {props.profile.contact}
     </Card.Content>
   </Card>
 );
 
+/** Properties */
 MakeCard.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
 /** Renders the Profile Collection as a set of Cards. */
 class DriverSearch extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { locations: [] };
+  }
+
+  submit(data) {
+    this.setState({ locations: data.locations || [] });
+  }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -57,11 +72,38 @@ class DriverSearch extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
-    const profileData = emails.map(email => getProfileData(email));
+    const allLocations = _.pluck(Locations.collection.find().fetch(), 'name');
+    const formSchema = makeSchema(allLocations);
+    const bridge = new SimpleSchema2Bridge(formSchema);
+    const emails = _.pluck(UsersLocations.collection.find({ location: { $in: this.state.locations }, role: 'Driver' }).fetch(), 'profile');
+    const profileData = _.uniq(emails).map(email => getProfileData(email));
+    if (emails.length === 0) {
+      return (
+        <Container id="filter-page">
+          <Header as="h1" textAlign='center'>Search for Drivers in your Area!</Header>
+          <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
+          <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
+            <Segment>
+              <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
+              <SubmitField id='submit' value='Submit'/>
+            </Segment>
+          </AutoForm>
+          <Header sub textAlign='center'>If there are no drivers in your area, consider filling out a
+            <Link to='/fastrideform'> FastRide Request Form.</Link></Header>
+        </Container>
+      );
+    }
     return (
-      <Container id="profiles-page">
-        <Card.Group centered>
+      <Container id="filter-page">
+        <Header as="h1" textAlign='center'>Search for Drivers in your Area!</Header>
+        <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
+        <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
+          <Segment>
+            <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
+            <SubmitField id='submit' value='Submit'/>
+          </Segment>
+        </AutoForm>
+        <Card.Group style={{ paddingTop: '10px' }} centered>
           {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
         </Card.Group>
       </Container>
@@ -69,6 +111,7 @@ class DriverSearch extends React.Component {
   }
 }
 
+/** Require an array of Stuff documents in the props. */
 DriverSearch.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
@@ -76,11 +119,10 @@ DriverSearch.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
-  const sub1 = Meteor.subscribe(Profiles.userPublicationName);
-  const sub2 = Meteor.subscribe(ProfilesInterests.userPublicationName);
-  const sub3 = Meteor.subscribe(ProfilesProjects.userPublicationName);
-  const sub4 = Meteor.subscribe(Projects.userPublicationName);
+  const sub1 = Meteor.subscribe(Users.userPublicationName);
+  const sub2 = Meteor.subscribe(UsersLocations.userPublicationName);
+  const sub3 = Meteor.subscribe(Locations.userPublicationName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready(),
   };
 })(DriverSearch);
