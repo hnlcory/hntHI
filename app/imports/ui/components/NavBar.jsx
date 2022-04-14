@@ -30,6 +30,8 @@ class NavBar extends React.Component {
               <Icon name={'car'}/></Menu.Item>,
             <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/riderssearch" key='riders'>Riders
               <Icon name={'male'}/></Menu.Item>,
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/adminsearch" key='drivers'>Admin
+              <Icon name={'hdd'}/></Menu.Item>,
             <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/fastrideform" key='fastRideReq'>Fast Ride Request
               <Icon name={'bolt'}/></Menu.Item>,
             <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/fastridefeed" key='fastRideFeed'>Fast Ride Feed
