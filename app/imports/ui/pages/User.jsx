@@ -1,9 +1,10 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { Link } from 'react-router-dom';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
@@ -31,6 +32,9 @@ const MakeCard = (props) => (
     <Card.Content extra>
         Contact me: {props.profile.contact}
     </Card.Content>
+    <Card.Content extra textAlign='center'>
+      <Link to='/useredit'>Edit my profile</Link>
+    </Card.Content>
   </Card>
 );
 
@@ -49,11 +53,22 @@ class ProfilesPage extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
-    // console.log(usrEmail);
     const usrAccount = Users.collection.findOne({ email: usrEmail });
+    // console.log(usrEmail);
     // console.log(usrAccount);
+
+    if (typeof usrAccount === 'undefined') {
+      return (
+        <Container id="profiles-page">
+          <Header as="h1" textAlign='center'>My Profile</Header>
+          <Segment textAlign='center'>It seems you do not have a profile yet! Click <Link to='/useredit'>here</Link> to create
+             and edit your profile.</Segment>
+        </Container>
+      );
+    }
     return (
       <Container id="profiles-page">
+        <Header as="h1" textAlign='center'>My Profile</Header>
         <Card.Group centered>
           <MakeCard profile={usrAccount}/>
         </Card.Group>
