@@ -1,26 +1,43 @@
 import React from 'react';
-import SimpleSchema from 'simpl-schema';
-import { Header } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { Container, Header, Loader, Card } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
+import ContactAdmin from '../components/ContactAdmin';
+import { Notes } from '../../api/note/Notes';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
-const makeSchema = (allInterests, allProjects) => new SimpleSchema({
-  email: { type: String, label: 'Email', optional: true },
-  firstName: { type: String, label: 'First', optional: true },
-  lastName: { type: String, label: 'Last', optional: true },
-  bio: { type: String, label: 'Biographical statement', optional: true },
-  title: { type: String, label: 'Title', optional: true },
-  picture: { type: String, label: 'Picture URL', optional: true },
-  interests: { type: Array, label: 'Interests', optional: true },
-  'interests.$': { type: String, allowedValues: allInterests },
-  projects: { type: Array, label: 'Projects', optional: true },
-  'projects.$': { type: String, allowedValues: allProjects },
-});
 
 class FastRideFeed extends React.Component {
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  // Render the page once subscriptions have been received.
+  renderPage() {
     return (
-      <Header>Fast Ride Feed</Header>
+      <Container>
+        <Header as="h2" textAlign="center" inverted>Fast Ride Feed</Header>
+        <Card.Group>
+          {this.props.contacts.map((contact, index) => <ContactAdmin key={index} contact={contact} />)}
+        </Card.Group>
+      </Container>
     );
   }
 }
-export default FastRideFeed;
+
+// Require an array of Stuff documents in the props.
+FastRideFeed.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+// withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
+export default withTracker(() => {
+  // Get access to Stuff documents.
+  const subscription = Meteor.subscribe(Notes.adminPublicationName);
+  return {
+    contacts: Notes.collection.find({}).fetch(),
+    ready: subscription.ready(),
+  };
+})(FastRideFeed);
