@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
-import { Profiles } from '../../api/profiles/Profiles';
+import { Users } from '../../api/users/Users';
 
 /**
  * Signup component is similar to signin component, but we create a new user instead.
@@ -27,7 +27,7 @@ class Signup extends React.Component {
       if (err) {
         this.setState({ error: err.reason });
       } else {
-        Profiles.insert({ email }, (err2) => {
+        Users.collection.insert({ email }, (err2) => {
           if (err2) {
             this.setState({ error: err2.reason });
           } else {
@@ -40,7 +40,7 @@ class Signup extends React.Component {
 
   /** Display the signup form. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/home' } };
+    const { from } = this.props.location.state || { from: { pathname: '/homedr' } };
     // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
@@ -82,8 +82,7 @@ class Signup extends React.Component {
                 Already have a carpool-and-go account? Login <Link to="/signin">here</Link>
             </Message>
             {this.state.error === '' ? (
-              ''
-            ) : (
+              '') : (
               <Message
                 error
                 header="Registration was not successful"
