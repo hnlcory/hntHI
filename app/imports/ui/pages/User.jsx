@@ -15,11 +15,12 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
-  <Card>
+  <Card color='green'>
+    <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' wrapped ui={false}/>
     <Card.Content>
-      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
+        {props.profile.role}
         <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
       </Card.Meta>
       <Card.Description>
@@ -60,7 +61,7 @@ class ProfilesPage extends React.Component {
     if (typeof usrAccount === 'undefined') {
       return (
         <Container id="profiles-page">
-          <Header as="h1" textAlign='center'>My Profile</Header>
+          <Header as="h1" textAlign='center'>Your Profile</Header>
           <Segment textAlign='center'>It seems you do not have a profile yet! Click <Link to='/useredit'>here</Link> to create
              and edit your profile.</Segment>
         </Container>
@@ -68,7 +69,7 @@ class ProfilesPage extends React.Component {
     }
     return (
       <Container id="profiles-page">
-        <Header as="h1" textAlign='center'>My Profile</Header>
+        <Header as="h1" textAlign='center'>Your Profile</Header>
         <Card.Group centered>
           <MakeCard profile={usrAccount}/>
         </Card.Group>
