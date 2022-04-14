@@ -1,6 +1,6 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
-import { AutoForm, SubmitField, TextField, LongTextField } from 'uniforms-semantic';
+import { Container, Segment, Header } from 'semantic-ui-react';
+import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Notes } from '../../api/note/Notes';
@@ -18,7 +18,7 @@ class FastRideForm extends React.Component {
         if (error) {
           swal('Error', error.message, 'error');
         } else {
-          swal('Success', 'Note added successfully', 'success');
+          swal('Success', 'Request added successfully to Feed', 'success');
           formRef.reset();
         }
       });
@@ -28,19 +28,23 @@ class FastRideForm extends React.Component {
   render() {
     let fRef = null;
     return (
-      <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
-        <Segment>
-          <TextField name='firstName'/>
-          <TextField name='lastName'/>
-          <TextField name='location'/>
-          <TextField name='image'/>
-          <LongTextField name='description' />
-          <TextField name='arrives'/>
-          <TextField name='leaves'/>
-          <TextField name='contact'/>
-          <SubmitField value='Submit'/>
-        </Segment>
-      </AutoForm>
+      <Container id="filter-page">
+        <Header as="h1" textAlign='center'>Post a Fast Ride Request!</Header>
+        <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
+        <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
+          <Segment>
+            <TextField name='firstName'/>
+            <TextField name='lastName'/>
+            <TextField name='location'/>
+            <TextField name='image'/>
+            <LongTextField name='description' />
+            <TextField name='arrives'/>
+            <TextField name='leaves'/>
+            <TextField name='contact'/>
+            <SubmitField value='Submit'/>
+          </Segment>
+        </AutoForm>
+      </Container>
     );
   }
 }

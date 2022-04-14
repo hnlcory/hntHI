@@ -13,6 +13,7 @@ class NotesCollection {
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
+      note: String,
       firstName: String,
       lastName: String,
       location: String,
@@ -21,6 +22,9 @@ class NotesCollection {
       arrives: String,
       leaves: String,
       contact: String,
+      contactId: String,
+      owner: String,
+      createdAt: Date,
     }, { tracker: Tracker });
     // Attach the schema to the collection, so all attempts to insert a document are checked against schema.
     this.collection.attachSchema(this.schema);
