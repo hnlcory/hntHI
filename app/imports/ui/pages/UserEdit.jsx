@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Loader, Segment } from 'semantic-ui-react';
 import swal from 'sweetalert';
-import { AutoForm, LongTextField, TextField, SelectField, ListAddField } from 'uniforms-semantic';
+import { AutoForm, LongTextField, TextField, SelectField } from 'uniforms-semantic';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
