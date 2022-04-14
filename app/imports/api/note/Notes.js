@@ -14,6 +14,14 @@ class NotesCollection {
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
       note: String,
+      firstName: String,
+      lastName: String,
+      location: String,
+      image: String,
+      description: String,
+      arrives: String,
+      leaves: String,
+      contact: String,
       contactId: String,
       owner: String,
       createdAt: Date,
