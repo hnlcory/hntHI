@@ -78,16 +78,21 @@ class DriverSearch extends React.Component {
     const emails = _.pluck(UsersLocations.collection.find({ location: { $in: this.state.locations } }).fetch(), 'profile');
     const profileData = _.uniq(emails).map(email => getProfileData(email));
     if (emails.length === 0) {
+      const emailsAll = _.pluck(UsersLocations.collection.find().fetch(), 'profile');
+      const profileDataAll = emailsAll.map(email => getProfileData(email));
+      console.log(profileDataAll);
       return (
         <Container id="filter-page">
           <Header as="h1" textAlign='center' color='red'>Admin Overview</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
             <Segment>
-              <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
+              <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Filter Users by Location'}/>
               <SubmitField id='submit' value='Submit'/>
             </Segment>
           </AutoForm>
-          <Header sub textAlign='center'>No Drivers/Riders found in the given area(s)</Header>
+          <Card.Group style={{ paddingTop: '15px' }} centered>
+            {_.map(profileDataAll, (profile, index) => <MakeCard key={index} profile={profile}/>)}
+          </Card.Group>
         </Container>
       );
     }
