@@ -1,7 +1,7 @@
 module.exports = {
   servers: {
     one: {
-      host: '167.71.66.48',
+      host: 'uh-carpool-and-go.xyz',
       username: 'root',
       password: '1changeMe'
     }
@@ -14,12 +14,19 @@ module.exports = {
     servers: { one: {}, },
     buildOptions: { serverOnly: true },
     env: {
-      ROOT_URL: 'http://167.71.66.48',
+      ROOT_URL: 'https://uh-carpool-and-go.xyz',
       MONGO_URL: 'mongodb://mongodb/meteor',
       MONGO_OPLOG_URL: 'mongodb://mongodb/local',
     },
     docker: { image: 'zodern/meteor:latest' },
     enableUploadProgressBar: true
+  },
+  proxy: {
+    domains: 'uh-carpool-and-go.xyz',
+    ssl: {
+      letsEncryptEmail: 'michaelito03@gmail.com',
+      forceSSL: true
+    }
   },
   mongo: { version: '5.0.5', servers: { one: {} }
   },
