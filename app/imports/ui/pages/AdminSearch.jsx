@@ -80,7 +80,7 @@ class DriverSearch extends React.Component {
     if (emails.length === 0) {
       const emailsAll = _.pluck(UsersLocations.collection.find().fetch(), 'profile');
       const profileDataAll = emailsAll.map(email => getProfileData(email));
-      console.log(profileDataAll);
+      // console.log(profileDataAll);
       return (
         <Container id="filter-page">
           <Header as="h1" textAlign='center' color='red'>Admin Overview</Header>
@@ -90,6 +90,7 @@ class DriverSearch extends React.Component {
               <SubmitField id='submit' value='Submit'/>
             </Segment>
           </AutoForm>
+          <Header as="h3" textAlign='center'>All Driver/Rider Accounts</Header>
           <Card.Group style={{ paddingTop: '15px' }} centered>
             {_.map(profileDataAll, (profile, index) => <MakeCard key={index} profile={profile}/>)}
           </Card.Group>
@@ -105,6 +106,7 @@ class DriverSearch extends React.Component {
             <SubmitField id='submit' value='Submit'/>
           </Segment>
         </AutoForm>
+        <Header as="h3" textAlign='center'>Accounts Matching Criteria</Header>
         <Card.Group style={{ paddingTop: '10px' }} centered>
           {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
         </Card.Group>
