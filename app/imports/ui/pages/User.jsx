@@ -33,8 +33,8 @@ const MakeCard = (props) => (
     <Card.Content extra>
         Contact me: {props.profile.contact}
     </Card.Content>
-    <Card.Content extra textAlign='center'>
-      <Link to='/useredit'>Edit my profile</Link>
+    <Card.Content textAlign='center'>
+      <Link color='blue' to='/useredit'>Edit my profile</Link>
     </Card.Content>
   </Card>
 );
