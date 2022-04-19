@@ -41,7 +41,7 @@ class App extends React.Component {
               <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
               <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
               <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
-              <ProtectedRoute path="/adminsearch" component={AdminSearch}/>
+              <AdminProtectedRoute path="/adminsearch" component={AdminSearch}/>
               <ProtectedRoute path="/user" component={User}/>
               <ProtectedRoute path="/useredit" component={UserEdit}/>
               <Route path="/signin" component={Signin}/>
