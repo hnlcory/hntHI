@@ -29,7 +29,7 @@ class HomeDR extends React.Component {
                 UH Carpool and Go offers a safe space to give drivers the chance to offer rides to those in need.
                 Look for possible riders in your area!
               </Header>
-              <Button color='olive' as={Link} to='/riderssearch' size='large'>Let Us Pickup!</Button>
+              <Button id='pickup-button' color='olive' as={Link} to='/riderssearch' size='large'>Let Us Pickup!</Button>
               <Header style={{ color: 'white', paddingTop: '25px' }} as='h3'>
                 As a driver, it is important to keep all of your driver information up to date in your profile.
                 You can make sure everything is correct here:
