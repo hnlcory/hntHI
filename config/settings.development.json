@@ -196,5 +196,14 @@
     "appId": "GYPKWMJZtgQ3EPLi3",
     "appSecret": "c603192a-a597-4ea5-ad16-eb25fa5ce93d"
   },
+  "defaultAccounts": [
+    { "email": "admin@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "john@foo.com", "password": "changeme" },
+    { "email": "miller@gmail.com", "password": "changeme" },
+    { "email": "sheung@gmail.com", "password": "changeme" },
+    { "email": "zak@gmail.com", "password": "changeme" },
+    { "email": "kenji@gmail.com", "password": "changeme", "role": "admin" },
+    { "email": "raven@gmail.com", "password": "changeme" }
+  ],
   "loadAssetsFile":  false
 }
