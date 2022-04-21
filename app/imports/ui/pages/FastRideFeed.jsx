@@ -19,7 +19,7 @@ class FastRideFeed extends React.Component {
       <Container>
         <Header as="h2" textAlign="center" inverted>Fast Ride Feed</Header>
         <Card.Group>
-          {this.props.contacts.map((contact, index) => <ContactAdmin key={index} contact={contact} />)}
+          {this.props.notes.map((note, index) => <ContactAdmin key={index} note={note} />)}
         </Card.Group>
       </Container>
     );
@@ -28,14 +28,14 @@ class FastRideFeed extends React.Component {
 
 // Require an array of Stuff documents in the props.
 FastRideFeed.propTypes = {
-  contacts: PropTypes.array.isRequired,
+  notes: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
   // Get access to Stuff documents.
-  const subscription = Meteor.subscribe(Notes.adminPublicationName);
+  const subscription = Meteor.subscribe(Notes.userPublicationName);
   return {
     contacts: Notes.collection.find({}).fetch(),
     ready: subscription.ready(),

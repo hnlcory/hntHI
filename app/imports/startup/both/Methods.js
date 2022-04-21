@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Projects } from '../../api/projects/Projects';
 import { Profiles } from '../../api/profiles/Profiles';
+import { Notes } from '../../api/note/Notes';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
@@ -65,4 +66,13 @@ Meteor.methods({
   },
 });
 
-export { updateProfileMethod, addProjectMethod };
+const addNoteMethod = 'Notes.add';
+
+/** Creates a new project in the Projects collection, and also updates ProfilesProjects and ProjectsInterests. */
+Meteor.methods({
+  'Notes.add'({ firstName, lastName, location, image, description, arrives, leaves, contact, note }) {
+    Notes.collection.insert({ firstName, lastName, location, image, description, arrives, leaves, contact, note });
+  },
+});
+
+export { updateProfileMethod, addProjectMethod, addNoteMethod };
