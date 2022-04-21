@@ -7,6 +7,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { AutoForm, SubmitField } from 'uniforms-semantic';
+import { Link } from 'react-router-dom';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 
 // Added import Statements
@@ -48,8 +49,37 @@ const MakeCard = (props) => (
   </Card>
 );
 
+const MakeAdminCard = (props) => (
+  <Card>
+    <Card.Content>
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
+      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
+      <Card.Meta>
+        {props.profile.role}
+        <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
+      </Card.Meta>
+      <Card.Description>
+        {props.profile.bio}
+      </Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+        Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
+    </Card.Content>
+    <Card.Content extra>
+        Contact me: {props.profile.contact}
+    </Card.Content>
+    <Card.Content textAlign='center'>
+      <Link color='blue' to='/useredit'>Edit my profile</Link>
+    </Card.Content>
+  </Card>
+);
+
 /** Properties */
 MakeCard.propTypes = {
+  profile: PropTypes.object.isRequired,
+};
+
+MakeAdminCard.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
@@ -92,7 +122,13 @@ class DriverSearch extends React.Component {
           </AutoForm>
           <Header as="h3" textAlign='center'>All Driver/Rider Accounts</Header>
           <Card.Group style={{ paddingTop: '15px' }} centered>
-            {_.map(profileDataAll, (profile, index) => <MakeCard key={index} profile={profile}/>)}
+
+            {_.map(profileDataAll, function (profile, index) {
+              if (profile.email === Meteor.users.findOne({ _id: Meteor.userId() }).username) {
+                return <MakeAdminCard key={index} profile={profile}/>;
+              }
+              return <MakeCard key={index} profile={profile}/>;
+            })}
           </Card.Group>
         </Container>
       );
