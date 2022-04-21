@@ -58,7 +58,7 @@ class EditContact extends React.Component {
               <SelectField name='role' allowedValues={['Driver', 'Rider']}/>
               <LongTextField name='bio'/>
               <SelectField name='location' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
-                'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
+                'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                 'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'Wahiawa', 'Waialua', 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
               <TextField name='arriveTime'/>
               <TextField name='leaveTime'/>
