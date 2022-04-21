@@ -43,7 +43,7 @@ class App extends React.Component {
               <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
               <AdminProtectedRoute path="/adminsearch" component={AdminSearch}/>
               <ProtectedRoute path="/user" component={User}/>
-              <ProtectedRoute path="/useredit" component={UserEdit}/>
+              <ProtectedRoute path="/useredit/:_id" component={UserEdit}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/test" component={Filter}/>
