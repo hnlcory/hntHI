@@ -3,19 +3,33 @@ import { Grid, Loader, Segment } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { SubmitField, AutoForm, LongTextField, TextField, SelectField } from 'uniforms-semantic';
 import { Meteor } from 'meteor/meteor';
+import { _ } from 'meteor/underscore';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Users } from '../../api/users/Users';
+import { UsersLocations } from '../../api/users/UsersLocations';
 
 const bridge = new SimpleSchema2Bridge(Users.schema);
 
 /** Renders the Page for editing a single document. */
 class EditContact extends React.Component {
 
+  sub(thisId, role, location) {
+    const _id = thisId[0];
+    UsersLocations.collection.update(_id, { $set: { role, location } });
+  }
+
+  /** Update locations Collection (Has No Effect if Location already Exists)
+  addLocation(location) {
+    Locations.collection.update({ name: location }, { $set: { name: location } }, { upsert: true });
+  }
+  */
   // On successful submit, insert the data.
   submit(data) {
-    const { firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, _id } = data;
+    const { firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, _id, email, location } = data;
+    const thisId = _.pluck(UsersLocations.collection.find({ profile: email }).fetch(), '_id');
+    this.sub(thisId, role, location);
     Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
       leaveTime, contact, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
@@ -38,7 +52,9 @@ class EditContact extends React.Component {
               <TextField name='firstName'/>
               <TextField name='lastName'/>
               <TextField name='profilePicture'/>
+              <SelectField name='role' allowedValues={['Driver', 'Rider']}/>
               <LongTextField name='bio'/>
+              <TextField name='location'/>
               <TextField name='arriveTime'/>
               <TextField name='leaveTime'/>
               <TextField name='contact'/>
@@ -64,8 +80,9 @@ export default withTracker(({ match }) => {
   const documentId = match.params._id;
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe(Users.userPublicationName);
+  const sub2 = Meteor.subscribe(UsersLocations.userPublicationName);
   // Determine if the subscription is ready
-  const ready = subscription.ready();
+  const ready = subscription.ready() && sub2.ready();
   // Get the document
   const doc = Users.collection.findOne(documentId);
   return {
