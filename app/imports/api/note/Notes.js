@@ -22,9 +22,7 @@ class NotesCollection {
       arrives: String,
       leaves: String,
       contact: String,
-      contactId: String,
       owner: String,
-      createdAt: Date,
     }, { tracker: Tracker });
     // Attach the schema to the collection, so all attempts to insert a document are checked against schema.
     this.collection.attachSchema(this.schema);
