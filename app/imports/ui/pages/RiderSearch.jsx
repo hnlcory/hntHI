@@ -46,6 +46,7 @@ const MakeCard = (props) => (
       Contact me: {props.profile.contact}
     </Card.Content>
   </Card>
+
 );
 
 /** Properties */
@@ -53,6 +54,36 @@ MakeCard.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
+/** Component for a different Card format that shows the user as their own profile. */
+const MakeUPCard = (props) => (
+  <Card>
+    <Card.Content>
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
+      <Card.Header>{props.profile.firstName} {props.profile.lastName} (You)</Card.Header>
+      <Card.Meta>
+        <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
+      </Card.Meta>
+      <Card.Description>
+        {props.profile.bio}
+      </Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+      Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
+    </Card.Content>
+    <Card.Content extra>
+      Contact me: {props.profile.contact}
+    </Card.Content>
+    <Card.Content textAlign='center'>
+      <Link color='blue' to='/useredit'>Edit my profile</Link>
+    </Card.Content>
+  </Card>
+
+);
+
+/** Properties */
+MakeUPCard.propTypes = {
+  profile: PropTypes.object.isRequired,
+};
 /** Renders the Profile Collection as a set of Cards. */
 class RiderSearch extends React.Component {
 
@@ -104,7 +135,12 @@ class RiderSearch extends React.Component {
           </Segment>
         </AutoForm>
         <Card.Group style={{ paddingTop: '10px' }} centered>
-          {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
+          {_.map(profileData, function (profile, index) {
+            if (profile.email === Meteor.users.findOne({ _id: Meteor.userId() }).username) {
+              return <MakeUPCard key={index} profile={profile}/>;
+            }
+            return <MakeCard key={index} profile={profile}/>;
+          })}
         </Card.Group>
       </Container>
     );
