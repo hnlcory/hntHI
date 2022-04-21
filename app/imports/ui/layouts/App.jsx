@@ -15,6 +15,7 @@ import DriverSearch from '../pages/DriverSearch';
 import RiderSearch from '../pages/RiderSearch';
 import User from '../pages/User';
 import UserEdit from '../pages/UserEdit';
+import AdminSearch from '../pages/AdminSearch';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -40,6 +41,7 @@ class App extends React.Component {
               <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
               <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
               <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
+              <AdminProtectedRoute path="/adminsearch" component={AdminSearch}/>
               <ProtectedRoute path="/user" component={User}/>
               <ProtectedRoute path="/useredit" component={UserEdit}/>
               <Route path="/signin" component={Signin}/>

@@ -66,8 +66,8 @@ function addUser({ email, firstName, lastName, role, profilePicture, locations, 
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */
-if (Meteor.users.find().count() === 0) {
-  // Added Meteor.settings.defaultUsers
+if (Users.collection.find().count() === 0 && Projects.collection.find().count() === 0 && Profiles.collection.find().count() === 0) {
+// Added Meteor.settings.defaultUsers
   if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles && Meteor.settings.defaultUsers) {
     console.log('Creating the default profiles');
     Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
