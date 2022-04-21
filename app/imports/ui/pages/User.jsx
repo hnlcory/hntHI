@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Segment, Header } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Grid, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -15,6 +15,7 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
+  /**
   <Card color='green'>
     <Image src={props.profile.profilePicture} wrapped ui={false}/>
     <Card.Content>
@@ -37,18 +38,23 @@ const MakeCard = (props) => (
       <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
     </Card.Content>
   </Card>
-  /**
-  <Grid>
+  * */
+  <Grid centered padded>
     <Grid.Row columns={2}>
       <Grid.Column>
-        <Image src={props.profile.profilePicture} size='medium' rounded />
+        <Image src={props.profile.profilePicture} size='large' rounded />
       </Grid.Column>
       <Grid.Column>
-        <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+        <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
+        <Header as="h4">{props.profile.role} Location: {_.pluck(UsersLocations.collection.find({
+          profile: props.profile.email }).fetch(), 'location')}<Icon name='map pin'/></Header>
+        <Header as="h4">  {props.profile.bio}</Header>
+        <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
+        <Header as="h4"> Contact me: {props.profile.contact}</Header>
+        <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
       </Grid.Column>
     </Grid.Row>
   </Grid>
-   **/
 );
 
 MakeCard.propTypes = {
@@ -80,7 +86,6 @@ class ProfilesPage extends React.Component {
     }
     return (
       <Container id="profiles-page">
-        <Header as="h1" textAlign='center'>Your Profile</Header>
         <Card.Group centered>
           <MakeCard profile={usrAccount}/>
         </Card.Group>
