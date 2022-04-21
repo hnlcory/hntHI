@@ -16,7 +16,7 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
   <Card color='green'>
-    <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' wrapped ui={false}/>
+    <Image src={props.profile.profilePicture} wrapped ui={false}/>
     <Card.Content>
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
