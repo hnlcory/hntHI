@@ -21,7 +21,7 @@ const MakeCard = (props) => (
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
         {props.profile.role}
-         Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}
+        &nbsp;Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}
       </Card.Meta>
       <Card.Description>
         {props.profile.bio}
@@ -37,6 +37,18 @@ const MakeCard = (props) => (
       <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
     </Card.Content>
   </Card>
+  /**
+  <Grid>
+    <Grid.Row columns={2}>
+      <Grid.Column>
+        <Image src={props.profile.profilePicture} size='medium' rounded />
+      </Grid.Column>
+      <Grid.Column>
+        <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
+   **/
 );
 
 MakeCard.propTypes = {
@@ -89,7 +101,8 @@ export default withTracker(() => {
   const sub3 = Meteor.subscribe(ProfilesProjects.userPublicationName);
   const sub4 = Meteor.subscribe(Projects.userPublicationName);
   const subUsers = Meteor.subscribe(Users.userPublicationName);
+  const subUserLoc = Meteor.subscribe(UsersLocations.userPublicationName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && subUsers.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && subUsers.ready() && subUserLoc.ready(),
   };
 })(ProfilesPage);
