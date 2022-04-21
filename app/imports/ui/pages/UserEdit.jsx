@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, Loader, Segment } from 'semantic-ui-react';
+import { Container, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { SubmitField, AutoForm, LongTextField, TextField, SelectField } from 'uniforms-semantic';
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/underscore';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -46,6 +47,17 @@ class EditContact extends React.Component {
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   renderPage() {
+    console.log(this.props.doc.email);
+    console.log(Meteor.users.findOne({ _id: Meteor.userId() }).username);
+    console.log(!Roles.userIsInRole(Meteor.userId(), 'admin'));
+    if (this.props.doc.email !== Meteor.users.findOne({ _id: Meteor.userId() }).username && !Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return (
+        <Container>
+          <Header as="h1" textAlign='center'>Edit Profile</Header>
+          <Segment textAlign='center'>Sorry! You do not have permission to view this profile.</Segment>
+        </Container>
+      );
+    }
     return (
       <Grid container centered>
         <Grid.Column>
