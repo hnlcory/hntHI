@@ -3,8 +3,10 @@ import { Container, Segment, Header } from 'semantic-ui-react';
 import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import PropTypes from 'prop-types';
 import { Notes } from '../../api/note/Notes';
 
 // Create a schema to specify the structure of the data to appear in the form.
@@ -66,4 +68,17 @@ class FastRideForm extends React.Component {
   }
 }
 
-export default FastRideForm;
+/** Require an array of Stuff documents in the props. */
+FastRideForm.propTypes = {
+  notes: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(() => {
+  // Ensure that minimongo is populated with all collections prior to running render().
+  const sub1 = Meteor.subscribe(Notes.userPublicationName);
+  return {
+    ready: sub1.ready(),
+  };
+})(FastRideForm);
