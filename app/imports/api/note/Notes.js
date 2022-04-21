@@ -13,22 +13,12 @@ class NotesCollection {
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
-      note: String,
-      firstName: String,
-      lastName: String,
-      location: String,
-      image: String,
-      description: String,
-      arrives: String,
-      leaves: String,
-      contact: String,
-      owner: String,
+      name: String,
     }, { tracker: Tracker });
     // Attach the schema to the collection, so all attempts to insert a document are checked against schema.
     this.collection.attachSchema(this.schema);
     // Define names for publications and subscriptions
     this.userPublicationName = `${this.name}.publication.user`;
-    // this.adminPublicationName = `${this.name}.publication.admin`;
   }
 }
 
