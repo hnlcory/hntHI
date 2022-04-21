@@ -46,30 +46,33 @@ const MakeCard = (props) => (
     <Card.Content extra>
         Contact me: {props.profile.contact}
     </Card.Content>
+    <Card.Content textAlign='center'>
+      <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit profile</Link>
+    </Card.Content>
   </Card>
 );
 
 const MakeAdminCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
-      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
+      <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' />
+      <Card.Header>{props.thatprofile.firstName} {props.thatprofile.lastName}</Card.Header>
       <Card.Meta>
-        {props.profile.role}
-        <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
+        {props.thatprofile.role}
+        <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.thatprofile.email }).fetch(), 'location')}</span>
       </Card.Meta>
       <Card.Description>
-        {props.profile.bio}
+        {props.thatprofile.bio}
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-        Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
+        Arrives: {props.thatprofile.arriveTime} | Leaves {props.thatprofile.leaveTime}
     </Card.Content>
     <Card.Content extra>
-        Contact me: {props.profile.contact}
+        Contact me: {props.thatprofile.contact}
     </Card.Content>
     <Card.Content textAlign='center'>
-      <Link color='blue' to='/useredit'>Edit my profile</Link>
+      <Link color='blue' to={`/useredit/${props.thatprofile._id}`}>Edit my profile</Link>
     </Card.Content>
   </Card>
 );
@@ -80,11 +83,11 @@ MakeCard.propTypes = {
 };
 
 MakeAdminCard.propTypes = {
-  profile: PropTypes.object.isRequired,
+  thatprofile: PropTypes.object.isRequired,
 };
 
 /** Renders the Profile Collection as a set of Cards. */
-class DriverSearch extends React.Component {
+class AdminSearch extends React.Component {
 
   constructor(props) {
     super(props);
@@ -125,7 +128,7 @@ class DriverSearch extends React.Component {
 
             {_.map(profileDataAll, function (profile, index) {
               if (profile.email === Meteor.users.findOne({ _id: Meteor.userId() }).username) {
-                return <MakeAdminCard key={index} profile={profile}/>;
+                return <MakeAdminCard key={index} thatprofile={profile}/>;
               }
               return <MakeCard key={index} profile={profile}/>;
             })}
@@ -152,7 +155,7 @@ class DriverSearch extends React.Component {
 }
 
 /** Require an array of Stuff documents in the props. */
-DriverSearch.propTypes = {
+AdminSearch.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
@@ -165,4 +168,4 @@ export default withTracker(() => {
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready(),
   };
-})(DriverSearch);
+})(AdminSearch);
