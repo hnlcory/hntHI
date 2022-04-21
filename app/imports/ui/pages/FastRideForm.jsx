@@ -2,18 +2,34 @@ import React from 'react';
 import { Container, Segment, Header } from 'semantic-ui-react';
 import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic';
 import swal from 'sweetalert';
+import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import SimpleSchema from 'simpl-schema';
 import { Notes } from '../../api/note/Notes';
 
-const bridge = new SimpleSchema2Bridge(Notes.schema);
+// Create a schema to specify the structure of the data to appear in the form.
+const formSchema = new SimpleSchema({
+  firstName: String,
+  lastName: String,
+  location: String,
+  image: String,
+  description: String,
+  arrives: String,
+  leaves: String,
+  contact: String,
+  note: String,
+});
+
+const bridge = new SimpleSchema2Bridge(formSchema);
 
 /** Renders the Page for adding a document. */
 class FastRideForm extends React.Component {
 
   // On submit, insert the data.
   submit(data, formRef) {
-    const { firstName, lastName, location, image, description, arrives, leaves, contact } = data;
-    Notes.collection.insert({ firstName, lastName, location, image, description, arrives, leaves, contact },
+    const { firstName, lastName, location, image, description, arrives, leaves, contact, note } = data;
+    const owner = Meteor.user().username;
+    Notes.collection.insert({ firstName, lastName, location, image, description, arrives, leaves, contact, note, owner },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -41,6 +57,7 @@ class FastRideForm extends React.Component {
             <TextField name='arrives'/>
             <TextField name='leaves'/>
             <TextField name='contact'/>
+            <TextField name='note'/>
             <SubmitField value='Submit'/>
           </Segment>
         </AutoForm>
