@@ -16,12 +16,12 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
   <Card color='green'>
-    <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' wrapped ui={false}/>
+    <Image src={props.profile.profilePicture} wrapped ui={false}/>
     <Card.Content>
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
         {props.profile.role}
-        <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
+         Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}
       </Card.Meta>
       <Card.Description>
         {props.profile.bio}
@@ -33,8 +33,8 @@ const MakeCard = (props) => (
     <Card.Content extra>
         Contact me: {props.profile.contact}
     </Card.Content>
-    <Card.Content extra textAlign='center'>
-      <Link to='/useredit'>Edit my profile</Link>
+    <Card.Content textAlign='center'>
+      <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
     </Card.Content>
   </Card>
 );
@@ -58,12 +58,11 @@ class ProfilesPage extends React.Component {
     // console.log(usrEmail);
     // console.log(usrAccount);
 
-    if (typeof usrAccount.firstName === 'undefined') {
+    if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
       return (
         <Container id="profiles-page">
           <Header as="h1" textAlign='center'>Your Profile</Header>
-          <Segment textAlign='center'>It seems you do not have a profile yet! Click <Link to='/useredit'>here</Link> to create
-             and edit your profile.</Segment>
+          <Segment textAlign='center'>It seems you do not have a profile yet! Click here to create your profile.</Segment>
         </Container>
       );
     }

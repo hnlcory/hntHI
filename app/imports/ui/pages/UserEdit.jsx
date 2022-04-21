@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Loader, Segment } from 'semantic-ui-react';
 import swal from 'sweetalert';
-import { AutoForm, LongTextField, TextField, SelectField } from 'uniforms-semantic';
+import { SubmitField, AutoForm, LongTextField, TextField, SelectField } from 'uniforms-semantic';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -15,8 +15,9 @@ class EditContact extends React.Component {
 
   // On successful submit, insert the data.
   submit(data) {
-    const { firstName, lastName, address, description, _id } = data;
-    Users.collection.update(_id, { $set: { firstName, lastName, address, description } }, (error) => (error ?
+    const { firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, _id } = data;
+    Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
+      leaveTime, contact, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
       swal('Success', 'Item updated successfully', 'success')));
   }
@@ -31,19 +32,17 @@ class EditContact extends React.Component {
     return (
       <Grid container centered>
         <Grid.Column>
-          <h1> Edit/Add Profile </h1>
+          <h1> Edit Profile </h1>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)} model={this.props.doc}>
             <Segment>
-              <TextField name='email'/>
               <TextField name='firstName'/>
               <TextField name='lastName'/>
-              <TextField name='role'/>
               <TextField name='profilePicture'/>
-              <SelectField name='location' allowedValues={['Mililani', 'Ewa', 'Town']}/>
               <LongTextField name='bio'/>
               <TextField name='arriveTime'/>
               <TextField name='leaveTime'/>
               <TextField name='contact'/>
+              <SubmitField name='Submit'/>
             </Segment>
           </AutoForm>
         </Grid.Column>

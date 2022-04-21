@@ -33,6 +33,7 @@ const MakeCard = (props) => (
       <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
+        {props.profile.role}
         <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
       </Card.Meta>
       <Card.Description>
@@ -45,20 +46,19 @@ const MakeCard = (props) => (
     <Card.Content extra>
         Contact me: {props.profile.contact}
     </Card.Content>
+    <Card.Content textAlign='center'>
+      <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit profile</Link>
+    </Card.Content>
   </Card>
 );
 
-/** Properties */
-MakeCard.propTypes = {
-  profile: PropTypes.object.isRequired,
-};
-/** Component for a different Card format that shows the user as their own profile. */
-const MakeUPCard = (props) => (
+const MakeAdminCard = (props) => (
   <Card>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' />
-      <Card.Header>{props.thatprofile.firstName} {props.thatprofile.lastName} (You)</Card.Header>
+      <Card.Header>{props.thatprofile.firstName} {props.thatprofile.lastName}</Card.Header>
       <Card.Meta>
+        {props.thatprofile.role}
         <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.thatprofile.email }).fetch(), 'location')}</span>
       </Card.Meta>
       <Card.Description>
@@ -75,16 +75,19 @@ const MakeUPCard = (props) => (
       <Link color='blue' to={`/useredit/${props.thatprofile._id}`}>Edit my profile</Link>
     </Card.Content>
   </Card>
-
 );
 
 /** Properties */
-MakeUPCard.propTypes = {
+MakeCard.propTypes = {
+  profile: PropTypes.object.isRequired,
+};
+
+MakeAdminCard.propTypes = {
   thatprofile: PropTypes.object.isRequired,
 };
 
 /** Renders the Profile Collection as a set of Cards. */
-class DriverSearch extends React.Component {
+class AdminSearch extends React.Component {
 
   constructor(props) {
     super(props);
@@ -105,41 +108,46 @@ class DriverSearch extends React.Component {
     const allLocations = _.pluck(Locations.collection.find().fetch(), 'name');
     const formSchema = makeSchema(allLocations);
     const bridge = new SimpleSchema2Bridge(formSchema);
-    const emails = _.pluck(UsersLocations.collection.find({ location: { $in: this.state.locations }, role: 'Driver' }).fetch(), 'profile');
+    const emails = _.pluck(UsersLocations.collection.find({ location: { $in: this.state.locations } }).fetch(), 'profile');
     const profileData = _.uniq(emails).map(email => getProfileData(email));
     if (emails.length === 0) {
+      const emailsAll = _.pluck(UsersLocations.collection.find().fetch(), 'profile');
+      const profileDataAll = emailsAll.map(email => getProfileData(email));
+      // console.log(profileDataAll);
       return (
         <Container id="filter-page">
-          <Header as="h1" textAlign='center'>Search for Drivers in your Area!</Header>
-          <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
+          <Header as="h1" textAlign='center' color='red'>Admin Overview</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
             <Segment>
-              <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
+              <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Filter Users by Location'}/>
               <SubmitField id='submit' value='Submit'/>
             </Segment>
           </AutoForm>
-          <Header sub textAlign='center'>If there are no drivers in your area, consider filling out a
-            <Link to='/fastrideform'> FastRide Request Form.</Link></Header>
+          <Header as="h3" textAlign='center'>All Driver/Rider Accounts</Header>
+          <Card.Group style={{ paddingTop: '15px' }} centered>
+
+            {_.map(profileDataAll, function (profile, index) {
+              if (profile.email === Meteor.users.findOne({ _id: Meteor.userId() }).username) {
+                return <MakeAdminCard key={index} thatprofile={profile}/>;
+              }
+              return <MakeCard key={index} profile={profile}/>;
+            })}
+          </Card.Group>
         </Container>
       );
     }
     return (
       <Container id="filter-page">
-        <Header as="h1" textAlign='center'>Search for Drivers in your Area!</Header>
-        <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
+        <Header as="h1" textAlign='center' color='red'>Admin Overview</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
           <Segment>
             <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
             <SubmitField id='submit' value='Submit'/>
           </Segment>
         </AutoForm>
+        <Header as="h3" textAlign='center'>Accounts Matching Criteria</Header>
         <Card.Group style={{ paddingTop: '10px' }} centered>
-          {_.map(profileData, function (profile, index) {
-            if (profile.email === Meteor.users.findOne({ _id: Meteor.userId() }).username) {
-              return <MakeUPCard key={index} thatprofile={profile}/>;
-            }
-            return <MakeCard key={index} profile={profile}/>;
-          })}
+          {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
         </Card.Group>
       </Container>
     );
@@ -147,7 +155,7 @@ class DriverSearch extends React.Component {
 }
 
 /** Require an array of Stuff documents in the props. */
-DriverSearch.propTypes = {
+AdminSearch.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
@@ -160,4 +168,4 @@ export default withTracker(() => {
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready(),
   };
-})(DriverSearch);
+})(AdminSearch);
