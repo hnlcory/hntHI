@@ -42,7 +42,7 @@ const MakeCard = (props) => (
   <Grid centered padded>
     <Grid.Row columns={2}>
       <Grid.Column>
-        <Image src={props.profile.profilePicture} size='large' rounded />
+        <Image src={props.profile.profilePicture} fluid rounded />
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
