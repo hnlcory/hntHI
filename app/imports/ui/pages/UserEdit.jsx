@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
+import { Locations } from '../../api/locations/Locations';
 
 const bridge = new SimpleSchema2Bridge(Users.schema);
 
@@ -20,16 +21,18 @@ class EditContact extends React.Component {
     UsersLocations.collection.update(_id, { $set: { role, location } });
   }
 
-  /** Update locations Collection (Has No Effect if Location already Exists)
+  /** Update locations Collection (Has No Effect if Location already Exists) */
   addLocation(location) {
-    Locations.collection.update({ name: location }, { $set: { name: location } }, { upsert: true });
+    console.log('added location');
+    Locations.collection.insert({ name: location });
   }
-  */
+
   // On successful submit, insert the data.
   submit(data) {
     const { firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, _id, email, location } = data;
     const thisId = _.pluck(UsersLocations.collection.find({ profile: email }).fetch(), '_id');
     this.sub(thisId, role, location);
+    this.addLocation(location);
     Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
       leaveTime, contact, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
@@ -54,7 +57,9 @@ class EditContact extends React.Component {
               <TextField name='profilePicture'/>
               <SelectField name='role' allowedValues={['Driver', 'Rider']}/>
               <LongTextField name='bio'/>
-              <TextField name='location'/>
+              <SelectField name='location' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
+                'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
+                'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'Wahiawa', 'Waialua', 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
               <TextField name='arriveTime'/>
               <TextField name='leaveTime'/>
               <TextField name='contact'/>
