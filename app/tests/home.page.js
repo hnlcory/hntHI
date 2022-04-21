@@ -47,11 +47,6 @@ class HomePage {
     await testController.click(Selector('.swal-button--confirm'));
     await testController.expect(Selector('#firstName').value).eql(firstName);
   }
-
-  /* Test that pages exist */
-  async clickPages(testController){
-    await testController.click('#pickup-button')
-  }
 }
 
 export const homePage = new HomePage();

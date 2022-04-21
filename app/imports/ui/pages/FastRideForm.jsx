@@ -28,7 +28,7 @@ class FastRideForm extends React.Component {
   render() {
     let fRef = null;
     return (
-      <Container id="filter-page">
+      <Container id="form-page">
         <Header as="h1" textAlign='center'>Post a Fast Ride Request!</Header>
         <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
         <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
