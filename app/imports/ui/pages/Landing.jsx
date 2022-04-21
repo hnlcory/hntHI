@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Image, Container, Header, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Meteor } from 'meteor/meteor';
 
 /** Renders a color-blocked static landing page. */
 class Landing extends React.Component {
@@ -34,10 +35,10 @@ class Landing extends React.Component {
             Sort by area to connect with others leaving at similar times</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
-              <Image src="/images/add-project-page.png"/>
+              <Image src="/images/rider-page-search.png"/>
             </Grid.Column>
             <Grid.Column>
-              <Image src="/images/projects-page.png"/>
+              <Image src="/images/driver-page-search.png"/>
             </Grid.Column>
           </Grid>
         </div>
@@ -65,11 +66,13 @@ class Landing extends React.Component {
                 <Header style={{ paddingTop: '100px' }} as='h2' inverted>
                   Request a ride now
                 </Header>
-                <Button.Group size='large'>
-                  <Button color='olive' as={Link} to='/signin'>Login</Button>
-                  <Button.Or />
-                  <Button as={Link} to='/signup'>Signup</Button>
-                </Button.Group>
+                {Meteor.user() ? '' : (
+                  <Button.Group size='large'>
+                    <Button color='olive' as={Link} to='/signin'>Login</Button>
+                    <Button.Or />
+                    <Button as={Link} to='/signup'>Signup</Button>
+                  </Button.Group>
+                )}
               </Grid.Column>
             </Grid.Row>
           </Grid>
