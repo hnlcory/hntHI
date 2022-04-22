@@ -1,10 +1,12 @@
 import React from 'react';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Feed } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import Note from './Note';
+import AddNote from './AddNote';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-class ContactAdmin extends React.Component {
+class Contact extends React.Component {
   render() {
     return (
       <Card centered >
@@ -21,7 +23,15 @@ class ContactAdmin extends React.Component {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          {this.props.contact.owner}
+          <Link to={`/edit/${this.props.contact._id}`}>Edit</Link>
+        </Card.Content>
+        <Card.Content extra>
+          <Feed>
+            {this.props.notes.map((note, index) => <Note key={index} note={note}/>)}
+          </Feed>
+          <Card.Content extra>
+            <AddNote owner={this.props.contact.owner} contactId={this.props.contact._id}/>
+          </Card.Content>
         </Card.Content>
       </Card>
     );
@@ -29,9 +39,10 @@ class ContactAdmin extends React.Component {
 }
 
 // Require a document to be passed to this component.
-ContactAdmin.propTypes = {
+Contact.propTypes = {
   contact: PropTypes.object.isRequired,
+  notes: PropTypes.array.isRequired,
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
-export default withRouter(ContactAdmin);
+export default withRouter(Contact);

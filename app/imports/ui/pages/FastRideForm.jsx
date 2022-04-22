@@ -5,7 +5,6 @@ import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Notes } from '../../api/note/Notes';
 
@@ -67,13 +66,6 @@ class FastRideForm extends React.Component {
     );
   }
 }
-
-/** Require an array of Stuff documents in the props. */
-FastRideForm.propTypes = {
-  note: PropTypes.array.isRequired,
-  doc: PropTypes.object,
-  ready: PropTypes.bool.isRequired,
-};
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
 export default withRouter(FastRideForm);

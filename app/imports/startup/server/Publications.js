@@ -9,10 +9,10 @@ import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 import { Locations } from '../../api/locations/Locations';
+import { Contacts } from '../../api/contact/Contacts';
 
 /** Define a publication to publish all interests. */
 Meteor.publish(Interests.userPublicationName, () => Interests.collection.find());
-Meteor.publish(Notes.userPublicationName, () => Notes.collection.find());
 
 /** Define a publication to publish all profiles. */
 Meteor.publish(Profiles.userPublicationName, () => Profiles.collection.find());
@@ -33,6 +33,24 @@ Meteor.publish(ProjectsInterests.userPublicationName, () => ProjectsInterests.co
 Meteor.publish(Users.userPublicationName, () => Users.collection.find());
 Meteor.publish(UsersLocations.userPublicationName, () => UsersLocations.collection.find());
 Meteor.publish(Locations.userPublicationName, () => Locations.collection.find());
+
+// User-level publication.
+// If logged in, then publish documents owned by this user. Otherwise publish nothing.
+Meteor.publish(Contacts.userPublicationName, function () {
+  if (this.userId) {
+    const username = Meteor.users.findOne(this.userId).username;
+    return Contacts.collection.find({ owner: username });
+  }
+  return this.ready();
+});
+
+Meteor.publish(Notes.userPublicationName, function () {
+  if (this.userId) {
+    const username = Meteor.users.findOne(this.userId).username;
+    return Notes.collection.find({ owner: username });
+  }
+  return this.ready();
+});
 
 // alanning:roles publication
 // Recommended code to publish roles for each user.
