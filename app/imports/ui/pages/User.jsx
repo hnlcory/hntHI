@@ -73,14 +73,14 @@ class ProfilesPage extends React.Component {
   renderPage() {
     const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
     const usrAccount = Users.collection.findOne({ email: usrEmail });
-    // console.log(usrEmail);
-    // console.log(usrAccount);
+    const myId = usrAccount._id;
 
     if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
       return (
         <Container id="profiles-page">
           <Header as="h1" textAlign='center'>Your Profile</Header>
-          <Segment textAlign='center'>It seems you do not have a profile yet! Click here to create your profile.</Segment>
+          <Segment textAlign='center'>It seems you do not have a profile yet! Click
+            <Link color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
         </Container>
       );
     }
