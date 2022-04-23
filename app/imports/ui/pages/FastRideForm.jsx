@@ -28,9 +28,9 @@ class FastRideForm extends React.Component {
 
   // On submit, insert the data.
   submit(data, formRef) {
-    const { firstName, lastName, location, image, description, arrives, leaves, contact, note, contactId, createdAt } = data;
+    const { firstName, lastName, location, image, description, arrives, leaves, contact, note } = data;
     const owner = Meteor.user().username;
-    Notes.collection.insert({ firstName, lastName, location, image, description, arrives, leaves, contact, note, contactId, createdAt, owner },
+    Notes.collection.insert({ firstName, lastName, location, image, description, arrives, leaves, contact, note, owner },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -54,7 +54,7 @@ class FastRideForm extends React.Component {
             <TextField name='lastName'/>
             <TextField name='location'/>
             <TextField name='image'/>
-            <LongTextField name='description' />
+            <LongTextField name='description'/>
             <TextField name='arrives'/>
             <TextField name='leaves'/>
             <TextField name='contact'/>

@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Header, Loader, Card } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import Contact from '../components/Contact';
 import { Contacts } from '../../api/contact/Contacts';
 import { Notes } from '../../api/note/Notes';
 
@@ -18,9 +17,9 @@ class FastRideFeed extends React.Component {
   renderPage() {
     return (
       <Container>
-        <Header as="h2" textAlign="center" inverted>Fast Ride Feed</Header>
+        <Header as="h2" textAlign="center" >Fast Ride Feed</Header>
         <Card.Group>
-          {this.props.contacts.map((contact, index) => <Contact
+          {this.props.contacts.map((contact, index) => <Notes
             key={index}
             contact={contact}
             notes={this.props.notes.filter(note => (note.contactId === contact._id))}/>)}        </Card.Group>
