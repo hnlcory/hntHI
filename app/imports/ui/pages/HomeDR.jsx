@@ -1,9 +1,14 @@
 import React from 'react';
 import { Button, Container, Grid, Header, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Meteor } from 'meteor/meteor';
+import { Users } from '../../api/users/Users';
 
 class HomeDR extends React.Component {
   render() {
+    const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
+    const usrAccount = Users.collection.findOne({ email: usrEmail });
+    const myId = usrAccount._id;
     return (
       <div id="welcome-home">
         <div className='homedr-picture-background'>
@@ -34,7 +39,7 @@ class HomeDR extends React.Component {
                 As a driver, it is important to keep all of your driver information up to date in your profile.
                 You can make sure everything is correct here:
               </Header>
-              <Button color='olive' as={Link} to='/useredit' size='large'>Edit My User</Button>
+              <Button color='olive' as={Link} to={`/useredit/${myId}`} size='large'>Edit My User</Button>
             </Grid.Column>
           </Grid>
         </div>
