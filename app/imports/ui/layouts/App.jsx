@@ -23,6 +23,7 @@ import Signout from '../pages/Signout';
 import HomeDR from '../pages/HomeDR';
 // Testing
 import Filter from '../pages/Filter';
+import AddUser from '../pages/UserAdd';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -41,6 +42,7 @@ class App extends React.Component {
               <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
               <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
               <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
+              <ProtectedRoute path="/add" component={AddUser}/>
               <AdminProtectedRoute path="/adminsearch" component={AdminSearch}/>
               <ProtectedRoute path="/user" component={User}/>
               <ProtectedRoute path="/useredit/:_id" component={UserEdit}/>
