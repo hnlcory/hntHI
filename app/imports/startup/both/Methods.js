@@ -70,8 +70,8 @@ const addNoteMethod = 'Notes.add';
 
 /** Creates a new project in the Projects collection, and also updates ProfilesProjects and ProjectsInterests. */
 Meteor.methods({
-  'Notes.add'({ firstName, lastName, location, image, description, arrives, leaves, contact, note }) {
-    Notes.collection.insert({ firstName, lastName, location, image, description, arrives, leaves, contact, note });
+  'Notes.add'({ firstName, lastName, location, image, description, arrives, leaves, contact, note, contactId }) {
+    Notes.collection.insert({ firstName, lastName, location, image, description, arrives, leaves, contact, note, contactId });
   },
 });
 
