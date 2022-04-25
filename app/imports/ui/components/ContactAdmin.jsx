@@ -12,16 +12,16 @@ class ContactAdmin extends React.Component {
           <Image
             floated='right'
             size='mini'
-            src={this.props.note.image}
+            src={this.props.contact.image}
           />
-          <Card.Header>{this.props.note.firstName} {this.props.note.lastName}</Card.Header>
-          <Card.Meta>{this.props.note.location}</Card.Meta>
+          <Card.Header>{this.props.contact.firstName} {this.props.contact.lastName}</Card.Header>
+          <Card.Meta>{this.props.contact.address}</Card.Meta>
           <Card.Description>
-            {this.props.note.description}
+            {this.props.contact.description}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          {this.props.note.owner}
+          {this.props.contact.owner}
         </Card.Content>
       </Card>
     );
@@ -30,7 +30,7 @@ class ContactAdmin extends React.Component {
 
 // Require a document to be passed to this component.
 ContactAdmin.propTypes = {
-  note: PropTypes.object.isRequired,
+  contact: PropTypes.object.isRequired,
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.

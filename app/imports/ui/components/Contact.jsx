@@ -16,14 +16,15 @@ class Contact extends React.Component {
             size='mini'
             src={this.props.contact.image}
           />
-          <Card.Header>{this.props.contact.firstName} {this.props.contact.lastName}</Card.Header>
-          <Card.Meta>{this.props.contact.location}</Card.Meta>
+          <Card.Header>{this.props.contact.departureTime} {this.props.contact.arrivalTime}</Card.Header>
+          <Card.Meta>{this.props.contact.currentLocation}</Card.Meta>
+          <Card.Meta>{this.props.contact.endDestination}</Card.Meta>
           <Card.Description>
-            {this.props.contact.description}
+            {this.props.contact.note}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Link to={`/edit/${this.props.contact._id}`}>Edit</Link>
+          <Link to={`/editrequest/${this.props.contact._id}`}>Edit</Link>
         </Card.Content>
         <Card.Content extra>
           <Feed>

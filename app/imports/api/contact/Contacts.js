@@ -13,14 +13,10 @@ class ContactsCollection {
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
-      firstName: String,
-      lastName: String,
-      location: String,
-      image: String,
-      description: String,
-      arrives: String,
-      leaves: String,
-      contact: String,
+      departureTime: String,
+      arrivalTime: String,
+      currentLocation: String,
+      endDestination: String,
       note: String,
       owner: String,
     }, { tracker: Tracker });
@@ -28,6 +24,7 @@ class ContactsCollection {
     this.collection.attachSchema(this.schema);
     // Define names for publications and subscriptions
     this.userPublicationName = `${this.name}.publication.user`;
+    this.adminPublicationName = `${this.name}.publication.admin`;
   }
 }
 

@@ -3,12 +3,14 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Header, Loader, Card } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import Contact from '../components/Contact';
 import { Contacts } from '../../api/contact/Contacts';
 import { Notes } from '../../api/note/Notes';
 
-/** Create a schema to specify the structure of the data to appear in the form. */
-
+/** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class FastRideFeed extends React.Component {
+
+  // If the subscription(s) have been received, render the page, otherwise show a loading icon.
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
@@ -19,19 +21,21 @@ class FastRideFeed extends React.Component {
       <Container>
         <Header as="h2" textAlign="center" >Fast Ride Feed</Header>
         <Card.Group>
-          {this.props.contacts.map((contact, index) => <Notes
+          {this.props.contacts.map((contact, index) => <Contact
             key={index}
             contact={contact}
-            notes={this.props.notes.filter(note => (note.contactId === contact._id))}/>)}        </Card.Group>
+            notes={this.props.notes.filter(note => (note.contactId === contact._id))}/>)}
+        </Card.Group>
       </Container>
     );
   }
 }
 
-/** Require an array of Stuff documents in the props. */
+// Require an array of Stuff documents in the props.
 FastRideFeed.propTypes = {
   contacts: PropTypes.array.isRequired,
   notes: PropTypes.array.isRequired,
+  profile: PropTypes.object.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 

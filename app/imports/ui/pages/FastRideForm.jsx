@@ -1,12 +1,11 @@
 import React from 'react';
-import { Container, Segment, Header } from 'semantic-ui-react';
-import { SubmitField, TextField, AutoForm } from 'uniforms-semantic';
+import { Grid, Segment, Header } from 'semantic-ui-react';
+import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { withRouter } from 'react-router-dom';
-import { Notes } from '../../api/note/Notes';
+import { Contacts } from '../../api/contact/Contacts';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
@@ -26,12 +25,12 @@ class FastRideForm extends React.Component {
   submit(data, formRef) {
     const { departureTime, arrivalTime, currentLocation, endDestination, note } = data;
     const owner = Meteor.user().username;
-    Notes.collection.insert({ departureTime, arrivalTime, currentLocation, endDestination, note, owner },
+    Contacts.collection.insert({ departureTime, arrivalTime, currentLocation, endDestination, note, owner },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
         } else {
-          swal('Success', 'Request added successfully to Feed', 'success');
+          swal('Success', 'Item added successfully', 'success');
           formRef.reset();
         }
       });
@@ -41,23 +40,25 @@ class FastRideForm extends React.Component {
   render() {
     let fRef = null;
     return (
-      <Container id="filter-page">
-        <Header as="h1" textAlign='center'>Post a Fast Ride Request!</Header>
-        <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
-        <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
-          <Segment>
-            <TextField name='departureTime'/>
-            <TextField name='arrivalTime'/>
-            <TextField name='currentLocation'/>
-            <TextField name='endDestination'/>
-            <TextField name='note'/>
-            <SubmitField value='Submit'/>
-          </Segment>
-        </AutoForm>
-      </Container>
+      <Grid container centered>
+        <Grid.Column>
+          <Header as="h1" textAlign='center'>Post a Fast Ride Request!</Header>
+          <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
+          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
+            <Segment>
+              <TextField name='departureTime'/>
+              <TextField name='arrivalTime'/>
+              <TextField name='currentLocation'/>
+              <TextField name='endDestination'/>
+              <TextField name='note'/>
+              <SubmitField value='Submit'/>
+              <ErrorsField/>
+            </Segment>
+          </AutoForm>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
 
-// Wrap this component in withRouter since we use the <Link> React Router element.
-export default withRouter(FastRideForm);
+export default FastRideForm;
