@@ -11,6 +11,7 @@ import { Interests } from '../../api/interests/Interests';
 import { Users } from '../../api/users/Users';
 import { Locations } from '../../api/locations/Locations';
 import { UsersLocations } from '../../api/users/UsersLocations';
+import { Contacts } from '../../api/contact/Contacts';
 
 /* eslint-disable no-console */
 
@@ -65,6 +66,12 @@ function addUser({ email, firstName, lastName, role, profilePicture, locations, 
   locations.map(location => addLocation(location));
 }
 
+// Initialize the database with a default data document.
+function addContact(data) {
+  console.log(`  Adding: ${data.lastName} (${data.owner})`);
+  Contacts.collection.insert(data);
+}
+
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */
 if (Users.collection.find().count() === 0 && Projects.collection.find().count() === 0 && Profiles.collection.find().count() === 0) {
 // Added Meteor.settings.defaultUsers
@@ -95,4 +102,11 @@ if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() < 7)) {
   const jsonData = JSON.parse(Assets.getText(assetsFileName));
   jsonData.profiles.map(profile => addProfile(profile));
   jsonData.projects.map(project => addProject(project));
+}
+// Initialize the StuffsCollection if empty.
+if (Contacts.collection.find().count() === 0) {
+  if (Meteor.settings.defaultContacts) {
+    console.log('Creating default Notes.');
+    Meteor.settings.defaultContacts.map(data => addContact(data));
+  }
 }

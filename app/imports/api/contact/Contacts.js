@@ -5,25 +5,27 @@ import { Tracker } from 'meteor/tracker';
 /**
  * The StuffsCollection. It encapsulates state and variable values for stuff.
  */
-class NotesCollection {
+class ContactsCollection {
   constructor() {
     // The name of this collection.
-    this.name = 'NotesCollection';
+    this.name = 'ContactsCollection';
     // Define the Mongo collection.
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
+      departureTime: String,
+      arrivalTime: String,
+      currentLocation: String,
+      endDestination: String,
       note: String,
       owner: String,
-      contactId: String,
-      createdAt: String,
     }, { tracker: Tracker });
     // Attach the schema to the collection, so all attempts to insert a document are checked against schema.
     this.collection.attachSchema(this.schema);
     // Define names for publications and subscriptions
     this.userPublicationName = `${this.name}.publication.user`;
-    // this.adminPublicationName = `${this.name}.publication.admin`;
+    this.adminPublicationName = `${this.name}.publication.admin`;
   }
 }
 
-export const Notes = new NotesCollection();
+export const Contacts = new ContactsCollection();
