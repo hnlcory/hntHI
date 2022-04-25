@@ -2,15 +2,17 @@ import { landingPage } from './landing.page';
 import { signinPage } from './signin.page';
 import { signoutPage } from './signout.page';
 import { signupPage } from './signup.page';
-import { navBar } from './navbar.component';
+import { profilesPage } from './profiles.page';
+import { projectsPage } from './projects.page';
+import { interestsPage } from './interests.page';
 import { homePage } from './home.page';
-/**
- * import { profilesPage } from './profiles.page';
- * import { projectsPage } from './projects.page';
- * import { interestsPage } from './interests.page';
- * import { addProjectPage } from './addproject.page';
- * import { filterPage } from './filter.page';
- */
+import { addProjectPage } from './addproject.page';
+import { filterPage } from './filter.page';
+import { riderSearchPage } from './ridersearch.page';
+import { driverSearchPage } from './driversearch.page';
+import { fastRideFeedPage } from './fastridefeed.page';
+import { fastRideFormPage } from './fastrideform.page';
+import { navBar } from './navbar.component';
 
 /* global fixture:false, test:false */
 
@@ -50,7 +52,24 @@ test.only('Test home page links', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoHomePage(testController);
-  await homePage.clickPages(testController);
+
+  await testController.click('#pickup-button'); // go to rider page
+  await riderSearchPage.isDisplayed(testController);
+  await navBar.gotoHomePage(testController);
+  await testController.click('#find-button'); // go to driver page
+  await driverSearchPage.isDisplayed(testController);
+  await navBar.gotoHomePage(testController);
+  await testController.click('#form-button'); // go to form page
+  await fastRideFormPage.isDisplayed(testController);
+  /* NOT IMPLEMENTED
+  await testController.click('#feed-button') // go to feed page
+  await fastRideFeedPage.isDisplayed(testController);
+  await navBar.gotoHomePage(testController);
+  await testController.click('#edit-button'); // go to edit page
+  await navBar.gotoHomePage(testController);
+  await testController.click('#rate-button'); // go to rate page
+  await navBar.gotoHomePage(testController);
+  */
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
@@ -61,6 +80,7 @@ test('Test that profiles page displays', async (testController) => {
   await profilesPage.isDisplayed(testController);
   await profilesPage.hasDefaultProfiles(testController);
 });
+
 
 test('Test that interests page displays', async (testController) => {
   await navBar.gotoInterestsPage(testController);
