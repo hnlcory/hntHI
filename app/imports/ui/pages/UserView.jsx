@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Segment, Header, Grid, Icon } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Grid, Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -8,37 +8,27 @@ import { Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 
+function downvUser() {
+  console.log('downvote');
+}
+
+function upvUser() {
+  console.log('upvote');
+}
+
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
-  /**
-  <Card color='green'>
-    <Image src={props.profile.profilePicture} wrapped ui={false}/>
-    <Card.Content>
-      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
-      <Card.Meta>
-        {props.profile.role}
-        &nbsp;Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}
-      </Card.Meta>
-      <Card.Description>
-        {props.profile.bio}
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-        Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
-    </Card.Content>
-    <Card.Content extra>
-        Contact me: {props.profile.contact}
-    </Card.Content>
-    <Card.Content textAlign='center'>
-      <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
-    </Card.Content>
-  </Card>
-  * */
   <Grid centered padded>
     <Grid.Row columns={2}>
       <Grid.Column>
-        <Image src={props.profile.profilePicture} fluid rounded />
+        <Image label={{
+          as: 'a',
+          color: 'black',
+          content: '5 Star Rating',
+          icon: 'star',
+          ribbon: true,
+        }} src={props.profile.profilePicture} fluid rounded />
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
@@ -47,6 +37,10 @@ const MakeCard = (props) => (
         <Header as="h4">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
+        <Button.Group size='tiny'>
+          <Button positive onClick={upvUser}><Icon name="thumbs up outline"></Icon>Upvote</Button>
+          <Button onClick={downvUser}><Icon name="thumbs down outline"></Icon>Downvote</Button>
+        </Button.Group>
       </Grid.Column>
     </Grid.Row>
   </Grid>
