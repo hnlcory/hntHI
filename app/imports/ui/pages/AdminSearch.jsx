@@ -31,7 +31,8 @@ const MakeCard = (props) => (
   <Card>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
-      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
+      <Card.Header>
+        <Link color='blue' to={`/userview/${props.profile._id}`}>{props.profile.firstName} {props.profile.lastName}</Link></Card.Header>
       <Card.Meta>
         {props.profile.role}
         <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
