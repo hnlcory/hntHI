@@ -47,7 +47,6 @@ const MakeCard = (props) => (
         <Header as="h4">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
-        <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
       </Grid.Column>
     </Grid.Row>
   </Grid>
