@@ -29,12 +29,12 @@ class HomeDR extends React.Component {
                 UH Carpool and Go offers a safe space to give drivers the chance to offer rides to those in need.
                 Look for possible riders in your area!
               </Header>
-              <Button color='olive' as={Link} to='/riderssearch' size='large'>Let Us Pickup!</Button>
+              <Button id='pickup-button' color='olive' as={Link} to='/riderssearch' size='large'>Let Us Pickup!</Button>
               <Header style={{ color: 'white', paddingTop: '25px' }} as='h3'>
                 As a driver, it is important to keep all of your driver information up to date in your profile.
                 You can make sure everything is correct here:
               </Header>
-              <Button color='olive' as={Link} to={'/useredit/'} size='large'>Edit My User</Button>
+              <Button id='edit-button' color='olive' as={Link} to='/useredit' size='large'>Edit My User</Button>
             </Grid.Column>
           </Grid>
         </div>
@@ -57,12 +57,12 @@ class HomeDR extends React.Component {
                 Need a ride to school? Students and staff can use Carpool and Go! to find drivers nearby their locations.
                 Find those near you now:
               </Header>
-              <Button color='olive' as={Link} to='/driverssearch' size='large'>Find a Ride!</Button>
+              <Button id='find-button' color='olive' as={Link} to='/driverssearch' size='large'>Find a Ride!</Button>
               <Header style={{ color: 'green', paddingTop: '25px' }} as='h3'>
                 As a rider, it is important to keep other riders updated on which drivers have offered good services! We strive to create
                 a community of safe drivers and allow riders ways to commute with ease of worry. Been on a ride recently? Rate them here:
               </Header>
-              <Button color='olive' as={Link} to='/ratedriver' size='large'>Rate My Driver</Button>
+              <Button id='rate-button' color='olive' as={Link} to='/ratedriver' size='large'>Rate My Driver</Button>
             </Grid.Column>
             <Grid.Column>
               <Header style={{ color: 'green', fontSize: '40pt', paddingTop: '10px' }} as='h2'>
@@ -81,9 +81,9 @@ class HomeDR extends React.Component {
               Need a ride on short notice? Got some time and can offer someone a ride? The Fast Ride is a form feed allows
               both riders and drivers to see a real-time chat for those needing to get somewhere soon. <br/><br/>
               <Button.Group size='large'>
-                <Button color='olive' as={Link} to='/fastridefeed'>Check the Feed</Button>
+                <Button id='feed-button' color='olive' as={Link} to='/fastridefeed'>Check the Feed</Button>
                 <Button.Or />
-                <Button as={Link} to='/fastrideform'>Create a Request Form</Button>
+                <Button id='form-button' as={Link} to='/fastrideform'>Create a Request Form</Button>
               </Button.Group>
             </Header>
           </Container>

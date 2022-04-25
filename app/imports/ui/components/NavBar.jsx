@@ -26,13 +26,13 @@ class NavBar extends React.Component {
         {this.props.currentUser ? (
           [<Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/homedr" key='homeD'>Home</Menu.Item>,
             <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/user" key='profile'>My Account</Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/driverssearch" key='drivers'>Drivers
+            <Menu.Item as={NavLink} id="driverPage" activeClassName="active" exact to="/driverssearch" key='drivers'>Drivers
               <Icon name={'car'}/></Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/riderssearch" key='riders'>Riders
+            <Menu.Item as={NavLink} id="riderPage" activeClassName="active" exact to="/riderssearch" key='riders'>Riders
               <Icon name={'male'}/></Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/fastrideform" key='fastRideReq'>Fast Ride Request
+            <Menu.Item as={NavLink} id="formPage" activeClassName="active" exact to="/fastrideform" key='fastRideReq'>Fast Ride Request
               <Icon name={'bolt'}/></Menu.Item>,
-            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/fastridefeed" key='fastRideFeed'>Fast Ride Feed
+            <Menu.Item as={NavLink} id="feedPage" activeClassName="active" exact to="/fastridefeed" key='fastRideFeed'>Fast Ride Feed
               <Icon name={'bolt'}/></Menu.Item>]
         ) : ''}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
