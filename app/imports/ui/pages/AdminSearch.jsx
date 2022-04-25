@@ -30,7 +30,7 @@ function getProfileData(email) {
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
         {props.profile.role}
@@ -55,7 +55,7 @@ const MakeCard = (props) => (
 const MakeAdminCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' />
+      <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>{props.thatprofile.firstName} {props.thatprofile.lastName}</Card.Header>
       <Card.Meta>
         {props.thatprofile.role}

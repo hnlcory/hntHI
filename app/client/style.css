@@ -39,3 +39,10 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+
+.cardImg {
+  height: auto;
+  max-height: 50px;
+  width: auto;
+  max-width: 20px;
+}

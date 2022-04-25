@@ -30,7 +30,7 @@ function getProfileData(email) {
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} className='cardImg'/>
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
         <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
@@ -56,7 +56,7 @@ MakeCard.propTypes = {
 const MakeUPCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' />
+      <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>{props.thatprofile.firstName} {props.thatprofile.lastName} (You)</Card.Header>
       <Card.Meta>
         <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.thatprofile.email }).fetch(), 'location')}</span>
