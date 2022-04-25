@@ -5,10 +5,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router-dom';
-import { Profiles } from '../../api/profiles/Profiles';
-import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
-import { Projects } from '../../api/projects/Projects';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 
@@ -71,8 +67,7 @@ class UserView extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-
-
+    // need to get id here, then can grab user data and display specfic profile
     const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
     const usrAccount = Users.collection.findOne({ email: usrEmail });
     const myId = usrAccount._id;
@@ -97,19 +92,16 @@ class UserView extends React.Component {
 }
 
 UserView.propTypes = {
+  doc: PropTypes.object,
   ready: PropTypes.bool.isRequired,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
-  const sub1 = Meteor.subscribe(Profiles.userPublicationName);
-  const sub2 = Meteor.subscribe(ProfilesInterests.userPublicationName);
-  const sub3 = Meteor.subscribe(ProfilesProjects.userPublicationName);
-  const sub4 = Meteor.subscribe(Projects.userPublicationName);
   const subUsers = Meteor.subscribe(Users.userPublicationName);
   const subUserLoc = Meteor.subscribe(UsersLocations.userPublicationName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && subUsers.ready() && subUserLoc.ready(),
+    ready: subUsers.ready() && subUserLoc.ready(),
   };
 })(UserView);
