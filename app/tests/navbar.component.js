@@ -61,15 +61,15 @@ class NavBar {
   }
 
   async gotoDriverPage(testController) {
-    await testController.click('#driver-page');
+    await testController.click('#driverPage');
   }
 
   async gotoRiderPage(testController) {
-    await testController.click('#rider-page');
+    await testController.click('#riderPage');
   }
 
   async gotoFormPage(testController) {
-    await testController.click('#form-page');
+    await testController.click('#formPage');
   }
 }
 

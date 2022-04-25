@@ -70,27 +70,38 @@ test('Test home page links', async (testController) => {
   await testController.click('#rate-button'); // go to rate page
   await navBar.gotoHomePage(testController);
   */
-  // await navBar.logout(testController);
-  // await signoutPage.isDisplayed(testController);
-  await navBar.gotoHomePage(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
 });
 
 // test drivers page displays
 test('Test that drivers page displays', async (testController) => {
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoDriverPage(testController);
   await driverSearchPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
 });
 
 // test riders page displays
 test('Test that riders page displays', async (testController) => {
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoRiderPage(testController);
   await riderSearchPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
 });
 
 // test form page displays
 test('Test that form page displays', async (testController) => {
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFormPage(testController);
   await fastRideFormPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
 });
 
 /*
