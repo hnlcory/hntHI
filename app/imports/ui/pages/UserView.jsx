@@ -68,8 +68,8 @@ class UserView extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     // need to get id here, then can grab user data and display specfic profile
-    const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
-    const usrAccount = Users.collection.findOne({ email: usrEmail });
+    const dataID = this.props.doc.email;
+    const usrAccount = Users.collection.findOne({ email: dataID });
     const myId = usrAccount._id;
 
     if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
@@ -97,11 +97,15 @@ UserView.propTypes = {
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
+export default withTracker(({ match }) => {
   // Ensure that minimongo is populated with all collections prior to running render().
   const subUsers = Meteor.subscribe(Users.userPublicationName);
   const subUserLoc = Meteor.subscribe(UsersLocations.userPublicationName);
+
+  const documentId = match.params._id;
+  const doc = Users.collection.findOne(documentId);
   return {
+    doc,
     ready: subUsers.ready() && subUserLoc.ready(),
   };
 })(UserView);
