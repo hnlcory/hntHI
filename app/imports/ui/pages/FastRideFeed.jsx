@@ -3,12 +3,14 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Header, Loader, Card } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import ContactAdmin from '../components/ContactAdmin';
+import Contact from '../components/Contact';
+import { Contacts } from '../../api/contact/Contacts';
 import { Notes } from '../../api/note/Notes';
 
-/** Create a schema to specify the structure of the data to appear in the form. */
-
+/** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class FastRideFeed extends React.Component {
+
+  // If the subscription(s) have been received, render the page, otherwise show a loading icon.
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
@@ -16,10 +18,13 @@ class FastRideFeed extends React.Component {
   // Render the page once subscriptions have been received.
   renderPage() {
     return (
-      <Container id='feed-page'>
-        <Header as="h2" textAlign="center" inverted>Fast Ride Feed</Header>
+      <Container>
+        <Header as="h2" textAlign="center" >Fast Ride Feed</Header>
         <Card.Group>
-          {this.props.contacts.map((contact, index) => <ContactAdmin key={index} contact={contact} />)}
+          {this.props.contacts.map((contact, index) => <Contact
+            key={index}
+            contact={contact}
+            notes={this.props.notes.filter(note => (note.contactId === contact._id))}/>)}
         </Card.Group>
       </Container>
     );
@@ -29,15 +34,19 @@ class FastRideFeed extends React.Component {
 // Require an array of Stuff documents in the props.
 FastRideFeed.propTypes = {
   contacts: PropTypes.array.isRequired,
+  notes: PropTypes.array.isRequired,
+  profile: PropTypes.object.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
   // Get access to Stuff documents.
-  const subscription = Meteor.subscribe(Notes.adminPublicationName);
+  const subscription = Meteor.subscribe(Contacts.userPublicationName);
+  const subscription2 = Meteor.subscribe(Notes.userPublicationName);
   return {
-    contacts: Notes.collection.find({}).fetch(),
-    ready: subscription.ready(),
+    contacts: Contacts.collection.find({}).fetch(),
+    notes: Notes.collection.find({}).fetch(),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(FastRideFeed);

@@ -21,6 +21,7 @@ import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import HomeDR from '../pages/HomeDR';
+import UserView from '../pages/UserView';
 // Testing
 import Filter from '../pages/Filter';
 import AddUser from '../pages/UserAdd';
@@ -46,6 +47,7 @@ class App extends React.Component {
               <AdminProtectedRoute path="/adminsearch" component={AdminSearch}/>
               <ProtectedRoute path="/user" component={User}/>
               <ProtectedRoute path="/useredit/:_id" component={UserEdit}/>
+              <ProtectedRoute path="/userview/:_id" component={UserView}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/test" component={Filter}/>

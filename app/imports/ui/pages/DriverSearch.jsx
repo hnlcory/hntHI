@@ -28,10 +28,13 @@ function getProfileData(email) {
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
-  <Card>
+  <Card color='green'>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.profile.profilePicture} className='cardImg'/>
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
+      <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' />
+      <Card.Header>
+        <Link color='blue' to={`/userview/${props.profile._id}`}>{props.profile.firstName} {props.profile.lastName}</Link></Card.Header>
       <Card.Meta>
         <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}</span>
       </Card.Meta>
@@ -54,10 +57,14 @@ MakeCard.propTypes = {
 };
 /** Component for a different Card format that shows the user as their own profile. */
 const MakeUPCard = (props) => (
-  <Card>
+  <Card color='blue'>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>{props.thatprofile.firstName} {props.thatprofile.lastName} (You)</Card.Header>
+      <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' />
+      <Card.Header>
+        <Link color='blue' to={`/userview/${props.thatprofile._id}`}>{props.thatprofile.firstName} {props.thatprofile.lastName} (You)</Link>
+      </Card.Header>
       <Card.Meta>
         <span className='date'> Location: {_.pluck(UsersLocations.collection.find({ profile: props.thatprofile.email }).fetch(), 'location')}</span>
       </Card.Meta>

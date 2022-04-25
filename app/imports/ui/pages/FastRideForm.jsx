@@ -1,24 +1,36 @@
 import React from 'react';
-import { Container, Segment, Header } from 'semantic-ui-react';
-import { SubmitField, TextField, LongTextField, AutoForm } from 'uniforms-semantic';
+import { Grid, Segment, Header } from 'semantic-ui-react';
+import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
 import swal from 'sweetalert';
+import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import { Notes } from '../../api/note/Notes';
+import SimpleSchema from 'simpl-schema';
+import { Contacts } from '../../api/contact/Contacts';
 
-const bridge = new SimpleSchema2Bridge(Notes.schema);
+// Create a schema to specify the structure of the data to appear in the form.
+const formSchema = new SimpleSchema({
+  departureTime: String,
+  arrivalTime: String,
+  currentLocation: String,
+  endDestination: String,
+  note: String,
+});
+
+const bridge = new SimpleSchema2Bridge(formSchema);
 
 /** Renders the Page for adding a document. */
 class FastRideForm extends React.Component {
 
   // On submit, insert the data.
   submit(data, formRef) {
-    const { firstName, lastName, location, image, description, arrives, leaves, contact } = data;
-    Notes.collection.insert({ firstName, lastName, location, image, description, arrives, leaves, contact },
+    const { departureTime, arrivalTime, currentLocation, endDestination, note } = data;
+    const owner = Meteor.user().username;
+    Contacts.collection.insert({ departureTime, arrivalTime, currentLocation, endDestination, note, owner },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
         } else {
-          swal('Success', 'Request added successfully to Feed', 'success');
+          swal('Success', 'Item added successfully', 'success');
           formRef.reset();
         }
       });
@@ -28,23 +40,23 @@ class FastRideForm extends React.Component {
   render() {
     let fRef = null;
     return (
-      <Container id="form-page">
-        <Header as="h1" textAlign='center'>Post a Fast Ride Request!</Header>
-        <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
-        <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
-          <Segment>
-            <TextField name='firstName'/>
-            <TextField name='lastName'/>
-            <TextField name='location'/>
-            <TextField name='image'/>
-            <LongTextField name='description' />
-            <TextField name='arrives'/>
-            <TextField name='leaves'/>
-            <TextField name='contact'/>
-            <SubmitField value='Submit'/>
-          </Segment>
-        </AutoForm>
-      </Container>
+      <Grid container centered>
+        <Grid.Column>
+          <Header as="h1" textAlign='center'>Post a Fast Ride Request!</Header>
+          <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
+          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
+            <Segment>
+              <TextField name='departureTime'/>
+              <TextField name='arrivalTime'/>
+              <TextField name='currentLocation'/>
+              <TextField name='endDestination'/>
+              <TextField name='note'/>
+              <SubmitField value='Submit'/>
+              <ErrorsField/>
+            </Segment>
+          </AutoForm>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
