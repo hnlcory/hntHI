@@ -71,6 +71,8 @@ class UserView extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
+
+
     const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
     const usrAccount = Users.collection.findOne({ email: usrEmail });
     const myId = usrAccount._id;
