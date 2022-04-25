@@ -34,7 +34,7 @@ class HomeDR extends React.Component {
                 As a driver, it is important to keep all of your driver information up to date in your profile.
                 You can make sure everything is correct here:
               </Header>
-              <Button color='olive' as={Link} to={'/useredit/'} size='large'>Edit My User</Button>
+              <Button id='edit-button' color='olive' as={Link} to={'/useredit/'} size='large'>Edit My User</Button>
             </Grid.Column>
           </Grid>
         </div>
