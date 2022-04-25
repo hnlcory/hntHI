@@ -59,6 +59,18 @@ class NavBar {
   async gotoHomePage(testController) {
     await testController.click('#homeMenuItem');
   }
+
+  async gotoDriverPage(testController) {
+    await testController.click('#driver-page');
+  }
+
+  async gotoRiderPage(testController) {
+    await testController.click('#rider-page');
+  }
+
+  async gotoFormPage(testController) {
+    await testController.click('#form-page');
+  }
 }
 
 export const navBar = new NavBar();
