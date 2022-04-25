@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Segment, Header } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Rating } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -40,6 +40,7 @@ const MakeCard = (props) => (
       <Card.Description>
         {props.profile.bio}
       </Card.Description>
+      <Rating maxRating={5}/>
     </Card.Content>
     <Card.Content extra>
         Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
