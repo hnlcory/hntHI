@@ -1,18 +1,31 @@
 import React from 'react';
 import { Container, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import swal from 'sweetalert';
-import { SubmitField, AutoForm, LongTextField, TextField, SelectField } from 'uniforms-semantic';
+import { SubmitField, AutoForm, LongTextField, TextField, SelectField, ErrorsField } from 'uniforms-semantic';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/underscore';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 import { Locations } from '../../api/locations/Locations';
 
-const bridge = new SimpleSchema2Bridge(Users.schema);
+const formSchema = new SimpleSchema({
+  firstName: String,
+  lastName: String,
+  role: String,
+  profilePicture: String,
+  bio: String,
+  location: String,
+  arriveTime: String,
+  leaveTime: String,
+  contact: String,
+});
+
+const bridge = new SimpleSchema2Bridge(formSchema);
 
 /** Renders the Page for editing a single document. */
 class EditContact extends React.Component {
@@ -56,6 +69,7 @@ class EditContact extends React.Component {
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   renderPage() {
+
     if (this.props.doc.email !== Meteor.users.findOne({ _id: Meteor.userId() }).username && !Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
         <Container>
@@ -84,6 +98,7 @@ class EditContact extends React.Component {
                 <TextField name='leaveTime'/>
                 <TextField name='contact'/>
                 <SubmitField name='Submit'/>
+                <ErrorsField/>
               </Segment>
             </AutoForm>
           </Grid.Column>
@@ -108,6 +123,7 @@ class EditContact extends React.Component {
               <TextField name='leaveTime'/>
               <TextField name='contact'/>
               <SubmitField name='Submit'/>
+              <ErrorsField/>
             </Segment>
           </AutoForm>
         </Grid.Column>
