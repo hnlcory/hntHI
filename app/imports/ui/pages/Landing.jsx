@@ -11,16 +11,16 @@ class Landing extends React.Component {
         <div className='landing-picture-background'>
           <Container textAlign='center'>
             <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '20px' }}/>
-            <Header style={{ color: 'white', fontSize: '36pt' }} as='h1'>
+            <Header style={{ color: 'white', fontSize: '45pt', fontFamily: 'Barlow' }} as='h1'>
                 Welcome to Carpool-And-Go
             </Header>
-            <Header style={{ paddingBottom: '40px', color: 'white' }} as='h3'>
-              Allowing drivers to offer rides, and riders to search for nearby rides
+            <Header style={{ paddingBottom: '45px', color: 'white', fontFamily: 'Barlow' }} as='h3'>
+              Connecting Drivers and Riders with Carpool Partners
             </Header>
           </Container>
         </div>
         <div className='landing-white-background'>
-          <Header style={{ color: '#376551' }} as='h2' textAlign='center'>Create your profile as a Driver or Rider</Header>
+          <Header style={{ color: '#376551', fontFamily: 'Barlow' }} as='h2' textAlign='center'>Create your profile as a Driver or Rider</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
               <Image src="/images/profiles-page.png"/>
@@ -31,7 +31,7 @@ class Landing extends React.Component {
           </Grid>
         </div>
         <div className='landing-person-background'>
-          <Header style={{ color: 'white', paddingTop: '20px' }} as='h2' textAlign='center'>
+          <Header style={{ color: 'white', paddingTop: '20px', fontFamily: 'Barlow' }} as='h2' textAlign='center'>
             Sort by area to connect with others leaving at similar times</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
@@ -43,7 +43,7 @@ class Landing extends React.Component {
           </Grid>
         </div>
         <div className='landing-white-background'>
-          <Header style={{ color: '#376551' }} as='h2' textAlign='center'>
+          <Header style={{ color: '#376551', paddingTop: '20px', fontFamily: 'Barlow' }} as='h2' textAlign='center'>
               Connect quickly with others for last-minute rides using Fast Ride
           </Header>
           <Grid container stackable columns='equal' textAlign='center'>
@@ -63,8 +63,8 @@ class Landing extends React.Component {
                 <Image src="/images/interests-page.png"/>
               </Grid.Column>
               <Grid.Column>
-                <Header style={{ paddingTop: '100px' }} as='h2' inverted>
-                  Request a ride now
+                <Header style={{ paddingTop: '100px', fontFamily: 'Barlow', fontSize: '30px' }} as='h2' inverted>
+                  Connect with others now
                 </Header>
                 {Meteor.user() ? '' : (
                   <Button.Group size='large'>

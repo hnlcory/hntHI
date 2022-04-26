@@ -16,7 +16,7 @@ import { Roles } from 'meteor/alanning:roles';
  * */
 class NavBar extends React.Component {
   render() {
-    const menuStyle = { marginBottom: '0px' };
+    const menuStyle = { marginBottom: '0px', fontFamily: 'Barlow' };
     return (
       <Menu style={menuStyle} attached="top" borderless>
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
