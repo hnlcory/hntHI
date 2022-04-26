@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Segment, Header, Grid, Button, Icon } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Grid, Rating, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -8,27 +8,33 @@ import { Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 
-function downvUser() {
-  console.log('downvote');
-}
-
-function upvUser() {
-  console.log('upvote');
-}
-
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
   <Grid centered padded>
     <Grid.Row columns={2}>
       <Grid.Column>
-        <Image label={{
-          as: 'a',
-          color: 'black',
-          content: '5 Star Rating',
-          icon: 'star',
-          ribbon: true,
-        }} src={props.profile.profilePicture} fluid rounded />
+        {props.profile.rating === 5 ? (
+          <Image label={{
+            as: 'a',
+            color: 'green',
+            content: '5 Star Rating',
+            icon: 'star',
+            ribbon: true,
+          }} src={props.profile.profilePicture} fluid rounded />
+        ) : ''}
+        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+          <Image label={{
+            as: 'a',
+            color: 'red',
+            content: 'Low Star Rating',
+            icon: 'star',
+            ribbon: true,
+          }} src={props.profile.profilePicture} fluid rounded />
+        ) : '' }
+        {props.profile.rating > 2 && props.profile.rating < 5 ? (
+          <Image src={props.profile.profilePicture} fluid rounded/>
+        ) : '' }
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
@@ -37,10 +43,7 @@ const MakeCard = (props) => (
         <Header as="h4">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
-        <Button.Group size='tiny'>
-          <Button positive onClick={upvUser}><Icon name="thumbs up outline"></Icon>Upvote</Button>
-          <Button onClick={downvUser}><Icon name="thumbs down outline"></Icon>Downvote</Button>
-        </Button.Group>
+        <Rating maxRating={5} onRate={this.handleRate} />
       </Grid.Column>
     </Grid.Row>
   </Grid>
@@ -52,6 +55,7 @@ MakeCard.propTypes = {
 
 /** Renders the Profile Collection as a set of Cards. */
 class UserView extends React.Component {
+  handleRate = (e, { rating, maxRating }) => this.setState({ rating, maxRating })
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {

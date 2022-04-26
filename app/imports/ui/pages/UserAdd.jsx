@@ -19,7 +19,7 @@ class AddContact extends React.Component {
   // On successful submit, insert the data.
   submit(data) {
     console.log('submit');
-    const { firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, email } = data;
+    const { firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, email, rating } = data;
     const profile = email;
     const _id = Users.collection.findOne({ email: profile })._id;
     console.log(_id);
@@ -30,7 +30,7 @@ class AddContact extends React.Component {
       swal('Success', 'Item updated successfully', 'success')));
      */
     Users.collection.update(_id, { $addFields: { firstName, lastName, role, profilePicture, bio, arriveTime,
-      leaveTime, contact } }, (error) => (error ?
+      leaveTime, contact, rating } }, (error) => (error ?
       swal('Error', error.message, 'error') : swal('Success', 'Item updated successfully', 'success')));
   }
 
