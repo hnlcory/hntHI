@@ -12,6 +12,7 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 import { Locations } from '../../api/locations/Locations';
+import { Link } from 'react-router-dom';
 
 const formSchema = new SimpleSchema({
   firstName: String,
@@ -49,7 +50,7 @@ class EditContact extends React.Component {
     Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
       leaveTime, contact, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
-      swal('Success', 'Item updated successfully', 'success')));
+      swal('Success', 'You successfully edited your profile!', 'success')));
   }
 
   submitNoProf(data) {
@@ -59,7 +60,7 @@ class EditContact extends React.Component {
     Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
       leaveTime, contact, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
-      swal('Success', 'Item updated successfully', 'success')));
+      swal('Success', 'You created a new profile!', 'success')));
   }
 
   // If the subscription(s) have been received, render the page, otherwise show a loading icon.
@@ -74,7 +75,10 @@ class EditContact extends React.Component {
       return (
         <Container>
           <Header as="h1" textAlign='center'>Edit Profile</Header>
-          <Segment textAlign='center'>Sorry! You do not have permission to view this profile.</Segment>
+          <Segment textAlign='center'>
+            <p>Sorry! You do not have permission to edit this profile.</p>
+            <p>If you believe this is a problem, please <Link color='blue' to={'/signout'}>log out</Link> and log back in.</p>
+          </Segment>
         </Container>
       );
     }
