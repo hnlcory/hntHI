@@ -132,14 +132,14 @@ class AdminSearch extends React.Component {
       // console.log(profileDataAll);
       return (
         <Container id="filter-page">
-          <Header as="h1" textAlign='center' color='red'>Admin Overview</Header>
+          <Header as="h1" textAlign='center' color='red' style={{ fontFamily: 'Barlow' }}>Admin Overview</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
             <Segment>
               <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Filter Users by Location'}/>
               <SubmitField id='submit' value='Submit'/>
             </Segment>
           </AutoForm>
-          <Header as="h3" textAlign='center'>All Driver/Rider Accounts</Header>
+          <Header as="h3" textAlign='center' style={{ fontFamily: 'Barlow' }}>All Driver/Rider Accounts</Header>
           <Card.Group style={{ paddingTop: '15px' }} centered>
 
             {_.map(profileDataAll, function (profile, index) {
@@ -154,14 +154,14 @@ class AdminSearch extends React.Component {
     }
     return (
       <Container id="filter-page">
-        <Header as="h1" textAlign='center' color='red'>Admin Overview</Header>
+        <Header as="h1" textAlign='center' color='red' style={{ fontFamily: 'Barlow' }}>Admin Overview</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
           <Segment>
             <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
             <SubmitField id='submit' value='Submit'/>
           </Segment>
         </AutoForm>
-        <Header as="h3" textAlign='center'>Accounts Matching Criteria</Header>
+        <Header as="h3" textAlign='center' style={{ fontFamily: 'Barlow' }}>Accounts Matching Criteria</Header>
         <Card.Group style={{ paddingTop: '10px' }} centered>
           {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
         </Card.Group>
