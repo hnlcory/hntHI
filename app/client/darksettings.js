@@ -13,5 +13,5 @@ const options = {
 };
 
 // eslint-disable-next-line no-undef
-const darkmode = new Darkmode(options);
-darkmode.showWidget();
+const darksettings = new Darkmode(options);
+darksettings.showWidget();
