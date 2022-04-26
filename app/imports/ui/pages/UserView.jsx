@@ -38,11 +38,12 @@ const MakeCard = (props) => (
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
-        <Header as="h4">{props.profile.role} Location: {_.pluck(UsersLocations.collection.find({
+        <Header as="h5">{props.profile.role} Location: {_.pluck(UsersLocations.collection.find({
           profile: props.profile.email }).fetch(), 'location')}<Icon name='map pin'/></Header>
-        <Header as="h4">  {props.profile.bio}</Header>
+        <Header as="h5">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
+        <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
         <Rating maxRating={5} onRate={this.handleRate} />
       </Grid.Column>
     </Grid.Row>
