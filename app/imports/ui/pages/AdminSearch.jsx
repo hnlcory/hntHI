@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Segment, Header, Rating } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -41,6 +41,12 @@ const MakeCard = (props) => (
         {props.profile.bio}
       </Card.Description>
       <Rating maxRating={5}/>
+      <Card.Description>
+        {props.profile.rating === 5 ? (
+          <Label color='green'><Icon name='star'></Icon>5 Star Rating</Label>) : ''}
+        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+          <Label color='red'><Icon name='star'></Icon>Low Star Rating</Label>) : '' }
+      </Card.Description>
     </Card.Content>
     <Card.Content extra>
         Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
@@ -67,6 +73,12 @@ const MakeAdminCard = (props) => (
       </Card.Meta>
       <Card.Description>
         {props.thatprofile.bio}
+      </Card.Description>
+      <Card.Description>
+        {props.thatprofile.rating === 5 ? (
+          <Label color='green'><Icon name='star'></Icon>5 Star Rating</Label>) : ''}
+        {props.thatprofile.rating <= 2 && props.thatprofile.rating !== 0 ? (
+          <Label color='red'><Icon name='star'></Icon>Low Star Rating</Label>) : '' }
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
