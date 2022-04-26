@@ -43,9 +43,9 @@ const MakeCard = (props) => (
       <Rating maxRating={5}/>
       <Card.Description>
         {props.profile.rating === 5 ? (
-          <Label color='green'><Icon name='star'></Icon>5 Star Rating</Label>) : ''}
+          <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
         {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
-          <Label color='red'><Icon name='star'></Icon>Low Star Rating</Label>) : '' }
+          <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
@@ -76,9 +76,9 @@ const MakeAdminCard = (props) => (
       </Card.Description>
       <Card.Description>
         {props.thatprofile.rating === 5 ? (
-          <Label color='green'><Icon name='star'></Icon>5 Star Rating</Label>) : ''}
+          <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
         {props.thatprofile.rating <= 2 && props.thatprofile.rating !== 0 ? (
-          <Label color='red'><Icon name='star'></Icon>Low Star Rating</Label>) : '' }
+          <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
