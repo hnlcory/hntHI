@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Segment, Header, Grid, Icon } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Grid, Rating, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -11,34 +11,30 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
-  /**
-  <Card color='green'>
-    <Image src={props.profile.profilePicture} wrapped ui={false}/>
-    <Card.Content>
-      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
-      <Card.Meta>
-        {props.profile.role}
-        &nbsp;Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}
-      </Card.Meta>
-      <Card.Description>
-        {props.profile.bio}
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-        Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
-    </Card.Content>
-    <Card.Content extra>
-        Contact me: {props.profile.contact}
-    </Card.Content>
-    <Card.Content textAlign='center'>
-      <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
-    </Card.Content>
-  </Card>
-  * */
   <Grid centered padded>
     <Grid.Row columns={2}>
       <Grid.Column>
-        <Image src={props.profile.profilePicture} fluid rounded />
+        {props.profile.rating === 5 ? (
+          <Image label={{
+            as: 'a',
+            color: 'green',
+            content: '5 Star Rating',
+            icon: 'star',
+            ribbon: true,
+          }} src={props.profile.profilePicture} fluid rounded />
+        ) : ''}
+        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+          <Image label={{
+            as: 'a',
+            color: 'red',
+            content: 'Low Star Rating',
+            icon: 'star',
+            ribbon: true,
+          }} src={props.profile.profilePicture} fluid rounded />
+        ) : '' }
+        {props.profile.rating > 2 && props.profile.rating < 5 ? (
+          <Image src={props.profile.profilePicture} fluid rounded/>
+        ) : '' }
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
@@ -47,6 +43,7 @@ const MakeCard = (props) => (
         <Header as="h4">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
+        <Rating maxRating={5} onRate={this.handleRate} />
       </Grid.Column>
     </Grid.Row>
   </Grid>
@@ -58,6 +55,7 @@ MakeCard.propTypes = {
 
 /** Renders the Profile Collection as a set of Cards. */
 class UserView extends React.Component {
+  handleRate = (e, { rating, maxRating }) => this.setState({ rating, maxRating })
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {

@@ -15,34 +15,30 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
-  /**
-  <Card color='green'>
-    <Image src={props.profile.profilePicture} wrapped ui={false}/>
-    <Card.Content>
-      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
-      <Card.Meta>
-        {props.profile.role}
-        &nbsp;Location: {_.pluck(UsersLocations.collection.find({ profile: props.profile.email }).fetch(), 'location')}
-      </Card.Meta>
-      <Card.Description>
-        {props.profile.bio}
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-        Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
-    </Card.Content>
-    <Card.Content extra>
-        Contact me: {props.profile.contact}
-    </Card.Content>
-    <Card.Content textAlign='center'>
-      <Link color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
-    </Card.Content>
-  </Card>
-  * */
   <Grid centered padded>
     <Grid.Row columns={2}>
       <Grid.Column>
-        <Image src={props.profile.profilePicture} fluid rounded />
+        {props.profile.rating === 5 ? (
+          <Image label={{
+            as: 'a',
+            color: 'green',
+            content: '5 Star Rating',
+            icon: 'star',
+            ribbon: true,
+          }} src={props.profile.profilePicture} fluid rounded />
+        ) : ''}
+        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+          <Image label={{
+            as: 'a',
+            color: 'red',
+            content: 'Low Star Rating',
+            icon: 'star',
+            ribbon: true,
+          }} src={props.profile.profilePicture} fluid rounded />
+        ) : '' }
+        {props.profile.rating > 2 && props.profile.rating < 5 ? (
+          <Image src={props.profile.profilePicture} fluid rounded/>
+        ) : '' }
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>

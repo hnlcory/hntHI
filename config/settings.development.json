@@ -141,7 +141,8 @@
       "bio": "Guys I am Spencer Miller and I am cool and awesome and stuff.",
       "arriveTime": "6:00 am",
       "leaveTime": "4:00 pm",
-      "contact": "808-222-2342"
+      "contact": "808-222-2342",
+      "rating": 2.4
     },
     {
       "email": "kenji@gmail.com",
@@ -153,7 +154,8 @@
       "bio": "Computer Science Student",
       "arriveTime": "11:00 am",
       "leaveTime": "1:20 pm",
-      "contact": "808-325-3432"
+      "contact": "808-325-3432",
+      "rating": 5
     },
     {
       "email": "raven@gmail.com",
@@ -165,7 +167,8 @@
       "bio": "I hate Kenji Sanehira and George Wilkens",
       "arriveTime": "12:00 pm",
       "leaveTime": "12:01 pm",
-      "contact": "808-421-4132"
+      "contact": "808-421-4132",
+      "rating": 4.2
     },
     {
       "email": "zak@gmail.com",
@@ -177,7 +180,8 @@
       "bio": "Funny Monkey Moment. I love Kenji Sanehira.",
       "arriveTime": "6:00 am",
       "leaveTime": "2:00 pm",
-      "contact": "808-111-2222"
+      "contact": "808-111-2222",
+      "rating": 3.4
     },
     {
       "email": "sheung@gmail.com",
@@ -189,7 +193,8 @@
       "bio": "Goo Goo Gah Gah",
       "arriveTime": "8:00 am",
       "leaveTime": "2:30 pm",
-      "contact": "808-232-3483"
+      "contact": "808-232-3483",
+      "rating": 1.5
     },
     {
       "email": "hawaiianBoy555@yahoo.com",
@@ -201,7 +206,8 @@
       "bio": "Howzit! I stay out dea fishin an all dat, we go cruz!",
       "arriveTime": "10:30 am",
       "leaveTime": "12:30 pm",
-      "contact": "808-354-6620"
+      "contact": "808-354-6620",
+      "rating": 2.6
     },
     {
       "email": "mkleo@hawaii.edu",
@@ -213,7 +219,8 @@
       "bio": "Multi-time Smash Ultimate Title Holder, participated in many tournaments, still no car..",
       "arriveTime": "7:15 am",
       "leaveTime": "5:45 pm",
-      "contact": "209-959-7562"
+      "contact": "209-959-7562",
+      "rating": 2.9
     },
     {
       "email": "SmillWith@hotmail.com",
@@ -225,7 +232,8 @@
       "bio": "'KEEP. MY LACK OF A CAR. OUT OF THE QUESTION.' -Me",
       "arriveTime": "9:05 am",
       "leaveTime": "4:35 pm",
-      "contact": "707-212-8104"
+      "contact": "707-212-8104",
+      "rating": 5
     },
     {
       "email": "aFuntographer@gmail.com",
@@ -237,7 +245,34 @@
       "bio": "Hey! Second Year Art Major! Hit me up for photoshoots :D",
       "arriveTime": "11:30 am",
       "leaveTime": "4:00 pm",
-      "contact": "808-959-7562"
+      "contact": "808-959-7562",
+      "rating": 4.8
+    },
+    {
+      "email": "ylliam.ride@gmail.com",
+      "firstName": "Ylliam",
+      "lastName": "Ubipis",
+      "role": "Rider",
+      "profilePicture": "https://raw.githubusercontent.com/hnlcory/hnlcory.github.io/master/images/IMG_7950.jpeg",
+      "locations": [ "Ewa Beach" ],
+      "bio": "I am Ylliam. Smooth face.",
+      "arriveTime": "11:30 am",
+      "leaveTime": "9:00 am",
+      "contact": "808-659-7432",
+      "rating": 1.2
+    },
+    {
+      "email": "chrissy@gmail.com",
+      "firstName": "Chris",
+      "lastName": "Ecrayola",
+      "role": "Rider",
+      "profilePicture": "https://raw.githubusercontent.com/hnlcory/hnlcory.github.io/master/images/IMG_7932.jpeg",
+      "locations": [ "Ewa Beach" ],
+      "bio": "I am Christian, protein",
+      "arriveTime": "9:30 am",
+      "leaveTime": "7:00 am",
+      "contact": "808-429-7490",
+      "rating": 1.9
     },
     {
       "email": "Chuupi@gmail.com",
@@ -249,7 +284,8 @@
       "bio": "Ayo. Just a comp sci student trying to get by. No I'm not a pikachu.",
       "arriveTime": "7:00 am",
       "leaveTime": "3:50 pm",
-      "contact": "808-435-6113"
+      "contact": "808-435-6113",
+      "rating": 1.5
     },
     {
       "email": "massson@hotmail.com",
@@ -261,7 +297,8 @@
       "bio": "Some people like skittles. I personally like Mason & Masons.",
       "arriveTime": "9:10 am",
       "leaveTime": "2:45 pm",
-      "contact": "808-944-1715"
+      "contact": "808-944-1715",
+      "rating": 3.5
     },
     {
       "email": "keouaokolani@hawaii.edu",
@@ -273,7 +310,8 @@
       "bio": "My name is a tongue twister. You this read wrong",
       "arriveTime": "10:00 am",
       "leaveTime": "4:30 pm",
-      "contact": "808-145-2222"
+      "contact": "808-145-2222",
+      "rating": 1.6
     },
     {
       "email": "johnmark@gmail.com",
@@ -285,7 +323,8 @@
       "bio": "Kumosta kayo. Can I have a ride please?",
       "arriveTime": "10:10 am",
       "leaveTime": "10:45 pm",
-      "contact": "808-100-3290"
+      "contact": "808-100-3290",
+      "rating": 3.5
     },
     {
       "email": "nightwing@hawaii.edu",
@@ -297,7 +336,8 @@
       "bio": "Richard. Call me Richard.",
       "arriveTime": "5:00 am",
       "leaveTime": "3:50 pm",
-      "contact": "808-101-5322"
+      "contact": "808-101-5322",
+      "rating": 5
     },
     {
       "email": "therealfrancis@gmail.com",
@@ -309,7 +349,8 @@
       "bio": "Jesus did not have a car, and neither do I.",
       "arriveTime": "5:00 am",
       "leaveTime": "9:00 pm",
-      "contact": "305-664-2002"
+      "contact": "305-664-2002",
+      "rating": 5
     },
     {
       "email": "KainaluMM@gmail.com",
@@ -321,7 +362,8 @@
       "bio": "HANAPAA, hoy take picture!",
       "arriveTime": "11:20 am",
       "leaveTime": "5:15 pm",
-      "contact": "808-245-8901"
+      "contact": "808-245-8901",
+      "rating": 5
     },
     {
       "email": "theconductorTen@gmail.com",
@@ -333,7 +375,8 @@
       "bio": "The appropriate amount of chuggas before the choo-choo is four.",
       "arriveTime": "7:45 am",
       "leaveTime": "7:10 pm",
-      "contact": "808-212-1120"
+      "contact": "808-212-1120",
+      "rating": 5
     },
     {
       "email": "justme@hawaii.edu",
@@ -345,7 +388,8 @@
       "bio": "Hi everyone, my bio is Just what you need to know.",
       "arriveTime": "8:35 am",
       "leaveTime": "4:25 pm",
-      "contact": "808-771-2056"
+      "contact": "808-771-2056",
+      "rating": 4.8
     },
     {
       "email": "maileeW@gmail.com",
@@ -357,7 +401,8 @@
       "bio": "Wada want to know about me?",
       "arriveTime": "11:15 am",
       "leaveTime": "9:00 pm",
-      "contact": "808-505-6201"
+      "contact": "808-505-6201",
+      "rating": 4.4
     },
     {
       "email": "familyfueled@hawaii.edu",
@@ -369,7 +414,8 @@
       "bio": "I can't go to jail, not with his soft skin and these boyish good looks. I'll be snapped up before the first lights out!",
       "arriveTime": "10:00 am",
       "leaveTime": "2:00 pm",
-      "contact": "808-466-7820"
+      "contact": "808-466-7820",
+      "rating": 3.9
     },
     {
       "email": "MarmissMe@gmail.com",
@@ -381,7 +427,8 @@
       "bio": "Legally Blind, barely scraping by in school.",
       "arriveTime": "11:15 am",
       "leaveTime": "9:00 pm",
-      "contact": "808-901-6191"
+      "contact": "808-901-6191",
+      "rating": 3.9
     },
     {
       "email": "SKT1Marin@gmail.com",
@@ -393,7 +440,8 @@
       "bio": "Previous top laner for T1. I just like to drive people around now",
       "arriveTime": " am",
       "leaveTime": " pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 2.3
     },
     {
       "email": "Bengi@gmail.com",
@@ -405,7 +453,8 @@
       "bio": "They call me a coach, a teacher, a player. I call myself a mess.",
       "arriveTime": "6:00 am",
       "leaveTime": "4:00 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 3.6
     },
     {
       "email": "EasyHoon@gmail.com",
@@ -417,7 +466,8 @@
       "bio": "Sometimes, I like to wear a flash light and pretend that I am a lamp.",
       "arriveTime": "10:50 am",
       "leaveTime": "4:15 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 2.4
     },
     {
       "email": "Fakerfaker@gmail.com",
@@ -429,7 +479,8 @@
       "bio": "Mid laner for T1, 4 time world champion. Nothing too big.",
       "arriveTime": "2:00 pm",
       "leaveTime": "6:15 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 2.1
     },
     {
       "email": "KaipoBendas@gmail.com",
@@ -441,7 +492,8 @@
       "bio": "POLE BENDAS TIL I MAKE. CHEEEHOOOOO",
       "arriveTime": "8:50 am",
       "leaveTime": "2:00 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 3.8
     },
     {
       "email": "MJAirs@hotmail.com",
@@ -453,7 +505,8 @@
       "bio": "Ayo check out my shop in the gram, @thisistotallynotMJ",
       "arriveTime": "9:10 am",
       "leaveTime": "3:30 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 3.3
     },
     {
       "email": "EdmonsonRoad@gmail.com",
@@ -465,7 +518,8 @@
       "bio": "Life is not a highway, it's a road, and Eddie knows where!",
       "arriveTime": "10:30 am",
       "leaveTime": "4:10 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 2.6
     },
     {
       "email": "Homerundinger@hawaii.edu",
@@ -477,7 +531,8 @@
       "bio": "Lay your heart and leave it on the field. Baseball bound by bat and ball.",
       "arriveTime": "4:50 am",
       "leaveTime": "5:45 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 5
     },
     {
       "email": "Muskyboy11@gmail.com",
@@ -489,7 +544,8 @@
       "bio": "Guys, trust me, hear me out. Cars that are charged like smart phones.",
       "arriveTime": "7:45 am",
       "leaveTime": "1:25 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 4.4
     },
     {
       "email": "FloraandFauna@gmail.com",
@@ -501,7 +557,8 @@
       "bio": "I wake up with the sun and then also fall asleep when it leaves. Photosynthesis advocate.",
       "arriveTime": "6:00 am",
       "leaveTime": "7:15 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 5
     },
     {
       "email": "JustaBeaver@hotmail.com",
@@ -513,7 +570,8 @@
       "bio": "Just a small non-island boy singing about a beauty and a beat.",
       "arriveTime": "6:35 am",
       "leaveTime": "1:00 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 4.1
     },
     {
       "email": "JohnSavage@hotmail.com",
@@ -525,7 +583,8 @@
       "bio": "GET IN EARLY, GET OUT EVEN EARLIER.",
       "arriveTime": "5:30 am",
       "leaveTime": "10:50 am",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 1.3
     },
     {
       "email": "totallynotmartin@gmail.com",
@@ -537,7 +596,8 @@
       "bio": "This is not Mr. Malita from High School, I am not that guy.",
       "arriveTime": "8:15 am",
       "leaveTime": "8:15 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 1.2
     },
     {
       "email": "callofdutygamer2001@yahoo.com",
@@ -549,7 +609,8 @@
       "bio": "Hey guys my name is Ranson. I like call of duty and guys named Ranson.",
       "arriveTime": "11:45 am",
       "leaveTime": "4:00 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 4.7
     },
     {
       "email": "Onlywater@hawaii.edu",
@@ -561,7 +622,8 @@
       "bio": "Let the waters run down the river, but never chase waterfalls.",
       "arriveTime": "7:00 am",
       "leaveTime": "2:30 pm",
-      "contact": "808-"
+      "contact": "808-",
+      "rating": 2.7
     }
   ],
   "monti": {
