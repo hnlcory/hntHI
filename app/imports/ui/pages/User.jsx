@@ -82,7 +82,7 @@ class ProfilesPage extends React.Component {
       );
     }
     return (
-      <Container id="profiles-page">
+      <Container id="account-page">
         <Card.Group centered>
           <MakeCard profile={usrAccount}/>
         </Card.Group>

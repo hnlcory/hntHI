@@ -131,7 +131,7 @@ class AdminSearch extends React.Component {
       const profileDataAll = emailsAll.map(email => getProfileData(email));
       // console.log(profileDataAll);
       return (
-        <Container id="filter-page">
+        <Container id="admin-page">
           <Header as="h1" textAlign='center' color='red' style={{ fontFamily: 'Barlow' }}>Admin Overview</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
             <Segment>
@@ -153,7 +153,7 @@ class AdminSearch extends React.Component {
       );
     }
     return (
-      <Container id="filter-page">
+      <Container id="admin-page">
         <Header as="h1" textAlign='center' color='red' style={{ fontFamily: 'Barlow' }}>Admin Overview</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
           <Segment>
