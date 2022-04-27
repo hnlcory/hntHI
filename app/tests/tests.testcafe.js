@@ -2,32 +2,35 @@ import { landingPage } from './landing.page';
 import { signinPage } from './signin.page';
 import { signoutPage } from './signout.page';
 import { signupPage } from './signup.page';
+import { riderSearchPage } from './ridersearch.page';
+import { driverSearchPage } from './driversearch.page';
+import { adminSearchPage } from './adminsearch.page';
+import { fastRideFormPage } from './fastrideform.page';
+import { fastRideFeedPage } from './fastridefeed.page';
+import { accountPage } from './account.page';
+import { navBar } from './navbar.component';
 // import { profilesPage } from './profiles.page';
 // import { projectsPage } from './projects.page';
 // import { interestsPage } from './interests.page';
 // import { homePage } from './home.page';
 // import { addProjectPage } from './addproject.page';
 // import { filterPage } from './filter.page';
-import { riderSearchPage } from './ridersearch.page';
-import { driverSearchPage } from './driversearch.page';
 // import { fastRideFeedPage } from './fastridefeed.page';
-import { fastRideFormPage } from './fastrideform.page';
-import { navBar } from './navbar.component';
 
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
-const credentials = { username: 'johnson@hawaii.edu', password: 'foo', firstName: 'Philip', lastName: 'Johnson' };
+const credentials = { username: 'kenji@gmail.com', password: 'changeme', firstName: 'Kenji', lastName: 'S' };
 
 fixture('Bowfolios localhost test with default db')
   .page('http://localhost:3000');
 
-// Testing landing page
+// testing landing page
 test('Test that landing page shows up', async (testController) => {
   await landingPage.isDisplayed(testController);
 });
 
-// Test signin, signout, and logout
+// test signin, signout, and logout
 test('Test that signin and signout work', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
@@ -35,7 +38,7 @@ test('Test that signin and signout work', async (testController) => {
   await signoutPage.isDisplayed(testController);
 });
 
-// Test signup
+// test signup
 test('Test that signup page, then logout works', async (testController) => {
   // Create a new user email address that's guaranteed to be unique.
   const newUser = `user-${new Date().getTime()}@foo.com`;
@@ -47,7 +50,7 @@ test('Test that signup page, then logout works', async (testController) => {
   await signoutPage.isDisplayed(testController);
 });
 
-// Test home page
+// test home page links
 test('Test home page links', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
@@ -61,15 +64,22 @@ test('Test home page links', async (testController) => {
   await navBar.gotoHomePage(testController);
   await testController.click('#form-button'); // go to form page
   await fastRideFormPage.isDisplayed(testController);
-  /* NOT IMPLEMENTED
+  await navBar.gotoHomePage(testController);
   await testController.click('#feed-button') // go to feed page
   await fastRideFeedPage.isDisplayed(testController);
   await navBar.gotoHomePage(testController);
   await testController.click('#edit-button'); // go to edit page
   await navBar.gotoHomePage(testController);
-  await testController.click('#rate-button'); // go to rate page
-  await navBar.gotoHomePage(testController);
-  */
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+// test account page displays
+test('Test that account page displays', async (testController) => {
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoAccountPage(testController);
+  await accountPage.isDisplayed(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
@@ -100,6 +110,26 @@ test('Test that form page displays', async (testController) => {
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFormPage(testController);
   await fastRideFormPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+// test feed page displays
+test('Test that feed page displays', async (testController) => {
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoFeedPage(testController);
+  await fastRideFeedPage.isDisplayed(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+// test admin page displays
+test('Test that admin page displays', async (testController) => {
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoAdminPage(testController);
+  await adminSearchPage.isDisplayed(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });

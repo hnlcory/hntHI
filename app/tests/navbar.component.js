@@ -60,6 +60,10 @@ class NavBar {
     await testController.click('#homeMenuItem');
   }
 
+  async gotoAccountPage(testController) {
+    await testController.click('#accountPage');
+  }
+
   async gotoDriverPage(testController) {
     await testController.click('#driverPage');
   }
@@ -70,6 +74,14 @@ class NavBar {
 
   async gotoFormPage(testController) {
     await testController.click('#formPage');
+  }
+
+  async gotoFeedPage(testController) {
+    await testController.click('#feedPage');
+  }
+
+  async gotoAdminPage(testController) {
+    await testController.click('#adminPage');
   }
 }
 
