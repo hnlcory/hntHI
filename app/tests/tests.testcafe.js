@@ -134,6 +134,14 @@ test('Test that admin page displays', async (testController) => {
   await signoutPage.isDisplayed(testController);
 });
 
+// test form page adds form correctly
+test('Test that form page adds form correctly', async (testController) => {
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoFormPage(testController);
+  await fastRideFormPage.addForm(testController);
+});
+
 /*
 test('Test that profiles page displays', async (testController) => {
   await navBar.gotoProfilesPage(testController);

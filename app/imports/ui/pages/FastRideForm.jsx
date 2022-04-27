@@ -46,12 +46,12 @@ class FastRideForm extends React.Component {
           <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
             <Segment>
-              <TextField name='departureTime'/>
-              <TextField name='arrivalTime'/>
-              <TextField name='currentLocation'/>
-              <TextField name='endDestination'/>
-              <TextField name='note'/>
-              <SubmitField value='Submit'/>
+              <TextField id='departure' name='departureTime'/>
+              <TextField id='arrival' name='arrivalTime'/>
+              <TextField id='current' name='currentLocation'/>
+              <TextField id='end' name='endDestination'/>
+              <TextField id='note' name='note'/>
+              <SubmitField id='submit' value='Submit'/>
               <ErrorsField/>
             </Segment>
           </AutoForm>
