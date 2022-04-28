@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import FastRideFeed from '../pages/FastRideFeed';
-import FastRideForm from '../pages/FastRideForm';
+import AddRequest from '../pages/FastRideForm';
 import DriverSearch from '../pages/DriverSearch';
 import RiderSearch from '../pages/RiderSearch';
 import User from '../pages/User';
@@ -34,7 +34,7 @@ class App extends React.Component {
             <Route exact path="/" component={Landing}/>
             <ProtectedRoute path="/homedr" component={HomeDR}/>
             <ProtectedRoute path="/fastridefeed" component={FastRideFeed}/>
-            <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
+            <ProtectedRoute path="/fastrideform" component={AddRequest}/>
             <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
             <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
             <ProtectedRoute path="/add" component={AddUser}/>
