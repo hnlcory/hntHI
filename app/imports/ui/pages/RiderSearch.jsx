@@ -28,7 +28,7 @@ function getProfileData(email) {
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
-  <Card color='green'>
+  <Card link color='green'>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>
@@ -63,7 +63,7 @@ MakeCard.propTypes = {
 
 /** Component for a different Card format that shows the user as their own profile. */
 const MakeUPCard = (props) => (
-  <Card color='blue'>
+  <Card link color='blue'>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>
