@@ -63,3 +63,9 @@
   width: auto;
   max-width: 20px;
 }
+
+.userImg {
+  height: auto;
+  max-height: 300px;
+  width: auto;
+}
