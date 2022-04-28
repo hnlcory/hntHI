@@ -52,7 +52,7 @@ const MakeCard = (props) => (
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
         <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
-        <Button basic color='blue' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
+        <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
           Edit my profile</Button>
       </Grid.Column>
     </Grid.Row>
