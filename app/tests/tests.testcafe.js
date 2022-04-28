@@ -123,7 +123,7 @@ test('Test that form page displays and form page adds correctly', async (testCon
 });
 
 // test feed page displays and add timestamped note adds correctly
-test('Test that feed page displays', async (testController) => {
+test('Test that feed page displays and timestamped note adds correctly', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFeedPage(testController);
