@@ -3,13 +3,13 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Header, Loader, Feed, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
 import { Requests } from '../../api/request/requests';
 import Request from '../components/Request';
+import { Link } from 'react-router-dom';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
-class FastRideFeed extends React.Component {
+class TestFeed extends React.Component {
 
   // If the subscription(s) have been received, render the page, otherwise show a loading icon.
   render() {
@@ -42,7 +42,7 @@ class FastRideFeed extends React.Component {
 }
 
 // Require an array of Stuff documents in the props.
-FastRideFeed.propTypes = {
+TestFeed.propTypes = {
   users: PropTypes.array.isRequired,
   requests: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
@@ -63,4 +63,4 @@ export default withTracker(() => {
     requests,
     ready,
   };
-})(FastRideFeed);
+})(TestFeed);
