@@ -9,10 +9,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import { Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 import { Locations } from '../../api/locations/Locations';
-import { Link } from 'react-router-dom';
 
 const formSchema = new SimpleSchema({
   firstName: String,
@@ -43,12 +43,12 @@ class EditContact extends React.Component {
 
   // On successful submit, insert the data.
   submit(data) {
-    const { firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, _id, email, location } = data;
+    const { firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, _id, email, location, rating } = data;
     const thisId = _.pluck(UsersLocations.collection.find({ profile: email }).fetch(), '_id');
     this.sub(thisId, role, location);
     this.addLocation(location);
     Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
-      leaveTime, contact, _id } }, (error) => (error ?
+      leaveTime, contact, rating, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
       swal('Success', 'You successfully edited your profile!', 'success')));
   }
@@ -58,7 +58,7 @@ class EditContact extends React.Component {
     UsersLocations.collection.insert({ profile: email, role: role, location: location });
     this.addLocation(location);
     Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
-      leaveTime, contact, _id } }, (error) => (error ?
+      leaveTime, contact, rating: 0, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
       swal('Success', 'You created a new profile!', 'success')));
   }

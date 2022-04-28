@@ -66,7 +66,7 @@ test('Test home page links', async (testController) => {
   await testController.click('#form-button'); // go to form page
   await fastRideFormPage.isDisplayed(testController);
   await navBar.gotoHomePage(testController);
-  await testController.click('#feed-button') // go to feed page
+  await testController.click('#feed-button'); // go to feed page
   await fastRideFeedPage.isDisplayed(testController);
   await navBar.gotoHomePage(testController);
   await testController.click('#edit-button'); // go to edit page

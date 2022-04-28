@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Segment, Header, Grid, Icon } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Grid, Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -15,7 +15,7 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
-  <Grid centered padded>
+  <Grid centered padded style={{ paddingTop: '30px', paddingBottom: '30px' }}>
     <Grid.Row columns={2}>
       <Grid.Column>
         {props.profile.rating === 5 ? (
@@ -39,16 +39,25 @@ const MakeCard = (props) => (
         {props.profile.rating > 2 && props.profile.rating < 5 ? (
           <Image src={props.profile.profilePicture} fluid rounded/>
         ) : '' }
+        {props.profile.rating === 0 ? (
+          <Image src={props.profile.profilePicture} fluid rounded/>
+        ) : '' }
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
+        <hr style={{ width: '50%', marginLeft: '0' }}/>
         <Header as="h5">{props.profile.role} Location: {_.pluck(UsersLocations.collection.find({
           profile: props.profile.email }).fetch(), 'location')}<Icon name='map pin'/></Header>
         <Header as="h5">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
         <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
+<<<<<<< HEAD
         <Link id='edit-button' color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
+=======
+        <Button basic color='blue' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
+          Edit my profile</Button>
+>>>>>>> master
       </Grid.Column>
     </Grid.Row>
   </Grid>
