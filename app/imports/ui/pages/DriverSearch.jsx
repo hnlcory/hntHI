@@ -87,7 +87,7 @@ const MakeUPCard = (props) => (
         Contact me: {props.thatprofile.contact}
     </Card.Content>
     <Card.Content textAlign='center'>
-      <Link color='blue' to={`/useredit/${props.thatprofile._id}`}>Edit my profile</Link>
+      <Link color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
     </Card.Content>
   </Card>
 

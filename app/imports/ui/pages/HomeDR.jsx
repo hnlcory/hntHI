@@ -6,7 +6,7 @@ class HomeDR extends React.Component {
   render() {
     return (
       <div id="welcome-home">
-        <div className='homedr-picture-background'>
+        <div className='landing-picture-background'>
           <Container textAlign='center'>
             <Header style={{ color: 'white', fontSize: '50pt', paddingTop: '50px', fontFamily: 'Barlow' }} as='h1'>
               Where Shall We Go Today?
