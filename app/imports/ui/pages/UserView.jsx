@@ -11,7 +11,7 @@ import { UsersLocations } from '../../api/users/UsersLocations';
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
-  <Grid centered padded>
+  <Grid centered padded style={{ paddingTop: '30px', paddingBottom: '30px' }}>
     <Grid.Row columns={2}>
       <Grid.Column>
         {props.profile.rating === 5 ? (
@@ -33,14 +33,15 @@ const MakeCard = (props) => (
           }} src={props.profile.profilePicture} fluid rounded />
         ) : '' }
         {props.profile.rating > 2 && props.profile.rating < 5 ? (
-          <Image src={props.profile.profilePicture} fluid rounded/>
+          <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
         {props.profile.rating === 0 ? (
-          <Image src={props.profile.profilePicture} fluid rounded/>
+          <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
+        <hr style={{ width: '50%', marginLeft: '0' }}/>
         <Header as="h5">{props.profile.role} Location: {_.pluck(UsersLocations.collection.find({
           profile: props.profile.email }).fetch(), 'location')}<Icon name='map pin'/></Header>
         <Header as="h5">  {props.profile.bio}</Header>
