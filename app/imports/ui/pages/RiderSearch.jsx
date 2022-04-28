@@ -125,7 +125,7 @@ class RiderSearch extends React.Component {
     const profileData = _.uniq(emails).map(email => getProfileData(email));
     if (emails.length === 0) {
       return (
-        <Container id="rider-page">
+        <Container id="rider-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Header as="h1" textAlign='center'>Search for Riders in your Area!</Header>
           <Header as="h4" textAlign='center'>Browse through a list of riders or search by location!</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>

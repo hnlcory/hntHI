@@ -40,7 +40,7 @@ class FastRideForm extends React.Component {
   render() {
     let fRef = null;
     return (
-      <Grid container centered id='form-page'>
+      <Grid container centered id='form-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Grid.Column>
           <Header as="h1" textAlign='center'>Post a Fast Ride Request!</Header>
           <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
