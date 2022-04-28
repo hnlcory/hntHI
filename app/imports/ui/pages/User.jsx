@@ -39,6 +39,9 @@ const MakeCard = (props) => (
         {props.profile.rating > 2 && props.profile.rating < 5 ? (
           <Image src={props.profile.profilePicture} fluid rounded/>
         ) : '' }
+        {props.profile.rating === 0 ? (
+          <Image src={props.profile.profilePicture} fluid rounded/>
+        ) : '' }
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
