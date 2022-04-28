@@ -10,6 +10,7 @@ import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 import { Locations } from '../../api/locations/Locations';
 import { Contacts } from '../../api/contact/Contacts';
+import { Requests } from '../../api/request/requests';
 
 /** Define a publication to publish all interests. */
 Meteor.publish(Interests.userPublicationName, () => Interests.collection.find());
@@ -28,6 +29,8 @@ Meteor.publish(Projects.userPublicationName, () => Projects.collection.find());
 
 /** Define a publication to publish this collection. */
 Meteor.publish(ProjectsInterests.userPublicationName, () => ProjectsInterests.collection.find());
+
+Meteor.publish(Requests.userPublicationName, () => Requests.collection.find());
 
 /** Define a publication to publish all users */
 Meteor.publish(Users.userPublicationName, () => Users.collection.find());

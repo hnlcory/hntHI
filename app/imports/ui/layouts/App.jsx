@@ -25,6 +25,8 @@ import UserView from '../pages/UserView';
 // Testing
 import Filter from '../pages/Filter';
 import AddUser from '../pages/UserAdd';
+import AddRequest from '../pages/AddRequest';
+import TestFeed from '../pages/TestFeed';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -38,8 +40,8 @@ class App extends React.Component {
             <ProtectedRoute path="/home" component={Home}/>
             <ProtectedRoute path="/profiles" component={Profiles}/>
             <ProtectedRoute path="/homedr" component={HomeDR}/>
-            <ProtectedRoute path="/fastridefeed" component={FastRideFeed}/>
-            <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
+            <ProtectedRoute path="/fastridefeed" component={TestFeed}/>
+            <ProtectedRoute path="/fastrideform" component={AddRequest}/>
             <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
             <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
             <ProtectedRoute path="/add" component={AddUser}/>
