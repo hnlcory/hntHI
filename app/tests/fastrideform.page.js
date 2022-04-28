@@ -1,4 +1,5 @@
 import { Selector } from 'testcafe';
+import { navBar } from './navbar.component';
 
 class FastRideFormPage {
   constructor() {
@@ -27,6 +28,12 @@ class FastRideFormPage {
 
     await testController.click('#submit');
     await testController.click(Selector('.swal-button--confirm'));
+
+    // check if form was added
+    await navBar.gotoFeedPage(testController);
+    const newCardCount = Selector('.ui .card').count;
+    await testController.expect(newCardCount).gt(0);
+
   }
 }
 

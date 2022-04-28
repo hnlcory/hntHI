@@ -114,18 +114,20 @@ test('Test that form page displays and form page adds correctly', async (testCon
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFormPage(testController);
+  // add form
   await fastRideFormPage.isDisplayed(testController);
   await fastRideFormPage.addForm(testController);
+  //logout
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
 
-// test feed page displays
+// test feed page displays and add timestamped note adds correctly
 test('Test that feed page displays', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFeedPage(testController);
-  await fastRideFeedPage.isDisplayed(testController);
+  await fastRideFeedPage.addNote(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
