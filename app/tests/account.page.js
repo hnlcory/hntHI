@@ -10,6 +10,11 @@ class AccountPage {
   async isDisplayed(testController) {
     await testController.expect(this.pageSelector.exists).ok();
   }
+
+  //  go to edit page
+  async gotoEditPage(testController) {
+    await testController.click('#edit-button');
+  }
 }
 
 export const accountPage = new AccountPage();
