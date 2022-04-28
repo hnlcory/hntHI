@@ -21,7 +21,7 @@ import { navBar } from './navbar.component';
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
-const credentials = { username: 'kenji@gmail.com', password: 'changeme', firstName: 'Kenji', lastName: 'S' };
+const credentials = { username: 'kenji@gmail.com', password: 'changeme', firstName: 'Kenji', lastName: 'Sanehira' };
 
 fixture('Bowfolios localhost test with default db')
   .page('http://localhost:3000');
@@ -52,7 +52,7 @@ test('Test that signup page, then logout works', async (testController) => {
 });
 
 // test home page links
-test('Test home page links', async (testController) => {
+test('Test home page links work', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoHomePage(testController);
@@ -81,36 +81,41 @@ test('Test that account page displays', async (testController) => {
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoAccountPage(testController);
   await accountPage.isDisplayed(testController);
+  await accountPage.gotoEditPage(testController);
+  // await editPage.editAccount(testController, credentials.firstName); ** bugs in edit page **
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
 
-// test drivers page displays
+// test drivers page displays and driver page filter works
 test('Test that drivers page displays', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoDriverPage(testController);
   await driverSearchPage.isDisplayed(testController);
+  await driverSearchPage.filter(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
 
-// test riders page displays
-test('Test that riders page displays', async (testController) => {
+// test riders page displays and rider page filter works
+test('Test that riders page displays and rider page filter works', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoRiderPage(testController);
   await riderSearchPage.isDisplayed(testController);
+  await riderSearchPage.filter(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
 
-// test form page displays
-test('Test that form page displays', async (testController) => {
+// test form page displays and form page adds correctly
+test('Test that form page displays and form page adds correctly', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFormPage(testController);
   await fastRideFormPage.isDisplayed(testController);
+  await fastRideFormPage.addForm(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
@@ -125,54 +130,13 @@ test('Test that feed page displays', async (testController) => {
   await signoutPage.isDisplayed(testController);
 });
 
-// test admin page displays
-test('Test that admin page displays', async (testController) => {
+// test admin page displays and admin page has default accounts
+test('Test that admin page displays and admin page has default accounts', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoAdminPage(testController);
   await adminSearchPage.isDisplayed(testController);
-  await navBar.logout(testController);
-  await signoutPage.isDisplayed(testController);
-});
-
-// test form page adds form correctly
-test('Test that form page adds form correctly', async (testController) => {
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoFormPage(testController);
-  await fastRideFormPage.addForm(testController);
-});
-
-/*// test that edit page displays and updates correctly
-test('Test that edit page displays and updates correctly', async (testController) => {
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoAccountPage(testController);
-  await accountPage.gotoEditPage(testController);
-  await editPage.editAccount(testController, credentials.firstName);
-  await navBar.logout(testController);
-  await signoutPage.isDisplayed(testController);
-});
-*/
-
-// test that driver filter page works
-test('Test that driver filter works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoDriverPage(testController);
-  await driverSearchPage.filter(testController);
-  await navBar.logout(testController);
-  await signoutPage.isDisplayed(testController);
-});
-
-// test that rider filter page works
-test.only('Test that rider filter works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoRiderPage(testController);
-  await riderSearchPage.filter(testController);
+  await adminSearchPage.hasDefaultAccounts(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
