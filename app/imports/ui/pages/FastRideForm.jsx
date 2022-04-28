@@ -36,7 +36,6 @@ class AddRequest extends React.Component {
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   renderPage() {
     const usrAccount = Users.collection.findOne({ email: Meteor.users.findOne({ _id: Meteor.userId() }).username });
-    console.log(usrAccount);
     const myId = usrAccount._id;
     if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
       return (
