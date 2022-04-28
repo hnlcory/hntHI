@@ -1,5 +1,5 @@
 import React from 'react';
-import { Feed, Icon, Image } from 'semantic-ui-react';
+import { Feed, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
@@ -26,12 +26,13 @@ class Request extends React.Component {
           <Feed.Extra text>
             {this.props.request.description}
           </Feed.Extra>
-          { (Users.collection.findOne({ email: this.props.request.creator }).rating > 1) ? (
-            <Feed.Meta>
-              <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} stars |
+          { (Users.collection.findOne({ email: this.props.request.creator }).rating > 1) ||
+          (Users.collection.findOne({ email: this.props.request.creator }).rating < 1) ? (
+              <Feed.Meta>
+                <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} stars |
                 Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
-            </Feed.Meta>
-          ) :
+              </Feed.Meta>
+            ) :
             <Feed.Meta>
               <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} star |
               Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
