@@ -7,7 +7,7 @@ import { Meteor } from 'meteor/meteor';
 class Landing extends React.Component {
   render() {
     return (
-      <div id="landing-page">
+      <div id="landing-page" style={{ paddingTop: '0px', paddingBottom: '0px' }}>
         <div className='landing-picture-background'>
           <Container textAlign='center'>
             <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '20px' }}/>

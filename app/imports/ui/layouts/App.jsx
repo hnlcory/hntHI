@@ -33,30 +33,28 @@ class App extends React.Component {
       <Router>
         <div>
           <NavBar/>
-          <div style={{ paddingTop: '20px', paddingBottom: '30px' }}>
-            <Switch>
-              <Route exact path="/" component={Landing}/>
-              <ProtectedRoute path="/home" component={Home}/>
-              <ProtectedRoute path="/profiles" component={Profiles}/>
-              <ProtectedRoute path="/homedr" component={HomeDR}/>
-              <ProtectedRoute path="/fastridefeed" component={FastRideFeed}/>
-              <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
-              <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
-              <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
-              <ProtectedRoute path="/add" component={AddUser}/>
-              <AdminProtectedRoute path="/adminsearch" component={AdminSearch}/>
-              <ProtectedRoute path="/user" component={User}/>
-              <ProtectedRoute path="/useredit/:_id" component={UserEdit}/>
-              <ProtectedRoute path="/userview/:_id" component={UserView}/>
-              <Route path="/signin" component={Signin}/>
-              <Route path="/signup" component={Signup}/>
-              <Route path="/test" component={Filter}/>
-              <ProtectedRoute path="/signout" component={Signout}/>
-              <Route component={NotFound}/>
-            </Switch>
-          </div>
-          <Footer/>
+          <Switch>
+            <Route exact path="/" component={Landing}/>
+            <ProtectedRoute path="/home" component={Home}/>
+            <ProtectedRoute path="/profiles" component={Profiles}/>
+            <ProtectedRoute path="/homedr" component={HomeDR}/>
+            <ProtectedRoute path="/fastridefeed" component={FastRideFeed}/>
+            <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
+            <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
+            <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
+            <ProtectedRoute path="/add" component={AddUser}/>
+            <AdminProtectedRoute path="/adminsearch" component={AdminSearch}/>
+            <ProtectedRoute path="/user" component={User}/>
+            <ProtectedRoute path="/useredit/:_id" component={UserEdit}/>
+            <ProtectedRoute path="/userview/:_id" component={UserView}/>
+            <Route path="/signin" component={Signin}/>
+            <Route path="/signup" component={Signup}/>
+            <Route path="/test" component={Filter}/>
+            <ProtectedRoute path="/signout" component={Signout}/>
+            <Route component={NotFound}/>
+          </Switch>
         </div>
+        <Footer/>
       </Router>
     );
   }
