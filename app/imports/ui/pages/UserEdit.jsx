@@ -73,7 +73,7 @@ class EditContact extends React.Component {
 
     if (this.props.doc.email !== Meteor.users.findOne({ _id: Meteor.userId() }).username && !Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
-        <Container id='edit-page'>
+        <Container id='edit-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Header as="h1" textAlign='center'>Edit Profile</Header>
           <Segment textAlign='center'>
             <p>Sorry! You do not have permission to edit this profile.</p>
@@ -85,7 +85,7 @@ class EditContact extends React.Component {
     if (typeof Users.collection.findOne({ email: Meteor.users.findOne({ _id: Meteor.userId() }).username }).firstName ===
         'undefined') {
       return (
-        <Grid container centered id='edit-page'>
+        <Grid container centered id='edit-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Grid.Column>
             <h1> Add Profile </h1>
             <AutoForm schema={bridge} onSubmit={data => this.submitNoProf(data)} model={this.props.doc}>
@@ -110,7 +110,7 @@ class EditContact extends React.Component {
       );
     }
     return (
-      <Grid container centered id='edit-page'>
+      <Grid container centered id='edit-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Grid.Column>
           <h1> Edit Profile </h1>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)} model={this.props.doc}>

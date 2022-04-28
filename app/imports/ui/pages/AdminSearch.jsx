@@ -28,7 +28,7 @@ function getProfileData(email) {
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
-  <Card color='green'>
+  <Card link color='green'>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>
@@ -61,7 +61,7 @@ const MakeCard = (props) => (
 );
 
 const MakeAdminCard = (props) => (
-  <Card color='blue'>
+  <Card link color='blue'>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>
@@ -131,7 +131,7 @@ class AdminSearch extends React.Component {
       const profileDataAll = emailsAll.map(email => getProfileData(email));
       // console.log(profileDataAll);
       return (
-        <Container id="admin-page">
+        <Container id="admin-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Header as="h1" textAlign='center' color='red' style={{ fontFamily: 'Barlow' }}>Admin Overview</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
             <Segment>
