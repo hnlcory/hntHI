@@ -73,7 +73,7 @@ class EditContact extends React.Component {
 
     if (this.props.doc.email !== Meteor.users.findOne({ _id: Meteor.userId() }).username && !Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
-        <Container>
+        <Container id='edit-page'>
           <Header as="h1" textAlign='center'>Edit Profile</Header>
           <Segment textAlign='center'>
             <p>Sorry! You do not have permission to edit this profile.</p>
@@ -85,23 +85,23 @@ class EditContact extends React.Component {
     if (typeof Users.collection.findOne({ email: Meteor.users.findOne({ _id: Meteor.userId() }).username }).firstName ===
         'undefined') {
       return (
-        <Grid container centered>
+        <Grid container centered id='edit-page'>
           <Grid.Column>
             <h1> Add Profile </h1>
             <AutoForm schema={bridge} onSubmit={data => this.submitNoProf(data)} model={this.props.doc}>
               <Segment>
-                <TextField name='firstName'/>
-                <TextField name='lastName'/>
-                <TextField name='profilePicture'/>
-                <SelectField name='role' allowedValues={['Driver', 'Rider']}/>
-                <LongTextField name='bio'/>
-                <SelectField name='location' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
+                <TextField id='firstName' name='firstName'/>
+                <TextField id='lastName' name='lastName'/>
+                <TextField id='profilePicture' name='profilePicture'/>
+                <SelectField id='role' name='role' allowedValues={['Driver', 'Rider']}/>
+                <LongTextField id='bio' name='bio'/>
+                <SelectField id='location' name='location' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
                   'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                   'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'Wahiawa', 'Waialua', 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
-                <TextField name='arriveTime'/>
-                <TextField name='leaveTime'/>
-                <TextField name='contact'/>
-                <SubmitField name='Submit'/>
+                <TextField id='arriveTime' name='arriveTime'/>
+                <TextField id='leaveTime' name='leaveTime'/>
+                <TextField id='contact' name='contact'/>
+                <SubmitField id='submit' name='Submit'/>
                 <ErrorsField/>
               </Segment>
             </AutoForm>
@@ -110,23 +110,23 @@ class EditContact extends React.Component {
       );
     }
     return (
-      <Grid container centered>
+      <Grid container centered id='edit-page'>
         <Grid.Column>
           <h1> Edit Profile </h1>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)} model={this.props.doc}>
             <Segment>
-              <TextField name='firstName'/>
-              <TextField name='lastName'/>
-              <TextField name='profilePicture'/>
-              <SelectField name='role' allowedValues={['Driver', 'Rider']}/>
-              <LongTextField name='bio'/>
-              <SelectField name='location' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
+              <TextField id='firstName' name='firstName'/>
+              <TextField id='lastName' name='lastName'/>
+              <TextField id='profilePicture' name='profilePicture'/>
+              <SelectField id='role' name='role' allowedValues={['Driver', 'Rider']}/>
+              <LongTextField id='bio' name='bio'/>
+              <SelectField id='location' name='location' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
                 'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                 'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'Wahiawa', 'Waialua', 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
-              <TextField name='arriveTime'/>
-              <TextField name='leaveTime'/>
-              <TextField name='contact'/>
-              <SubmitField name='Submit'/>
+              <TextField id='arriveTime' name='arriveTime'/>
+              <TextField id='leaveTime' name='leaveTime'/>
+              <TextField id='contact' name='contact'/>
+              <SubmitField id='submit' name='Submit'/>
               <ErrorsField/>
             </Segment>
           </AutoForm>

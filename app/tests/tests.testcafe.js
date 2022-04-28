@@ -8,6 +8,7 @@ import { adminSearchPage } from './adminsearch.page';
 import { fastRideFormPage } from './fastrideform.page';
 import { fastRideFeedPage } from './fastridefeed.page';
 import { accountPage } from './account.page';
+import { editPage } from './edit.page';
 import { navBar } from './navbar.component';
 // import { profilesPage } from './profiles.page';
 // import { projectsPage } from './projects.page';
@@ -140,6 +141,40 @@ test('Test that form page adds form correctly', async (testController) => {
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFormPage(testController);
   await fastRideFormPage.addForm(testController);
+});
+
+/*// test that edit page displays and updates correctly
+test('Test that edit page displays and updates correctly', async (testController) => {
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoAccountPage(testController);
+  await accountPage.gotoEditPage(testController);
+  await editPage.editAccount(testController, credentials.firstName);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+*/
+
+// test that driver filter page works
+test('Test that driver filter works', async (testController) => {
+  await navBar.ensureLogout(testController);
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoDriverPage(testController);
+  await driverSearchPage.filter(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+});
+
+// test that rider filter page works
+test.only('Test that rider filter works', async (testController) => {
+  await navBar.ensureLogout(testController);
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoRiderPage(testController);
+  await riderSearchPage.filter(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
 });
 
 /*

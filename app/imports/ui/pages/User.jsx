@@ -52,6 +52,7 @@ const MakeCard = (props) => (
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
         <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
+        <Link id='edit-button' color='blue' to={`/useredit/${props.profile._id}`}>Edit my profile</Link>
         <Button basic color='blue' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
           Edit my profile</Button>
       </Grid.Column>
@@ -79,7 +80,7 @@ class ProfilesPage extends React.Component {
 
     if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
       return (
-        <Container id="profiles-page">
+        <Container id="account-page">
           <Header as="h1" textAlign='center'>Your Profile</Header>
           <Segment textAlign='center'>It seems you do not have a profile yet! Click
             <Link color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
