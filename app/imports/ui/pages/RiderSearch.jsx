@@ -28,7 +28,7 @@ function getProfileData(email) {
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
-  <Card color='green'>
+  <Card link color='green'>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.profile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>
@@ -63,7 +63,7 @@ MakeCard.propTypes = {
 
 /** Component for a different Card format that shows the user as their own profile. */
 const MakeUPCard = (props) => (
-  <Card color='blue'>
+  <Card link color='blue'>
     <Card.Content>
       <Image floated='right' size='tiny' circular src={props.thatprofile.profilePicture} width='100px' className='cardImg'/>
       <Card.Header>
@@ -125,7 +125,7 @@ class RiderSearch extends React.Component {
     const profileData = _.uniq(emails).map(email => getProfileData(email));
     if (emails.length === 0) {
       return (
-        <Container id="rider-page">
+        <Container id="rider-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Header as="h1" textAlign='center'>Search for Riders in your Area!</Header>
           <Header as="h4" textAlign='center'>Browse through a list of riders or search by location!</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>

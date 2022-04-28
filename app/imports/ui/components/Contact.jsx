@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Image, Feed } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Note from './Note';
 import AddNote from './AddNote';
 
@@ -22,9 +22,6 @@ class Contact extends React.Component {
           <Card.Description>
             {this.props.contact.note}
           </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <Link to={`/editrequest/${this.props.contact._id}`}>Edit</Link>
         </Card.Content>
         <Card.Content extra>
           <Feed>

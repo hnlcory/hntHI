@@ -18,7 +18,7 @@ class FastRideFeed extends React.Component {
   // Render the page once subscriptions have been received.
   renderPage() {
     return (
-      <Container id='feed-page'>
+      <Container id='feed-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Header as="h2" textAlign="center" >Fast Ride Feed</Header>
         <Card.Group>
           {this.props.contacts.map((contact, index) => <Contact

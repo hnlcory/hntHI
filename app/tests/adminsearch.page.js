@@ -10,6 +10,11 @@ class AdminSearchPage {
   async isDisplayed(testController) {
     await testController.expect(this.pageSelector.exists).ok();
   }
+
+  async hasDefaultAccounts(testController) {
+    const cardCount = Selector('.ui .card').count;
+    await testController.expect(cardCount).gte(30);
+  }
 }
 
 export const adminSearchPage = new AdminSearchPage();
