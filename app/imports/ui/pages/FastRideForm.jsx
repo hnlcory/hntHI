@@ -1,36 +1,26 @@
 import React from 'react';
-import { Grid, Segment, Header } from 'semantic-ui-react';
-import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
-import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
+import { Segment, Grid, Header } from 'semantic-ui-react';
+import { AutoForm, ErrorsField, HiddenField, LongTextField, SelectField, SubmitField, TextField } from 'uniforms-semantic';
+import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import SimpleSchema from 'simpl-schema';
-import { Contacts } from '../../api/contact/Contacts';
+import { Requests } from '../../api/request/requests';
 
-// Create a schema to specify the structure of the data to appear in the form.
-const formSchema = new SimpleSchema({
-  departureTime: String,
-  arrivalTime: String,
-  currentLocation: String,
-  endDestination: String,
-  note: String,
-});
-
-const bridge = new SimpleSchema2Bridge(formSchema);
+const bridge = new SimpleSchema2Bridge(Requests.schema);
 
 /** Renders the Page for adding a document. */
-class FastRideForm extends React.Component {
+class AddRequest extends React.Component {
 
   // On submit, insert the data.
   submit(data, formRef) {
-    const { departureTime, arrivalTime, currentLocation, endDestination, note } = data;
-    const owner = Meteor.user().username;
-    Contacts.collection.insert({ departureTime, arrivalTime, currentLocation, endDestination, note, owner },
+    const { currLocation, destination, timeOfRide, description, creator, createdAt, _id } = data;
+    console.log(creator);
+    Requests.collection.insert({ currLocation, destination, timeOfRide, description, creator, createdAt, _id },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
         } else {
-          swal('Success', 'Item added successfully', 'success');
+          swal('Success', 'Fast Ride Request Added!', 'success');
           formRef.reset();
         }
       });
@@ -40,19 +30,26 @@ class FastRideForm extends React.Component {
   render() {
     let fRef = null;
     return (
-      <Grid container centered id='form-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
+      <Grid container centered>
         <Grid.Column>
-          <Header as="h1" textAlign='center'>Post a Fast Ride Request!</Header>
-          <Header as="h4" textAlign='center'>Complete the form if you want available Drivers to view your request in the Feed!</Header>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
             <Segment>
-              <TextField id='departure' name='departureTime'/>
-              <TextField id='arrival' name='arrivalTime'/>
-              <TextField id='current' name='currentLocation'/>
-              <TextField id='end' name='endDestination'/>
-              <TextField id='note' name='note'/>
-              <SubmitField id='submit' value='Submit'/>
+              <Header as="h2" textAlign='center'>Create a Fast Ride Request!</Header>
+              <SelectField label='Current Location' name='currLocation' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
+                'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
+                'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'University of Hawaii at Manoa', 'Wahiawa', 'Waialua',
+                'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
+              <SelectField label='Desired Destination' name='destination' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula',
+                'Hawaii Kai', 'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi',
+                'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
+                'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'University of Hawaii at Manoa', 'Wahiawa', 'Waialua',
+                'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
+              <TextField label='Time of your Ride' name='timeOfRide'/>
+              <LongTextField label='Describe your situation' name='description'/>
+              <SubmitField value='Submit'/>
               <ErrorsField/>
+              <HiddenField name='creator' value={Meteor.users.findOne({ _id: Meteor.userId() }).username}/>
+              <HiddenField name='createdAt' value={new Date()}/>
             </Segment>
           </AutoForm>
         </Grid.Column>
@@ -61,4 +58,4 @@ class FastRideForm extends React.Component {
   }
 }
 
-export default FastRideForm;
+export default AddRequest;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Feed, Icon } from 'semantic-ui-react';
+import { Feed, Icon, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
@@ -14,9 +14,10 @@ class Request extends React.Component {
         </Feed.Label>
         <Feed.Content>
           <Feed.Summary>
-            <Feed.User>{Users.collection.findOne({ email: this.props.request.creator }).firstName} {
-              Users.collection.findOne({ email: this.props.request.creator }).lastName
-            }</Feed.User> requests a ride at {this.props.request.timeOfRide}.
+            <Link color='blue' to={`/userview/${Users.collection.findOne({ email: this.props.request.creator })._id}`}>
+              {Users.collection.findOne({ email: this.props.request.creator }).firstName} {
+                Users.collection.findOne({ email: this.props.request.creator }).lastName
+              }</Link> requests a ride at {this.props.request.timeOfRide}.
             <Feed.Date content={this.props.request.createdAt.toLocaleDateString('en-US')} />
           </Feed.Summary>
           <Feed.Meta>
@@ -25,10 +26,17 @@ class Request extends React.Component {
           <Feed.Extra text>
             {this.props.request.description}
           </Feed.Extra>
-          <Feed.Meta>
-            <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} |
-            Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
-          </Feed.Meta>
+          { (Users.collection.findOne({ email: this.props.request.creator }).rating > 1) ? (
+            <Feed.Meta>
+              <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} stars |
+                Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
+            </Feed.Meta>
+          ) :
+            <Feed.Meta>
+              <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} star |
+              Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
+            </Feed.Meta>
+          }
         </Feed.Content>
       </Feed.Event>
     );

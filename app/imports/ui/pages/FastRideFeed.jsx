@@ -1,11 +1,12 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Loader, Card } from 'semantic-ui-react';
+import { Container, Header, Loader, Feed, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import Contact from '../components/Contact';
-import { Contacts } from '../../api/contact/Contacts';
-import { Notes } from '../../api/note/Notes';
+import { Link } from 'react-router-dom';
+import { Users } from '../../api/users/Users';
+import { Requests } from '../../api/request/requests';
+import Request from '../components/Request';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class FastRideFeed extends React.Component {
@@ -17,15 +18,24 @@ class FastRideFeed extends React.Component {
 
   // Render the page once subscriptions have been received.
   renderPage() {
+    if (this.props.requests.length === 0) {
+      return (
+        <Container>
+          <Header as="h1" textAlign='center'>Fast Ride Feed</Header>
+          <Segment textAlign='center'>
+            <p>Oops! There are no current fast ride requests.</p>
+            <p>Want to fill out a fast ride form? <Link color='blue' to={'/fastrideform'}>Click here!</Link></p>
+          </Segment>
+        </Container>
+      );
+    }
     return (
-      <Container id='feed-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
-        <Header as="h2" textAlign="center" >Fast Ride Feed</Header>
-        <Card.Group>
-          {this.props.contacts.map((contact, index) => <Contact
-            key={index}
-            contact={contact}
-            notes={this.props.notes.filter(note => (note.contactId === contact._id))}/>)}
-        </Card.Group>
+      <Container>
+        <Header as="h2" textAlign="center">Fast Ride Feed</Header>
+        <Feed>
+          {this.props.requests.map((request) => <Request key={request._id}
+            request={request}/>)}
+        </Feed>
       </Container>
     );
   }
@@ -33,20 +43,24 @@ class FastRideFeed extends React.Component {
 
 // Require an array of Stuff documents in the props.
 FastRideFeed.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  notes: PropTypes.array.isRequired,
-  profile: PropTypes.object.isRequired,
+  users: PropTypes.array.isRequired,
+  requests: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
   // Get access to Stuff documents.
-  const subscription = Meteor.subscribe(Contacts.userPublicationName);
-  const subscription2 = Meteor.subscribe(Notes.userPublicationName);
+  const subscription = Meteor.subscribe(Users.userPublicationName);
+  const subscription2 = Meteor.subscribe(Requests.userPublicationName);
+  // Determine if the subscription is ready
+  const ready = subscription.ready() && subscription2.ready();
+  // Get the Stuff documents
+  const users = Users.collection.find({}).fetch();
+  const requests = Requests.collection.find({}).fetch();
   return {
-    contacts: Contacts.collection.find({}).fetch(),
-    notes: Notes.collection.find({}).fetch(),
-    ready: subscription.ready() && subscription2.ready(),
+    users,
+    requests,
+    ready,
   };
 })(FastRideFeed);
