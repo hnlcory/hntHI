@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -89,6 +89,9 @@ const MakeAdminCard = (props) => (
     </Card.Content>
     <Card.Content textAlign='center'>
       <Link color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
+    </Card.Content>
+    <Card.Content textAlign='center'>
+      <Link color='blue' to={`/userdelete/${props.thatprofile._id}`}><Icon name='delete outline'/>delete/remove this profile</Link>
     </Card.Content>
   </Card>
 );
