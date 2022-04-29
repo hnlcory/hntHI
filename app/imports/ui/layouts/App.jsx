@@ -10,7 +10,7 @@ import Landing from '../pages/Landing';
 import Home from '../pages/Home';
 import Profiles from '../pages/Profiles';
 import FastRideFeed from '../pages/FastRideFeed';
-import FastRideForm from '../pages/FastRideForm';
+import AddRequest from '../pages/FastRideForm';
 import DriverSearch from '../pages/DriverSearch';
 import RiderSearch from '../pages/RiderSearch';
 import User from '../pages/User';
@@ -39,7 +39,7 @@ class App extends React.Component {
             <ProtectedRoute path="/profiles" component={Profiles}/>
             <ProtectedRoute path="/homedr" component={HomeDR}/>
             <ProtectedRoute path="/fastridefeed" component={FastRideFeed}/>
-            <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
+            <ProtectedRoute path="/fastrideform" component={AddRequest}/>
             <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
             <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
             <ProtectedRoute path="/add" component={AddUser}/>
