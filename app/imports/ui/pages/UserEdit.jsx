@@ -48,7 +48,7 @@ class EditContact extends React.Component {
     this.sub(thisId, role, location);
     this.addLocation(location);
     Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
-      leaveTime, contact, rating, _id } }, (error) => (error ?
+      leaveTime, location, contact, rating, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
       swal('Success', 'You successfully edited your profile!', 'success')));
   }
@@ -58,7 +58,7 @@ class EditContact extends React.Component {
     UsersLocations.collection.insert({ profile: email, role: role, location: location });
     this.addLocation(location);
     Users.collection.update(_id, { $set: { firstName, lastName, role, profilePicture, bio, arriveTime,
-      leaveTime, contact, rating: 0, _id } }, (error) => (error ?
+      leaveTime, location, contact, rating: 0, _id } }, (error) => (error ?
       swal('Error', error.message, 'error') :
       swal('Success', 'You created a new profile!', 'success')));
   }
