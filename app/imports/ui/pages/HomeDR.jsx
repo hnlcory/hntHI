@@ -1,9 +1,20 @@
 import React from 'react';
-import { Button, Container, Grid, Header, Image } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Button, Container, Grid, Header, Image, Loader } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Users } from '../../api/users/Users';
 
 class HomeDR extends React.Component {
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  renderPage() {
+    const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
+    const usrAccount = Users.collection.findOne({ email: usrEmail });
+    const myId = usrAccount._id;
     return (
       <div id="welcome-home">
         <div className='landing-picture-background'>
@@ -34,7 +45,7 @@ class HomeDR extends React.Component {
                 As a driver, it is important to keep all of your driver information up to date in your profile.
                 You can make sure everything is correct here:
               </Header>
-              <Button id='edit-button' color='olive' as={Link} to='/useredit' size='large' >Edit My Profile</Button>
+              <Button id='edit-button' color='olive' as={Link} to={`/useredit/${myId}`} size='large' >Edit My Profile</Button>
             </Grid.Column>
           </Grid>
         </div>
@@ -97,4 +108,14 @@ class HomeDR extends React.Component {
     );
   }
 }
-export default HomeDR;
+
+HomeDR.propTypes = {
+  ready: PropTypes.bool.isRequired,
+};
+
+export default withTracker(() => {
+  const subUsers = Meteor.subscribe(Users.userPublicationName);
+  return {
+    ready: subUsers.ready(),
+  };
+})(HomeDR);

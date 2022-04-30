@@ -110,7 +110,7 @@ test('Test that form page displays and form page adds correctly', async (testCon
   // add form
   await fastRideFormPage.isDisplayed(testController);
   await fastRideFormPage.addForm(testController);
-  //logout
+  // logout
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
