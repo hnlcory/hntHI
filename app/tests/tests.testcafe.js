@@ -10,13 +10,6 @@ import { fastRideFeedPage } from './fastridefeed.page';
 import { accountPage } from './account.page';
 import { editPage } from './edit.page';
 import { navBar } from './navbar.component';
-// import { profilesPage } from './profiles.page';
-// import { projectsPage } from './projects.page';
-// import { interestsPage } from './interests.page';
-// import { homePage } from './home.page';
-// import { addProjectPage } from './addproject.page';
-// import { filterPage } from './filter.page';
-// import { fastRideFeedPage } from './fastridefeed.page';
 
 /* global fixture:false, test:false */
 
@@ -76,7 +69,7 @@ test('Test home page links work', async (testController) => {
 });
 
 // test account page displays and account edit page works
-test.only('Test that account page displays and account edit page works', async (testController) => {
+test('Test that account page displays and account edit page works', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoAccountPage(testController);
@@ -142,51 +135,3 @@ test('Test that admin page displays and admin page has default accounts', async 
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
-
-/*
-test('Test that profiles page displays', async (testController) => {
-  await navBar.gotoProfilesPage(testController);
-  await profilesPage.isDisplayed(testController);
-  await profilesPage.hasDefaultProfiles(testController);
-});
-
-test('Test that interests page displays', async (testController) => {
-  await navBar.gotoInterestsPage(testController);
-  await interestsPage.isDisplayed(testController);
-  await interestsPage.hasDefaultInterests(testController);
-});
-
-test('Test that projects page displays', async (testController) => {
-  await navBar.gotoProjectsPage(testController);
-  await projectsPage.isDisplayed(testController);
-  await projectsPage.hasDefaultProjects(testController);
-});
-
-test('Test that home page display and profile modification works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await homePage.isDisplayed(testController);
-  await homePage.updateProfile(testController, credentials.firstName);
-  await navBar.ensureLogout(testController);
-});
-
-test('Test that addProject page works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoAddProjectPage(testController);
-  await addProjectPage.isDisplayed(testController);
-  await addProjectPage.addProject(testController);
-});
-
-test('Test that filter page works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoFilterPage(testController);
-  await filterPage.isDisplayed(testController);
-  await filterPage.filter(testController);
-});
-
- */
