@@ -12,7 +12,7 @@ class FastRideFeedPage {
   }
 
   async addNote(testController) {
-    const note = "I'll cover breakfast!"
+    const note = "I'll cover breakfast!";
     await this.isDisplayed(testController);
 
     // Define the new project

@@ -3,10 +3,10 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Header, Loader, Feed, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
 import { Requests } from '../../api/request/requests';
 import Request from '../components/Request';
-import { Link } from 'react-router-dom';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class TestFeed extends React.Component {
