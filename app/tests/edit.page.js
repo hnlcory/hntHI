@@ -18,6 +18,11 @@ class EditPage {
     await testController.selectText('#firstName').pressKey('delete');
     // Type in new first name.
     await testController.typeText('#firstName', newFirstName);
+    // Type in Location ** necessary for now **
+    const locationSelector = Selector('#location');
+    const kalihiOption = locationSelector.find('option').withText('Kalihi');
+    await testController.click(locationSelector);
+    await testController.click(kalihiOption);
     // Submit it.
     await testController.click('#submit');
     // Click the OK button on the Sweet Alert.

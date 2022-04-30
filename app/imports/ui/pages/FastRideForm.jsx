@@ -39,7 +39,7 @@ class AddRequest extends React.Component {
     const myId = usrAccount._id;
     if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
       return (
-        <Container id="profiles-page">
+        <Container id="form-page">
           <Header as="h1" textAlign='center'>Create a Fast Ride Request!</Header>
           <Segment textAlign='center'>Please create a profile before making a fast ride request! Click
             <Link color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
@@ -48,23 +48,23 @@ class AddRequest extends React.Component {
     }
     let fRef = null;
     return (
-      <Grid container centered>
+      <Grid container centered id='form-page'>
         <Grid.Column>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
             <Segment>
               <Header as="h2" textAlign='center'>Create a Fast Ride Request!</Header>
-              <SelectField label='Current Location' name='currLocation' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
+              <SelectField id='currentLocation' label='Current Location' name='currLocation' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
                 'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                 'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'University of Hawaii at Manoa', 'Wahiawa', 'Waialua',
                 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
-              <SelectField label='Desired Destination' name='destination' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula',
+              <SelectField id='desiredLocation' label='Desired Destination' name='destination' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula',
                 'Hawaii Kai', 'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi',
                 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                 'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'University of Hawaii at Manoa', 'Wahiawa', 'Waialua',
                 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
-              <TextField label='Time of your Ride' name='timeOfRide'/>
-              <LongTextField label='Describe your situation' name='description'/>
-              <SubmitField value='Submit'/>
+              <TextField id='time' label='Time of your Ride' name='timeOfRide'/>
+              <LongTextField id='note' label='Describe your situation' name='description'/>
+              <SubmitField id='submit' value='Submit'/>
               <ErrorsField/>
               <HiddenField name='creator' value={Meteor.users.findOne({ _id: Meteor.userId() }).username}/>
               <HiddenField name='createdAt' value={new Date()}/>

@@ -75,14 +75,14 @@ test('Test home page links work', async (testController) => {
   await signoutPage.isDisplayed(testController);
 });
 
-// test account page displays
-test('Test that account page displays', async (testController) => {
+// test account page displays and account edit page works
+test.only('Test that account page displays and account edit page works', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoAccountPage(testController);
   await accountPage.isDisplayed(testController);
   await accountPage.gotoEditPage(testController);
-  // await editPage.editAccount(testController, credentials.firstName); ** bugs in edit page **
+  await editPage.editAccount(testController, credentials.firstName);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
@@ -127,7 +127,7 @@ test('Test that feed page displays and timestamped note adds correctly', async (
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFeedPage(testController);
-  await fastRideFeedPage.addNote(testController);
+  // await fastRideFeedPage.addNote(testController); ** no longer an option
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
