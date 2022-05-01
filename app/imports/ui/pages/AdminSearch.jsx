@@ -22,13 +22,25 @@ const makeSchema = (allLocations) => new SimpleSchema({
 });
 function getProfileData(email) {
   const data = Users.collection.findOne({ email });
+  // console.log(data);
   const locations = _.pluck(UsersLocations.collection.find({ profile: email }).fetch(), 'location');
+  // console.log(locations);
   return _.extend({ }, data, locations);
 }
 
-function deleteCard(usrid) {
-  Users.collection.remove({ _id: usrid });
-  console.log(`delete ${usrid}`);
+function deleteCard(usrID) {
+  // find email from id in users collection
+  const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
+  console.log(usrEmail);
+  // remove from user
+  console.log(`delete userCollection id: ${usrID}`);
+  Users.collection.remove({ _id: usrID });
+  // find location id with email
+  // remove from location
+  console.log('delete userLocationCollection id');
+  const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
+  console.log(usrLocID);
+  UsersLocations.collection.remove({ _id: usrLocID[0] });
 }
 
 /** Component for layout out a Profile Card. */
@@ -65,8 +77,7 @@ const MakeCard = (props) => (
           <Link color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
         </List.Item>
         <List.Item>
-          {/* eslint-disable-next-line no-unused-vars */}
-          <Icon color='red' name='user delete' onClick={(e) => deleteCard(props.profile._id)}></Icon>
+          <Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}></Icon>
         </List.Item>
       </List>
     </Card.Content>
