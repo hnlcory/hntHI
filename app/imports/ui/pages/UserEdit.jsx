@@ -38,6 +38,9 @@ class EditContact extends React.Component {
 
   /** Update locations Collection (Has No Effect if Location already Exists) */
   addLocation(location) {
+    if (typeof Locations.collection.find({ name: location }) !== 'undefined') {
+      return;
+    }
     Locations.collection.insert({ name: location });
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Segment, Header, Grid, Rating, Icon } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Grid, Rating, Icon, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -58,6 +58,52 @@ MakeCard.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
+const MyAcc = (props) => (
+  <Grid centered padded style={{ paddingTop: '30px', paddingBottom: '30px' }}>
+    <Grid.Row columns={2}>
+      <Grid.Column>
+        {props.profile.rating === 5 ? (
+          <Image label={{
+            as: 'a',
+            color: 'green',
+            content: '5 Star Rating',
+            icon: 'star',
+            ribbon: true,
+          }} src={props.profile.profilePicture} fluid rounded />
+        ) : ''}
+        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+          <Image label={{
+            as: 'a', color: 'red', content: 'Low Star Rating', icon: 'star',
+            ribbon: true,
+          }} src={props.profile.profilePicture} fluid rounded />
+        ) : '' }
+        {props.profile.rating > 2 && props.profile.rating < 5 ? (
+          <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
+        ) : '' }
+        {props.profile.rating === 0 ? (
+          <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
+        ) : '' }
+      </Grid.Column>
+      <Grid.Column>
+        <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
+        <hr style={{ width: '50%', marginLeft: '0' }}/>
+        <Header as="h5">{props.profile.role} Location: {_.pluck(UsersLocations.collection.find({
+          profile: props.profile.email }).fetch(), 'location')}<Icon name='map pin'/></Header>
+        <Header as="h5">  {props.profile.bio}</Header>
+        <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
+        <Header as="h4"> Contact me: {props.profile.contact}</Header>
+        <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
+        <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
+           Edit my profile</Button>
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
+);
+
+MyAcc.propTypes = {
+  profile: PropTypes.object.isRequired,
+};
+
 /** Renders the Profile Collection as a set of Cards. */
 class UserView extends React.Component {
   handleRate = (e, { rating, maxRating }) => this.setState({ rating, maxRating })
@@ -72,14 +118,27 @@ class UserView extends React.Component {
     // need to get id here, then can grab user data and display specfic profile
     const dataID = this.props.doc.email;
     const usrAccount = Users.collection.findOne({ email: dataID });
-    const myId = usrAccount._id;
+    const thisId = usrAccount._id;
 
-    if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
+    const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
+    const myAccount = Users.collection.findOne({ email: usrEmail });
+    const myId = myAccount._id;
+
+    if ((typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') && thisId !== myId) {
       return (
         <Container id="profiles-page">
           <Header as="h1" textAlign='center'>Your Profile</Header>
           <Segment textAlign='center'>It seems you do not have a profile yet! Click
-            <Link color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
+            <Link color='blue' to={`/useredit/${thisId}`}> here</Link> to create your profile.</Segment>
+        </Container>
+      );
+    }
+    if (thisId === myId) {
+      return (
+        <Container id="profiles-page">
+          <Card.Group centered>
+            <MyAcc profile={usrAccount}/>
+          </Card.Group>
         </Container>
       );
     }
@@ -105,6 +164,7 @@ export default withTracker(({ match }) => {
   const subUserLoc = Meteor.subscribe(UsersLocations.userPublicationName);
 
   const documentId = match.params._id;
+  console.log(documentId);
   const doc = Users.collection.findOne(documentId);
   return {
     doc,
