@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, Button } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, List } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -24,6 +24,11 @@ function getProfileData(email) {
   const data = Users.collection.findOne({ email });
   const locations = _.pluck(UsersLocations.collection.find({ profile: email }).fetch(), 'location');
   return _.extend({ }, data, locations);
+}
+
+function deleteCard(usrid) {
+  Users.collection.remove({ _id: usrid });
+  console.log(`delete ${usrid}`);
 }
 
 /** Component for layout out a Profile Card. */
@@ -55,7 +60,15 @@ const MakeCard = (props) => (
         Contact me: {props.profile.contact}
     </Card.Content>
     <Card.Content textAlign='center'>
-      <Link color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
+      <List celled horizontal>
+        <List.Item>
+          <Link color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
+        </List.Item>
+        <List.Item>
+          {/* eslint-disable-next-line no-unused-vars */}
+          <Icon color='red' name='user delete' onClick={(e) => deleteCard(props.profile._id)}></Icon>
+        </List.Item>
+      </List>
     </Card.Content>
   </Card>
 );
@@ -91,7 +104,7 @@ const MakeAdminCard = (props) => (
       <Link color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
     </Card.Content>
     <Card.Content textAlign='center'>
-      <Link color='blue' to={`/userdelete/${props.thatprofile._id}`}><Icon name='delete outline'/>delete/remove this profile</Link>
+      <Link color='blue' to={`/userdelete/${props.thatprofile._id}`}><Icon name='user delete'/>Delete</Link>
     </Card.Content>
   </Card>
 );
