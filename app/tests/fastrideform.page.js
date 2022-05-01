@@ -13,27 +13,25 @@ class FastRideFormPage {
   }
 
   async addForm(testController) {
-    const departureTime = '6:00';
-    const arrivalTime = '7:00';
-    const startLocation = 'Honolulu';
-    const endLocation = 'Mililani';
-    const note = 'Lets stop for breakfast';
+    const time = '6:00';
+    const note = "I'm hungry! Lets get some breakfast.";
+
+    const locationSelector = Selector('#currentLocation');
+    const kalihiOption = locationSelector.find('option').withText('Kalihi');
+    await testController.click(locationSelector);
+    await testController.click(kalihiOption);
+
+    const destinationSelector = Selector('#desiredLocation');
+    const kaneoheOption = destinationSelector.find('option').withText('Kaneohe');
+    await testController.click(destinationSelector);
+    await testController.click(kaneoheOption);
 
     // Define the new form
-    await testController.typeText('#departure', departureTime);
-    await testController.typeText('#arrival', arrivalTime);
-    await testController.typeText('#current', startLocation);
-    await testController.typeText('#end', endLocation);
+    await testController.typeText('#time', time);
     await testController.typeText('#note', note);
 
     await testController.click('#submit');
     await testController.click(Selector('.swal-button--confirm'));
-
-    // check if form was added
-    await navBar.gotoFeedPage(testController);
-    const newCardCount = Selector('.ui .card').count;
-    await testController.expect(newCardCount).gt(0);
-
   }
 }
 
