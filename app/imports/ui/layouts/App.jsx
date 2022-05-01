@@ -7,8 +7,6 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-import Home from '../pages/Home';
-import Profiles from '../pages/Profiles';
 import FastRideFeed from '../pages/FastRideFeed';
 import AddRequest from '../pages/FastRideForm';
 import DriverSearch from '../pages/DriverSearch';
@@ -23,7 +21,6 @@ import Signout from '../pages/Signout';
 import HomeDR from '../pages/HomeDR';
 import UserView from '../pages/UserView';
 // Testing
-import Filter from '../pages/Filter';
 import AddUser from '../pages/UserAdd';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
@@ -35,8 +32,6 @@ class App extends React.Component {
           <NavBar/>
           <Switch>
             <Route exact path="/" component={Landing}/>
-            <ProtectedRoute path="/home" component={Home}/>
-            <ProtectedRoute path="/profiles" component={Profiles}/>
             <ProtectedRoute path="/homedr" component={HomeDR}/>
             <ProtectedRoute path="/fastridefeed" component={FastRideFeed}/>
             <ProtectedRoute path="/fastrideform" component={AddRequest}/>
@@ -49,7 +44,6 @@ class App extends React.Component {
             <ProtectedRoute path="/userview/:_id" component={UserView}/>
             <Route path="/signin" component={Signin}/>
             <Route path="/signup" component={Signup}/>
-            <Route path="/test" component={Filter}/>
             <ProtectedRoute path="/signout" component={Signout}/>
             <Route component={NotFound}/>
           </Switch>

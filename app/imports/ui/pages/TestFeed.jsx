@@ -3,10 +3,10 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Header, Loader, Feed, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
 import { Requests } from '../../api/request/requests';
 import Request from '../components/Request';
-import { Link } from 'react-router-dom';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class TestFeed extends React.Component {
@@ -20,7 +20,7 @@ class TestFeed extends React.Component {
   renderPage() {
     if (this.props.requests.length === 0) {
       return (
-        <Container>
+        <Container id='feed-page'>
           <Header as="h1" textAlign='center'>Fast Ride Feed</Header>
           <Segment textAlign='center'>
             <p>Oops! There are no current fast ride requests.</p>
@@ -30,7 +30,7 @@ class TestFeed extends React.Component {
       );
     }
     return (
-      <Container>
+      <Container id='feed-page'>
         <Header as="h2" textAlign="center">Fast Ride Feed</Header>
         <Feed>
           {this.props.requests.map((request) => <Request key={request._id}

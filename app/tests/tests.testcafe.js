@@ -10,13 +10,6 @@ import { fastRideFeedPage } from './fastridefeed.page';
 import { accountPage } from './account.page';
 import { editPage } from './edit.page';
 import { navBar } from './navbar.component';
-// import { profilesPage } from './profiles.page';
-// import { projectsPage } from './projects.page';
-// import { interestsPage } from './interests.page';
-// import { homePage } from './home.page';
-// import { addProjectPage } from './addproject.page';
-// import { filterPage } from './filter.page';
-// import { fastRideFeedPage } from './fastridefeed.page';
 
 /* global fixture:false, test:false */
 
@@ -75,14 +68,14 @@ test('Test home page links work', async (testController) => {
   await signoutPage.isDisplayed(testController);
 });
 
-// test account page displays
-test('Test that account page displays', async (testController) => {
+// test account page displays and account edit page works
+test('Test that account page displays and account edit page works', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoAccountPage(testController);
   await accountPage.isDisplayed(testController);
   await accountPage.gotoEditPage(testController);
-  // await editPage.editAccount(testController, credentials.firstName); ** bugs in edit page **
+  await editPage.editAccount(testController, credentials.firstName);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
@@ -117,7 +110,7 @@ test('Test that form page displays and form page adds correctly', async (testCon
   // add form
   await fastRideFormPage.isDisplayed(testController);
   await fastRideFormPage.addForm(testController);
-  //logout
+  // logout
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
@@ -127,7 +120,7 @@ test('Test that feed page displays and timestamped note adds correctly', async (
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFeedPage(testController);
-  await fastRideFeedPage.addNote(testController);
+  // await fastRideFeedPage.addNote(testController); ** no longer an option
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
@@ -142,51 +135,3 @@ test('Test that admin page displays and admin page has default accounts', async 
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
-
-/*
-test('Test that profiles page displays', async (testController) => {
-  await navBar.gotoProfilesPage(testController);
-  await profilesPage.isDisplayed(testController);
-  await profilesPage.hasDefaultProfiles(testController);
-});
-
-test('Test that interests page displays', async (testController) => {
-  await navBar.gotoInterestsPage(testController);
-  await interestsPage.isDisplayed(testController);
-  await interestsPage.hasDefaultInterests(testController);
-});
-
-test('Test that projects page displays', async (testController) => {
-  await navBar.gotoProjectsPage(testController);
-  await projectsPage.isDisplayed(testController);
-  await projectsPage.hasDefaultProjects(testController);
-});
-
-test('Test that home page display and profile modification works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await homePage.isDisplayed(testController);
-  await homePage.updateProfile(testController, credentials.firstName);
-  await navBar.ensureLogout(testController);
-});
-
-test('Test that addProject page works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoAddProjectPage(testController);
-  await addProjectPage.isDisplayed(testController);
-  await addProjectPage.addProject(testController);
-});
-
-test('Test that filter page works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoFilterPage(testController);
-  await filterPage.isDisplayed(testController);
-  await filterPage.filter(testController);
-});
-
- */

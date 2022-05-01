@@ -23,6 +23,7 @@ class RiderSearchPage {
     // Check that only one card is displayed.
     const cardCount = Selector('.ui .card').count;
     await testController.expect(cardCount).eql(2);
+    await testController.click('#idLink');
   }
 }
 
