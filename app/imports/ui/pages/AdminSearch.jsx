@@ -2,6 +2,7 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import swal from 'sweetalert';
 import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, List } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -22,25 +23,20 @@ const makeSchema = (allLocations) => new SimpleSchema({
 });
 function getProfileData(email) {
   const data = Users.collection.findOne({ email });
-  // console.log(data);
   const locations = _.pluck(UsersLocations.collection.find({ profile: email }).fetch(), 'location');
-  // console.log(locations);
   return _.extend({ }, data, locations);
 }
 
 function deleteCard(usrID) {
   // find email from id in users collection
   const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
-  console.log(usrEmail);
   // remove from user
-  console.log(`delete userCollection id: ${usrID}`);
   Users.collection.remove({ _id: usrID });
   // find location id with email
   // remove from location
-  console.log('delete userLocationCollection id');
   const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
-  console.log(usrLocID);
   UsersLocations.collection.remove({ _id: usrLocID[0] });
+  swal('Success', 'Account Deleted Successfully', 'success');
 }
 
 /** Component for layout out a Profile Card. */
@@ -77,7 +73,7 @@ const MakeCard = (props) => (
           <Link color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
         </List.Item>
         <List.Item>
-          <Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}></Icon>
+          <Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
         </List.Item>
       </List>
     </Card.Content>
@@ -113,9 +109,6 @@ const MakeAdminCard = (props) => (
     </Card.Content>
     <Card.Content textAlign='center'>
       <Link color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
-    </Card.Content>
-    <Card.Content textAlign='center'>
-      <Link color='blue' to={`/userdelete/${props.thatprofile._id}`}><Icon name='user delete'/>Delete</Link>
     </Card.Content>
   </Card>
 );
