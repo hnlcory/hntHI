@@ -37,6 +37,9 @@ function deleteCard(usrID) {
   const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
   UsersLocations.collection.remove({ _id: usrLocID[0] });
   swal('Success', 'Account Deleted Successfully', 'success');
+  // setup to possibly delete the default account signing data
+  // const acc = _.pluck(Users.collection.find({ username: usrEmail[0] }).fetch(), '_id');
+  // console.log(acc);
 }
 
 /** Component for layout out a Profile Card. */
