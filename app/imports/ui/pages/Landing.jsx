@@ -9,8 +9,8 @@ class Landing extends React.Component {
     return (
       <div id="landing-page">
         <div className='landing-picture-background'>
-          <Container textAlign='center'>
-            <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '20px' }}/>
+          <Container textAlign='center' style={{ paddingTop: '20px' }}>
+            <Image src='/images/logov1.jpeg' size='small' centered circular/>
             <Header style={{ color: 'white', fontSize: '45pt', fontFamily: 'Barlow' }} as='h1'>
                 Welcome to Carpool-And-Go
             </Header>
