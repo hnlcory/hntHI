@@ -50,6 +50,10 @@
   color: #fffefeb3;
 }
 
+#account-page, h2.ui.header, h4.ui.header, h5.ui.header, h1.ui.header, .ui.sub.header, p {
+  font-family: Barlow, serif;
+}
+
 #login-dropdown, #login-dropdown-sign-in, #login-dropdown-sign-upogin-dropdown-sign-up {
   z-index: 500;
 }
