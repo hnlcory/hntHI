@@ -139,7 +139,7 @@ class DriverSearch extends React.Component {
       );
     }
     return (
-      <Container id="driver-page">
+      <Container id="driver-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Header as="h1" textAlign='center'>Search for Drivers in your Area!</Header>
         <Header as="h4" textAlign='center'>Browse through a list of drivers or search by location!</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>

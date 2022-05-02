@@ -39,7 +39,7 @@ class AddRequest extends React.Component {
     const myId = usrAccount._id;
     if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
       return (
-        <Container id="form-page">
+        <Container id="form-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Header as="h1" textAlign='center'>Create a Fast Ride Request!</Header>
           <Segment textAlign='center'>Please create a profile before making a fast ride request! Click
             <Link color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
@@ -48,17 +48,18 @@ class AddRequest extends React.Component {
     }
     let fRef = null;
     return (
-      <Grid container centered id='form-page'>
+      <Grid container centered id='form-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Grid.Column>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
             <Segment>
               <Header as="h2" textAlign='center'>Create a Fast Ride Request!</Header>
-              <SelectField id='currentLocation' label='Current Location' name='currLocation' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
-                'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
+              <SelectField id='currentLocation' label='Current Location' name='currLocation' allowedValues={['Aiea',
+                'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai', 'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku',
+                'Kailua', 'Kaimuki', 'Kalihi', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                 'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'University of Hawaii at Manoa', 'Wahiawa', 'Waialua',
                 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
-              <SelectField id='desiredLocation' label='Desired Destination' name='destination' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula',
-                'Hawaii Kai', 'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi',
+              <SelectField id='desiredLocation' label='Desired Destination' name='destination' allowedValues={['Aiea',
+                'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai', 'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi',
                 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                 'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'University of Hawaii at Manoa', 'Wahiawa', 'Waialua',
                 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
