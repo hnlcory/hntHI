@@ -176,7 +176,7 @@ class AdminSearch extends React.Component {
       );
     }
     return (
-      <Container id="admin-page">
+      <Container id="admin-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Header as="h1" textAlign='center' color='red' style={{ fontFamily: 'Barlow' }}>Admin Overview</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
           <Segment>

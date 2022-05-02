@@ -20,7 +20,7 @@ class FastRideFeed extends React.Component {
   renderPage() {
     if (this.props.requests.length === 0) {
       return (
-        <Container id='feed-page'>
+        <Container id='feed-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Header as="h1" textAlign='center'>Fast Ride Feed</Header>
           <Segment textAlign='center'>
             <p>Oops! There are no current fast ride requests.</p>
@@ -30,7 +30,7 @@ class FastRideFeed extends React.Component {
       );
     }
     return (
-      <Container id='feed-page'>
+      <Container id='feed-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Header as="h2" textAlign="center">Fast Ride Feed</Header>
         <Feed>
           {this.props.requests.map((request) => <Request key={request._id}
