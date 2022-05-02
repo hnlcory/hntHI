@@ -76,7 +76,8 @@ const MakeCard = (props) => (
           <Link color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
         </List.Item>
         <List.Item>
-          <Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
+          <Link to="/adminsearch" refresh="true"><Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
+          </Link>
         </List.Item>
       </List>
     </Card.Content>
