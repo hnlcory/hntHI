@@ -39,7 +39,7 @@ const MakeCard = (props) => (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
       </Grid.Column>
-      <Grid.Column>
+      <Grid.Column id='user-view-data-column'>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>
         <hr style={{ width: '50%', marginLeft: '0' }}/>
         <Header as="h5">{props.profile.role} Location: {_.pluck(UsersLocations.collection.find({
@@ -164,7 +164,7 @@ export default withTracker(({ match }) => {
   const subUserLoc = Meteor.subscribe(UsersLocations.userPublicationName);
 
   const documentId = match.params._id;
-  console.log(documentId);
+  // console.log(documentId);
   const doc = Users.collection.findOne(documentId);
   return {
     doc,
