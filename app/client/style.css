@@ -42,6 +42,14 @@
   z-index: 500;
 }
 
+.darkmode--activated .ui.menu .item {
+  color: #fffefeb3;
+}
+
+.darkmode--activated .ui.header {
+  color: #fffefeb3;
+}
+
 #login-dropdown, #login-dropdown-sign-in, #login-dropdown-sign-upogin-dropdown-sign-up {
   z-index: 500;
 }
