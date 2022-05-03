@@ -13,7 +13,7 @@ import { Users } from '../../api/users/Users';
 const bridge = new SimpleSchema2Bridge(Requests.schema);
 
 /** Renders the Page for adding a document. */
-class AddRequest extends React.Component {
+class FastRideForm extends React.Component {
 
   // On submit, insert the data.
   submit(data, formRef) {
@@ -77,7 +77,7 @@ class AddRequest extends React.Component {
   }
 }
 
-AddRequest.propTypes = {
+FastRideForm.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
@@ -87,4 +87,4 @@ export default withTracker(() => {
   return {
     ready: subUsers.ready(),
   };
-})(AddRequest);
+})(FastRideForm);
