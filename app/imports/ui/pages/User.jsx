@@ -17,15 +17,14 @@ function deleteCard(usrID) {
   // find email from id in users collection
   const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
   // remove from user
-  Users.collection.remove({ _id: usrID });
+  Users.collection.update({ _id: usrID }, { $unset: { firstName: 1, lastName: 1,
+    role: 1, profilePicture: 1, bio: 1, arriveTime: 1,
+    leaveTime: 1, location: 1, contact: 1, rating: 1 } }, false, true);
   // find location id with email
   // remove from location
   const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
   UsersLocations.collection.remove({ _id: usrLocID[0] });
   swal('Success', 'Account Deleted Successfully', 'success');
-  // setup to possibly delete the default account signing data
-  // const acc = _.pluck(Users.collection.find({ username: usrEmail[0] }).fetch(), '_id');
-  // console.log(acc);
 }
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
@@ -69,7 +68,7 @@ const MakeCard = (props) => (
         <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
         <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
           Edit my profile</Button>
-        <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)}>
+        <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/user'}>
           <Icon name='trash alternate outline'/>
           Delete my profile</Button>
       </Grid.Column>
