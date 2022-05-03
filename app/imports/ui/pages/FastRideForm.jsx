@@ -50,7 +50,7 @@ class AddRequest extends React.Component {
     return (
       <Grid container centered id='form-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Grid.Column>
-          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
+          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} placeholder={true}>
             <Segment>
               <Header as="h2" textAlign='center'>Create a Fast Ride Request!</Header>
               <SelectField id='currentLocation' label='Current Location' name='currLocation' allowedValues={['Aiea',
@@ -63,8 +63,8 @@ class AddRequest extends React.Component {
                 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                 'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'University of Hawaii at Manoa', 'Wahiawa', 'Waialua',
                 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
-              <TextField id='time' label='Time of your Ride' name='timeOfRide'/>
-              <LongTextField id='note' label='Describe your situation' name='description'/>
+              <TextField id='time' label='Time of your Ride' name='timeOfRide' placeholder='7:00 am'/>
+              <LongTextField id='note' label='Describe your situation' name='description' placeholder='Please help me get to ...'/>
               <SubmitField id='submit' value='Submit'/>
               <ErrorsField/>
               <HiddenField name='creator' value={Meteor.users.findOne({ _id: Meteor.userId() }).username}/>
