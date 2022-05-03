@@ -20,10 +20,10 @@ class HomeDR extends React.Component {
         <div className='landing-picture-background'>
           <Container textAlign='center' style={{ paddingTop: '20px' }}>
             <Image src='/images/logov1.jpeg' size='small' centered circular/>
-            <Header style={{ color: 'white', fontSize: '50pt', paddingTop: '20px', fontFamily: 'Barlow' }} as='h1'>
+            <Header style={{ color: 'white', fontSize: '50pt', paddingTop: '10px', fontFamily: 'Barlow' }} as='h1'>
               Where Shall We Go Today?
             </Header>
-            <Header style={{ paddingTop: '50px', paddingBottom: '70px', color: 'white', fontSize: '25pt', fontFamily: 'Barlow' }} as='h3'>
+            <Header style={{ paddingBottom: '30px', color: 'white', fontSize: '25pt', fontFamily: 'Barlow' }} as='h3'>
               <br/>
             </Header>
           </Container>
@@ -93,7 +93,6 @@ class HomeDR extends React.Component {
         </div>
         <div className='landing-picture-background'>
           <Container textAlign='center'>
-            <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '10px' }}/>
             <Header style={{ color: 'white', fontSize: '50pt', paddingTop: '10px', fontFamily: 'Barlow' }} as='h1'>
               Our Contribution To You
             </Header>
