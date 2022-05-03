@@ -38,9 +38,6 @@ class EditContact extends React.Component {
 
   /** Update locations Collection (Has No Effect if Location already Exists) */
   addLocation(location) {
-    if (typeof Locations.collection.find({ name: location }) !== 'undefined') {
-      return;
-    }
     Locations.collection.insert({ name: location });
   }
 
@@ -91,19 +88,19 @@ class EditContact extends React.Component {
         <Grid container centered id='edit-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Grid.Column>
             <h1> Add Profile </h1>
-            <AutoForm schema={bridge} onSubmit={data => this.submitNoProf(data)} model={this.props.doc}>
+            <AutoForm schema={bridge} onSubmit={data => this.submitNoProf(data)} model={this.props.doc} placeholder={true}>
               <Segment>
-                <TextField id='firstName' name='firstName'/>
-                <TextField id='lastName' name='lastName'/>
-                <TextField id='profilePicture' name='profilePicture'/>
+                <TextField id='firstName' name='firstName' placeholder='John'/>
+                <TextField id='lastName' name='lastName' placeholder='Smith'/>
+                <TextField id='profilePicture' name='profilePicture' placeholder='(Paste the link to your profile picture here.)'/>
                 <SelectField id='role' name='role' allowedValues={['Driver', 'Rider']}/>
-                <LongTextField id='bio' name='bio'/>
+                <LongTextField id='bio' name='bio' placeholder='I am a Communications student looking for a ride.'/>
                 <SelectField id='location' name='location' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',
                   'Honolulu', 'Kaaawa', 'Kahala', 'Kahuku', 'Kailua', 'Kaimuki', 'Kalihi', 'Kaneohe', 'Kapolei', 'Laie', 'Lanikai', 'Maili',
                   'Makaha', 'Manoa', 'Mililani', 'Nanakuli', 'Pearl City', 'Wahiawa', 'Waialua', 'Waianae', 'Waikiki', 'Waimanalo', 'Waipahu']}/>
-                <TextField id='arriveTime' name='arriveTime'/>
-                <TextField id='leaveTime' name='leaveTime'/>
-                <TextField id='contact' name='contact'/>
+                <TextField id='arriveTime' name='arriveTime' placeholder='7:00 am'/>
+                <TextField id='leaveTime' name='leaveTime' placeholder='3:30 pm'/>
+                <TextField id='contact' name='contact' placeholder='808-123-4567'/>
                 <SubmitField id='submit' name='Submit'/>
                 <ErrorsField/>
               </Segment>
@@ -153,8 +150,9 @@ export default withTracker(({ match }) => {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe(Users.userPublicationName);
   const sub2 = Meteor.subscribe(UsersLocations.userPublicationName);
+  const sub3 = Meteor.subscribe(Locations.userPublicationName);
   // Determine if the subscription is ready
-  const ready = subscription.ready() && sub2.ready();
+  const ready = subscription.ready() && sub2.ready() && sub3.ready();
   // Get the document
   const doc = Users.collection.findOne(documentId);
   return {
