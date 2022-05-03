@@ -8,6 +8,15 @@ import { Users } from '../../api/users/Users';
 import { Requests } from '../../api/request/requests';
 import Request from '../components/Request';
 
+function filterData(req) {
+  const firstNameCheck = Users.collection.findOne({ email: req.creator }).firstName;
+  console.log(firstNameCheck);
+  if (typeof firstNameCheck === 'undefined') {
+    Requests.collection.remove({ _id: req._id });
+    return '';
+  }
+  return <Request key={req._id} request={req}/>;
+}
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class FastRideFeed extends React.Component {
 
@@ -33,8 +42,7 @@ class FastRideFeed extends React.Component {
       <Container id='feed-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Header as="h2" textAlign="center">Fast Ride Feed</Header>
         <Feed>
-          {this.props.requests.map((request) => <Request key={request._id}
-            request={request}/>)}
+          {this.props.requests.map((request) => filterData(request))}
         </Feed>
       </Container>
     );

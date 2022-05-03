@@ -30,8 +30,10 @@ function getProfileData(email) {
 function deleteCard(usrID) {
   // find email from id in users collection
   const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
-  // remove from user
-  Users.collection.remove({ _id: usrID });
+  // remove the added fields from user so the user is prompted to make another profile.
+  Users.collection.update({ _id: usrID }, { $unset: { firstName: 1, lastName: 1,
+    role: 1, profilePicture: 1, bio: 1, arriveTime: 1,
+    leaveTime: 1, location: 1, contact: 1, rating: 1 } }, false, true);
   // find location id with email
   // remove from location
   const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');

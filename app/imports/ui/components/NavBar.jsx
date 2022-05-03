@@ -17,7 +17,7 @@ import { Roles } from 'meteor/alanning:roles';
 class NavBar extends React.Component {
   render() {
     return (
-      <Menu style={{ marginBottom: '0px', fontFamily: 'Barlow' }} medium borderless>
+      <Menu style={{ marginBottom: '0px', fontFamily: 'Barlow' }} borderless>
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
           <Image size='mini' src="/images/logov1.jpeg" circular spaced='right'/>
           <span className='bowfolio-green' style={{ fontWeight: 800, fontSize: '24px' }}>Carpool-And-Go</span>
