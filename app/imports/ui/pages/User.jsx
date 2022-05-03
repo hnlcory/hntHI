@@ -5,6 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
@@ -12,6 +13,20 @@ import { Projects } from '../../api/projects/Projects';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 
+function deleteCard(usrID) {
+  // find email from id in users collection
+  const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
+  // remove from user
+  Users.collection.remove({ _id: usrID });
+  // find location id with email
+  // remove from location
+  const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
+  UsersLocations.collection.remove({ _id: usrLocID[0] });
+  swal('Success', 'Account Deleted Successfully', 'success');
+  // setup to possibly delete the default account signing data
+  // const acc = _.pluck(Users.collection.find({ username: usrEmail[0] }).fetch(), '_id');
+  // console.log(acc);
+}
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
@@ -54,6 +69,9 @@ const MakeCard = (props) => (
         <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
         <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
           Edit my profile</Button>
+        <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)}>
+          <Icon name='trash alternate outline'/>
+          Delete my profile</Button>
       </Grid.Column>
     </Grid.Row>
   </Grid>
