@@ -3,13 +3,14 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import swal from 'sweetalert';
-import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, List, Button, Confirm } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, List } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { AutoForm, SubmitField } from 'uniforms-semantic';
 import { Link } from 'react-router-dom';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
+import ConfirmPrompt from './ConfirmPrompt';
 
 // Added import Statements
 import { Users } from '../../api/users/Users';
@@ -82,7 +83,7 @@ const MakeCard = (props) => (
           </Link>
         </List.Item>
       </List>
-      <Button onClick={this.show} color='red'><Icon name='user delete' color='yellow'/>Delete profile</Button>
+      <ConfirmPrompt />
     </Card.Content>
   </Card>
 );
@@ -132,14 +133,6 @@ MakeAdminCard.propTypes = {
 /** Renders the Profile Collection as a set of Cards. */
 class AdminSearch extends React.Component {
 
-  state = { open: false }
-
-  show = () => this.setState({ open: true })
-
-  handleConfirm = () => this.setState({ open: false })
-
-  handleCancel = () => this.setState({ open: false })
-
   constructor(props) {
     super(props);
     this.state = { locations: [] };
@@ -176,37 +169,13 @@ class AdminSearch extends React.Component {
           </AutoForm>
           <Header as="h3" textAlign='center' style={{ fontFamily: 'Barlow' }}>All Driver/Rider Accounts</Header>
           <Card.Group style={{ paddingTop: '15px' }} centered>
-            <Button onClick={this.show}>Show</Button>
-            <Confirm
-              open={this.state.open}
-              cancelButton='Never mind'
-              confirmButton="Let's do it"
-              onCancel={this.handleCancel}
-              onConfirm={this.handleConfirm}
-            />
             {_.map(profileDataAll, function (profile, index) {
               if (profile.email === Meteor.users.findOne({ _id: Meteor.userId() }).username) {
                 return <MakeAdminCard key={index} thatprofile={profile}/>;
               }
               return <MakeCard key={index} profile={profile}/>;
             })}
-            <Button onClick={this.show}>Show</Button>
-            <Confirm
-              open={this.state.open}
-              cancelButton='Never mind'
-              confirmButton="Let's do it"
-              onCancel={this.handleCancel}
-              onConfirm={this.handleConfirm}
-            />
           </Card.Group>
-          <Button onClick={this.show}>Show</Button>
-          <Confirm
-            open={this.state.open}
-            cancelButton='Never mind'
-            confirmButton="Let's do it"
-            onCancel={this.handleCancel}
-            onConfirm={this.handleConfirm}
-          />
         </Container>
       );
     }
