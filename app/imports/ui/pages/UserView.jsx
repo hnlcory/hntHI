@@ -65,10 +65,13 @@ const MakeCard = (props) => (
         <Rating maxRating={5} onRate={this.handleRate} />
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
           <div style={{ paddingTop: '20px' }}>
-            <Button basic color='red' id='edit-button' size='tiny' as={Link}
+            <Button basic color='blue' id='edit-button' size='tiny' as={Link}
               to={`/useredit/${props.profile._id}`}>
               <Icon name='edit outline'/>
-                Admin Edit Profile</Button></div>
+                Admin Edit Profile</Button>
+            <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/homedr'}>
+              <Icon name='trash alternate outline'/>
+              Admin Delete Profile</Button></div>
         ) : ''}
       </Grid.Column>
     </Grid.Row>
