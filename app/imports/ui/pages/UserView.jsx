@@ -5,6 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router-dom';
+import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 
@@ -49,6 +50,13 @@ const MakeCard = (props) => (
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
         <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
         <Rating maxRating={5} onRate={this.handleRate} />
+        {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+          <div style={{ paddingTop: '20px' }}>
+            <Button basic color='red' id='edit-button' size='tiny' as={Link}
+              to={`/useredit/${props.profile._id}`}>
+              <Icon name='edit outline'/>
+                Admin Edit Profile</Button></div>
+        ) : ''}
       </Grid.Column>
     </Grid.Row>
   </Grid>

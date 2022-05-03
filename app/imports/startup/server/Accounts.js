@@ -11,6 +11,11 @@ function createUser(email, password, role) {
     email: email,
     password: password,
   });
+  // let newRole = role;
+  // if (email.includes('carpoolngo.com')) {
+    // console.log('true');
+    // newRole = 'admin';
+  // }
   if (role === 'admin') {
     Roles.createRole(role, { unlessExists: true });
     Roles.addUsersToRoles(userID, 'admin');
