@@ -18,8 +18,9 @@ class HomeDR extends React.Component {
     return (
       <div id="welcome-home">
         <div className='landing-picture-background'>
-          <Container textAlign='center'>
-            <Header style={{ color: 'white', fontSize: '50pt', paddingTop: '50px', fontFamily: 'Barlow' }} as='h1'>
+          <Container textAlign='center' style={{ paddingTop: '20px' }}>
+            <Image src='/images/logov1.jpeg' size='small' centered circular/>
+            <Header style={{ color: 'white', fontSize: '50pt', paddingTop: '20px', fontFamily: 'Barlow' }} as='h1'>
               Where Shall We Go Today?
             </Header>
             <Header style={{ paddingTop: '50px', paddingBottom: '70px', color: 'white', fontSize: '25pt', fontFamily: 'Barlow' }} as='h3'>
