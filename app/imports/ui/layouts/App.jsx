@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import FastRideFeed from '../pages/FastRideFeed';
-import AddRequest from '../pages/FastRideForm';
+import FastRideForm from '../pages/FastRideForm';
 import DriverSearch from '../pages/DriverSearch';
 import RiderSearch from '../pages/RiderSearch';
 import User from '../pages/User';
@@ -20,8 +20,6 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import HomeDR from '../pages/HomeDR';
 import UserView from '../pages/UserView';
-// Testing
-import AddUser from '../pages/UserAdd';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -34,10 +32,9 @@ class App extends React.Component {
             <Route exact path="/" component={Landing}/>
             <ProtectedRoute path="/homedr" component={HomeDR}/>
             <ProtectedRoute path="/fastridefeed" component={FastRideFeed}/>
-            <ProtectedRoute path="/fastrideform" component={AddRequest}/>
+            <ProtectedRoute path="/fastrideform" component={FastRideForm}/>
             <ProtectedRoute path="/driverssearch" component={DriverSearch}/>
             <ProtectedRoute path="/riderssearch" component={RiderSearch}/>
-            <ProtectedRoute path="/add" component={AddUser}/>
             <AdminProtectedRoute path="/adminsearch" component={AdminSearch}/>
             <ProtectedRoute path="/user" component={User}/>
             <ProtectedRoute path="/useredit/:_id" component={UserEdit}/>
