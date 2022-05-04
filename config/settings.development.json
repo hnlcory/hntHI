@@ -146,7 +146,7 @@
       "rating": 2.4
     },
     {
-      "email": "kenji@carpoolngo.com",
+      "email": "kenji@gmail.com",
       "firstName": "Kenji",
       "lastName": "Sanehira",
       "role": "Rider",
@@ -636,7 +636,7 @@
       "rating": 1.2
     },
     {
-      "email": "cory@carpoolngo.com",
+      "email": "cory@yahoo.com",
       "firstName": "Cory",
       "lastName": "Parker",
       "role": "Driver",
@@ -683,11 +683,13 @@
     "appSecret": "c603192a-a597-4ea5-ad16-eb25fa5ce93d"
   },
   "defaultAccounts": [
+    { "email": "admincarpoolngo.com", "password": "changeme", "role": "admin" },
+    { "email": "john@foo.com", "password": "changeme" },
     { "email": "miller@gmail.com", "password": "changeme" },
     { "email": "sheung@gmail.com", "password": "changeme" },
     { "email": "zak@gmail.com", "password": "changeme" },
     { "email":  "raven@gmail.com", "password":  "changeme" },
-    { "email": "kenji@carpoolngo.com", "password": "changeme", "role": "admin" },
+    { "email": "kenjicarpoolngo.com", "password": "changeme", "role": "admin" },
     { "email": "cory@carpoolngo.com", "password": "changeme", "role": "admin" },
     { "email": "hawaiianBoy555@yahoo.com", "password": "changeme" },
     { "email": "mkleo@hawaii.edu", "password": "changeme" },
