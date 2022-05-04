@@ -28,7 +28,7 @@ function getProfileData(email) {
   return _.extend({ }, data, locations);
 }
 
-function deleteCard(usrID) {
+export function deleteCard(usrID) {
   // find email from id in users collection
   const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
   // remove the added fields from user so the user is prompted to make another profile.
