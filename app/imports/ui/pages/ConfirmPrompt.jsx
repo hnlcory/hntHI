@@ -3,6 +3,7 @@ import { Button, Confirm, Icon } from 'semantic-ui-react';
 import { deleteCard } from './AdminSearch';
 
 class ConfirmPrompt extends Component {
+
   state = { open: false }
 
   show = () => this.setState({ open: true })
