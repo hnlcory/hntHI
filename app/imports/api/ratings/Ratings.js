@@ -2,10 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
 
-/** Creates a location collection based on what users have set
- * their locations to. This uses less space as it only lists
- * locations that are inputted */
-class LocationsCollection {
+class RatingsCollection {
   constructor() {
     // The name of this collection
     this.name = 'RatingsCollection';
@@ -23,4 +20,4 @@ class LocationsCollection {
   }
 }
 
-export const Ratings = new LocationsCollection();
+export const Ratings = new RatingsCollection();
