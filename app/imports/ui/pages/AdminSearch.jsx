@@ -10,7 +10,7 @@ import { _ } from 'meteor/underscore';
 import { AutoForm, SubmitField } from 'uniforms-semantic';
 import { Link } from 'react-router-dom';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
-import ConfirmPrompt from './ConfirmPrompt';
+import ConfirmPrompt from '../components/ConfirmPrompt';
 
 // Added import Statements
 import { Users } from '../../api/users/Users';
@@ -28,7 +28,7 @@ function getProfileData(email) {
   return _.extend({ }, data, locations);
 }
 
-export function deleteCard(usrID) {
+function deleteCard(usrID) {
   // find email from id in users collection
   const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
   // remove the added fields from user so the user is prompted to make another profile.
@@ -40,9 +40,6 @@ export function deleteCard(usrID) {
   const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
   UsersLocations.collection.remove({ _id: usrLocID[0] });
   swal('Success', 'Account Deleted Successfully', 'success');
-  // setup to possibly delete the default account signing data
-  // const acc = _.pluck(Users.collection.find({ username: usrEmail[0] }).fetch(), '_id');
-  // console.log(acc);
 }
 
 /** Component for layout out a Profile Card. */
@@ -79,11 +76,9 @@ const MakeCard = (props) => (
           <Link color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
         </List.Item>
         <List.Item>
-          <Link to="/adminsearch" refresh="true"><Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
-          </Link>
+          <ConfirmPrompt id={props.profile._id}/>
         </List.Item>
       </List>
-      <ConfirmPrompt />
     </Card.Content>
   </Card>
 );
@@ -116,7 +111,14 @@ const MakeAdminCard = (props) => (
         Contact me: {props.thatprofile.contact}
     </Card.Content>
     <Card.Content textAlign='center'>
-      <Link color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
+      <List celled horizontal>
+        <List.Item>
+          <Link color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit profile</Link>
+        </List.Item>
+        <List.Item>
+          <ConfirmPrompt id={props.thatprofile._id}/>
+        </List.Item>
+      </List>
     </Card.Content>
   </Card>
 );
