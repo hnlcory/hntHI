@@ -92,7 +92,7 @@ class EditContact extends React.Component {
               <Segment>
                 <TextField id='firstName' name='firstName' placeholder='John'/>
                 <TextField id='lastName' name='lastName' placeholder='Smith'/>
-                <TextField id='profilePicture' name='profilePicture' placeholder='(Paste the link to your profile picture here.)'/>
+                <TextField id='profilePic' name='profilePicture' placeholder='(Paste the link to your profile picture here.)'/>
                 <SelectField id='role' name='role' allowedValues={['Driver', 'Rider']}/>
                 <LongTextField id='bio' name='bio' placeholder='I am a Communications student looking for a ride.'/>
                 <SelectField id='location' name='location' allowedValues={['Aiea', 'Ewa Beach', 'Haleiwa', 'Hauula', 'Hawaii Kai',

@@ -11,7 +11,7 @@ class DriverSearchPage {
     await testController.expect(this.pageSelector.exists).ok();
   }
 
-  async filter(testController) {
+  async filter(testController, n) {
     await this.isDisplayed(testController);
     // Select visualization and submit
     const locationSelector = Selector('#locations');
@@ -22,7 +22,10 @@ class DriverSearchPage {
     await testController.click('#submit');
     // Check that only one card is displayed.
     const cardCount = Selector('.ui .card').count;
-    await testController.expect(cardCount).eql(4);
+    await testController.expect(cardCount).eql(n);
+  }
+
+  async gotoCard(testController){
     await testController.click('#idLink');
   }
 }

@@ -15,6 +15,17 @@ class AccountPage {
   async gotoEditPage(testController) {
     await testController.click('#edit-button');
   }
+
+  //  delete Account
+  async deleteAccount(testController) {
+    await testController.click('#delete-button');
+    await testController.click(Selector('.swal-button--confirm'));
+  }
+
+  // create Account
+  async createAccount(testController) {
+    await testController.click('#create-button');
+  }
 }
 
 export const accountPage = new AccountPage();

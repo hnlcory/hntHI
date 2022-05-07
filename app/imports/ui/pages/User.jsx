@@ -99,7 +99,7 @@ class ProfilesPage extends React.Component {
         <Container id="account-page">
           <Header as="h1" textAlign='center'>Your Profile</Header>
           <Segment textAlign='center'>It seems you do not have a profile yet! Click
-            <Link color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
+            <Link id='create-button' color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
         </Container>
       );
     }
