@@ -22,6 +22,13 @@ function deleteCard(usrID) {
   UsersLocations.collection.remove({ _id: usrLocID[0] });
   swal('Success', 'Account Deleted Successfully', 'success');
 }
+
+function updateRate(usrID) {
+  Users.collection.update(); //I want to increase the user attribute "ratingCount" by one, ratingCount++?
+  const newRate = _.pluck((Users.collection.rating) + /*inputed rating*/)/ /*ratingCount*/;  //This takes the users prexisting rating, adds the new rating, then divides by total no. of ratings
+  Users.collection.update(); //I want to now update their rating with the new calculated number
+}
+
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
