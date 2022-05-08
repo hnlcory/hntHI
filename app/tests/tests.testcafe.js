@@ -85,7 +85,7 @@ test('Test that account page displays, edit works, delete works, and create work
 });
 
 // test drivers page displays, driver page filter works, admin edit works, and admin delete works
-test('Test that drivers page displays and filters, admin edit works, and admin delete works', async (testController) => {
+test.only('Test that drivers page displays and filters, admin edit, admin rate, and admin delete works', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoDriverPage(testController);
@@ -101,6 +101,7 @@ test('Test that drivers page displays and filters, admin edit works, and admin d
   await driverSearchPage.isDisplayed(testController);
   await driverSearchPage.filter(testController, 3);
   await driverSearchPage.gotoCard(testController);
+  await accountPage.rateUser(testController);
   await accountPage.gotoEditPage(testController);
   await editPage.editAccount(testController, 'John', 'Kalihi');
   await navBar.logout(testController);
