@@ -26,6 +26,12 @@ class AccountPage {
   async createAccount(testController) {
     await testController.click('#create-button');
   }
+
+  async rateUser(testController){
+    await testController.click('#rate-button');
+    await testController.click('#rate-submit-button');
+    await testController.click(Selector('.swal-button--confirm'));
+  }
 }
 
 export const accountPage = new AccountPage();

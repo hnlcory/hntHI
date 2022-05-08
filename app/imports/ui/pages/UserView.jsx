@@ -106,8 +106,8 @@ const MakeCard = (props) => (
         {amountOfRatings(props.profile._id) === 1 ? (
           <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
         ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
-        <Rating maxRating={5} onRate={handleRate} />
-        <Button basic color='blue' id='rating-submit-button' size='tiny' onClick={() => addRating(props.profile._id)}>Submit Rating</Button>
+        <Rating id='rate-button' maxRating={5} onRate={handleRate} />
+        <Button basic color='blue' id='rate-submit-button' size='tiny' onClick={() => addRating(props.profile._id)}>Submit Rating</Button>
         <Button.Group>
           {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
             <div style={{ paddingTop: '20px' }}>
