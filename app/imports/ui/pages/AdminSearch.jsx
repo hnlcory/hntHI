@@ -75,10 +75,10 @@ const MakeCard = (props) => (
     <Card.Content textAlign='center'>
       <List celled horizontal>
         <List.Item>
-          <Link color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
+          <Link id='edit-button' color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
         </List.Item>
         <List.Item>
-          <Link to="/adminsearch" refresh="true"><Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
+          <Link id='delete-button' to="/adminsearch" refresh="true"><Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
           </Link>
         </List.Item>
       </List>
@@ -114,7 +114,7 @@ const MakeAdminCard = (props) => (
         Contact me: {props.thatprofile.contact}
     </Card.Content>
     <Card.Content textAlign='center'>
-      <Link color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
+      <Link id='edit-button' color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
     </Card.Content>
   </Card>
 );
