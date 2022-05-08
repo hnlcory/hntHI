@@ -26,6 +26,12 @@ function getProfileData(email) {
   return _.extend({ }, data, locations);
 }
 
+function displayRating(usrID) {
+  const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
+      Users.collection.findOne({ _id: usrID }).rating.length;
+  return mappedRating.toFixed(2);
+}
+
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card link color='green'>
@@ -40,11 +46,14 @@ const MakeCard = (props) => (
         {props.profile.bio}
       </Card.Description>
       <Card.Description>
-        {props.profile.rating === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
       Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
@@ -76,11 +85,14 @@ const MakeUPCard = (props) => (
         {props.thatprofile.bio}
       </Card.Description>
       <Card.Description>
-        {props.thatprofile.rating === 5 ? (
+        {displayRating(props.thatprofile._id) === 5 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {props.thatprofile.rating <= 2 && props.thatprofile.rating !== 0 ? (
+        {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.thatprofile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
       Arrives: {props.thatprofile.arriveTime} | Leaves {props.thatprofile.leaveTime}

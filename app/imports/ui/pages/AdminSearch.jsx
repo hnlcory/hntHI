@@ -3,7 +3,7 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import swal from 'sweetalert';
-import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, List } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Label, Icon, List } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -44,6 +44,12 @@ function deleteCard(usrID) {
   // console.log(acc);
 }
 
+function displayRating(usrID) {
+  const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
+      Users.collection.findOne({ _id: usrID }).rating.length;
+  return mappedRating.toFixed(2);
+}
+
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card link color='green'>
@@ -58,13 +64,15 @@ const MakeCard = (props) => (
       <Card.Description>
         {props.profile.bio}
       </Card.Description>
-      <Rating maxRating={5}/>
       <Card.Description>
-        {props.profile.rating === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
         Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
@@ -78,7 +86,8 @@ const MakeCard = (props) => (
           <Link id='edit-button' color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
         </List.Item>
         <List.Item>
-          <Link id='delete-button' to="/adminsearch" refresh="true"><Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
+          <Link id='delete-button' to="/adminsearch" refresh="true"><Icon color='red'
+            name='user delete' onClick={() => deleteCard(props.profile._id)}/>
           </Link>
         </List.Item>
       </List>
@@ -101,11 +110,14 @@ const MakeAdminCard = (props) => (
         {props.thatprofile.bio}
       </Card.Description>
       <Card.Description>
-        {props.thatprofile.rating === 5 ? (
+        {displayRating(props.thatprofile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {props.thatprofile.rating <= 2 && props.thatprofile.rating !== 0 ? (
+        {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.thatprofile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
         Arrives: {props.thatprofile.arriveTime} | Leaves {props.thatprofile.leaveTime}
