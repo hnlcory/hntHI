@@ -24,6 +24,7 @@ class UsersCollection {
       leaveTime: { type: String, optional: true },
       contact: { type: String, optional: true },
       rating: { type: Number, optional: true },
+      ratings: [Number],
     }, { tracker: Tracker });
     // Ensure collection documents obey schema
     this.collection.attachSchema(this.schema);

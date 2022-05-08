@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
+import swal from 'sweetalert';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
-import swal from 'sweetalert';
 
 function deleteCard(usrID) {
   // find email from id in users collection

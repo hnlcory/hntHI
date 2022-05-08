@@ -58,9 +58,9 @@ function addProject({ name, homepage, description, interests, picture }) {
 }
 
 // Define a new user. Error if user already exists. (ADDED)
-function addUser({ email, firstName, lastName, role, profilePicture, locations, bio, arriveTime, leaveTime, contact, rating }) {
+function addUser({ email, firstName, lastName, role, profilePicture, locations, bio, arriveTime, leaveTime, contact, rating, ratings }) {
   console.log(`Defining user ${firstName}`);
-  Users.collection.insert({ email, firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, rating });
+  Users.collection.insert({ email, firstName, lastName, role, profilePicture, bio, arriveTime, leaveTime, contact, rating, ratings });
   locations.map(location => UsersLocations.collection.insert({ profile: email, role, location }));
   // Make sure locations are defined in the Location collection if they weren't already.
   locations.map(location => addLocation(location));
