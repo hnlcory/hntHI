@@ -61,6 +61,7 @@ const MakeCard = (props) => (
         <Header as="h5">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
+<<<<<<< Updated upstream
         <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
         <Rating maxRating={5} onRate={this.handleRate} />
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
@@ -73,6 +74,26 @@ const MakeCard = (props) => (
               <Icon name='trash alternate outline'/>
               Admin Delete Profile</Button></div>
         ) : ''}
+=======
+        <Header as="h4">Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></Header>
+        {amountOfRatings(props.profile._id) === 1 ? (
+          <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
+        ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
+        <Rating id='rate-button' maxRating={5} onRate={handleRate} />
+        <Button basic color='blue' id='rate-submit-button' size='tiny' onClick={() => addRating(props.profile._id)}>Submit Rating</Button>
+        <Button.Group>
+          {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+            <div style={{ paddingTop: '20px' }}>
+              <Button basic color='blue' id='edit-button' size='tiny' as={Link}
+                to={`/useredit/${props.profile._id}`}>
+                <Icon name='edit outline'/>
+                  Admin Edit Profile</Button>
+              <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/homedr'}>
+                <Icon name='trash alternate outline'/>
+                  Admin Delete Profile</Button></div>
+          ) : ''}
+        </Button.Group>
+>>>>>>> Stashed changes
       </Grid.Column>
     </Grid.Row>
   </Grid>
