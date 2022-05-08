@@ -43,6 +43,13 @@ class Signup extends React.Component {
           }
         });
       }
+      Users.collection.insert({ email }, (err2) => {
+        if (err2) {
+          this.setState({ error: err2.reason });
+        } else {
+          this.setState({ error: '', redirectToReferer: true });
+        }
+      });
     });
   }
 

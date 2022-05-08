@@ -93,7 +93,6 @@ class ProfilesPage extends React.Component {
     const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
     const usrAccount = Users.collection.findOne({ email: usrEmail });
     const myId = usrAccount._id;
-
     if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
       return (
         <Container id="account-page">
