@@ -46,7 +46,7 @@ const MakeCard = (props) => (
         {props.profile.bio}
       </Card.Description>
       <Card.Description>
-        {displayRating(props.profile._id) === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
         {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }

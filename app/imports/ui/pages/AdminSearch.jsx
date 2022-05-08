@@ -65,7 +65,7 @@ const MakeCard = (props) => (
         {props.profile.bio}
       </Card.Description>
       <Card.Description>
-        {displayRating(props.profile._id) === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
         {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
@@ -110,11 +110,14 @@ const MakeAdminCard = (props) => (
         {props.thatprofile.bio}
       </Card.Description>
       <Card.Description>
-        {displayRating(props.thatprofile._id) === 5 ? (
+        {displayRating(props.thatprofile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
         {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.thatprofile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
         Arrives: {props.thatprofile.arriveTime} | Leaves {props.thatprofile.leaveTime}
