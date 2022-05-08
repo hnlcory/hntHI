@@ -22,6 +22,20 @@ function deleteCard(usrID) {
   UsersLocations.collection.remove({ _id: usrLocID[0] });
   swal('Success', 'Account Deleted Successfully', 'success');
 }
+
+const testArr = [];
+function handleRate(e, { rating, maxRating }) {
+  console.log(rating);
+  console.log(maxRating);
+  testArr.push(rating); // add to ratings collection
+  console.log(testArr);
+  console.log((testArr.reduce((add, a) => add + a, 0) / testArr.length));
+  // redirect to page again
+
+  // get id
+  // collection.update or collection.updateOne()
+}
+
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
@@ -62,7 +76,7 @@ const MakeCard = (props) => (
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
         <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
-        <Rating maxRating={5} onRate={this.handleRate} />
+        <Rating maxRating={5} onRate={handleRate} />
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
           <div style={{ paddingTop: '20px' }}>
             <Button basic color='blue' id='edit-button' size='tiny' as={Link}
@@ -133,7 +147,6 @@ MyAcc.propTypes = {
 
 /** Renders the Profile Collection as a set of Cards. */
 class UserView extends React.Component {
-  handleRate = (e, { rating, maxRating }) => this.setState({ rating, maxRating })
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
