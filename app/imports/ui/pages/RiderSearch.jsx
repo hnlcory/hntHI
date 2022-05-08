@@ -52,6 +52,9 @@ const MakeCard = (props) => (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
     </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></p>
+    </Card.Content>
     <Card.Content extra>
       Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
     </Card.Content>
@@ -87,6 +90,9 @@ const MakeUPCard = (props) => (
         {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.thatprofile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
       Arrives: {props.thatprofile.arriveTime} | Leaves {props.thatprofile.leaveTime}

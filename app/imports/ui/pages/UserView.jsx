@@ -51,7 +51,7 @@ function addRating(usrID) {
 function displayRating(usrID) {
   const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
     Users.collection.findOne({ _id: usrID }).rating.length;
-  console.log(mappedRating.toFixed(2));
+  // console.log(mappedRating.toFixed(2));
   return mappedRating.toFixed(2);
 }
 
@@ -107,7 +107,7 @@ const MakeCard = (props) => (
           <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
         ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
         <Rating maxRating={5} onRate={handleRate} />
-        <Button onClick={() => addRating(props.profile._id)}>Submit Rating</Button>
+        <Button basic color='blue' id='rating-submit-button' size='tiny' onClick={() => addRating(props.profile._id)}>Submit Rating</Button>
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
           <div style={{ paddingTop: '20px' }}>
             <Button basic color='blue' id='edit-button' size='tiny' as={Link}

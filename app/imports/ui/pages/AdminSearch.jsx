@@ -3,7 +3,7 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import swal from 'sweetalert';
-import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, List } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Label, Icon, List } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -64,13 +64,15 @@ const MakeCard = (props) => (
       <Card.Description>
         {props.profile.bio}
       </Card.Description>
-      <Rating maxRating={5}/>
       <Card.Description>
         {displayRating(props.profile._id) === 5 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
         {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
         Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
