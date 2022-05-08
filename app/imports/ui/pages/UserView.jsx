@@ -25,7 +25,6 @@ function deleteCard(usrID) {
   swal('Success', 'Account Deleted Successfully', 'success');
 }
 
-// const testArr = [];
 function handleRate(e, { rating }) {
   currRating = rating;
 }
@@ -191,7 +190,7 @@ class UserView extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    // need to get id here, then can grab user data and display specfic profile
+    // need to get id here, then can grab user data and display specific profile
     const dataID = this.props.doc.email;
     const usrAccount = Users.collection.findOne({ email: dataID });
     const thisId = usrAccount._id;
@@ -240,7 +239,6 @@ export default withTracker(({ match }) => {
   const subUserLoc = Meteor.subscribe(UsersLocations.userPublicationName);
 
   const documentId = match.params._id;
-  // console.log(documentId);
   const doc = Users.collection.findOne(documentId);
   return {
     doc,

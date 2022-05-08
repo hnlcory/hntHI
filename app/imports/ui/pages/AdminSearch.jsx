@@ -39,9 +39,6 @@ function deleteCard(usrID) {
   const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
   UsersLocations.collection.remove({ _id: usrLocID[0] });
   swal('Success', 'Account Deleted Successfully', 'success');
-  // setup to possibly delete the default account signing data
-  // const acc = _.pluck(Users.collection.find({ username: usrEmail[0] }).fetch(), '_id');
-  // console.log(acc);
 }
 
 function displayRating(usrID) {
@@ -167,7 +164,6 @@ class AdminSearch extends React.Component {
     if (emails.length === 0) {
       const emailsAll = _.pluck(UsersLocations.collection.find().fetch(), 'profile');
       const profileDataAll = emailsAll.map(email => getProfileData(email));
-      // console.log(profileDataAll);
       return (
         <Container id="admin-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Header as="h1" textAlign='center' color='red' style={{ fontFamily: 'Barlow' }}>Admin Overview</Header>
