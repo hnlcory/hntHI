@@ -131,23 +131,27 @@ test('Test that form page displays and form page adds correctly', async (testCon
   await signoutPage.isDisplayed(testController);
 });
 
-// test feed page displays and add timestamped note adds correctly
-test('Test that feed page displays and timestamped note adds correctly', async (testController) => {
+// test feed page displays
+test('Test that feed page displays and has existing fast ride forms', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFeedPage(testController);
-  // await fastRideFeedPage.addNote(testController); ** no longer an option
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
 
-// test admin page displays and admin page has default accounts
-test('Test that admin page displays and admin page has default accounts', async (testController) => {
+// test admin page displays, edits, deletes, and has default accounts
+test('Test that admin page displays, edits, and deletes, and has default accounts', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoAdminPage(testController);
   await adminSearchPage.isDisplayed(testController);
   await adminSearchPage.hasDefaultAccounts(testController);
+  await adminSearchPage.filter(testController, 40);
+  await accountPage.gotoEditPage(testController);
+  await editPage.editAccount(testController, 'John', 'Kalihi');
+  await navBar.gotoAdminPage(testController);
+  await accountPage.deleteAccount(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });

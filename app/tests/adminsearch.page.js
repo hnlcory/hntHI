@@ -15,6 +15,20 @@ class AdminSearchPage {
     const cardCount = Selector('.ui .card').count;
     await testController.expect(cardCount).gte(30);
   }
+
+  async filter(testController, n) {
+    await this.isDisplayed(testController);
+    // Select visualization and submit
+    const locationSelector = Selector('#locations');
+    const aieaOption = locationSelector.find('#Kalihi');
+    await testController.click(locationSelector);
+    await testController.click(aieaOption);
+    await testController.click(locationSelector);
+    await testController.click('#submit');
+    // Check that only one card is displayed.
+    const cardCount = Selector('.ui .card').count;
+    await testController.expect(cardCount).lte(n);
+  }
 }
 
 export const adminSearchPage = new AdminSearchPage();
