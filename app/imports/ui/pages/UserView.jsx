@@ -6,16 +6,18 @@ import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
+import swal from 'sweetalert';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
-import swal from 'sweetalert';
+
+let currRating = 0;
 
 function deleteCard(usrID) {
   // find email from id in users collection
   const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
   // remove from user
   Users.collection.update({ _id: usrID }, { $unset: { firstName: 1, lastName: 1,
-    role: 1, profilePicture: 1, bio: 1, arriveTime: 1, leaveTime: 1, location: 1, contact: 1, rating: 1 } }, false, true);
+    role: 1, profilePicture: 1, bio: 1, arriveTime: 1, leaveTime: 1, location: 1, contact: 1, rating: [1] } }, false, true);
   // find location id with email
   // remove from location
   const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
@@ -23,17 +25,42 @@ function deleteCard(usrID) {
   swal('Success', 'Account Deleted Successfully', 'success');
 }
 
-const testArr = [];
-function handleRate(e, { rating, maxRating }) {
-  console.log(rating);
-  console.log(maxRating);
-  testArr.push(rating); // add to ratings collection
-  console.log(testArr);
-  console.log((testArr.reduce((add, a) => add + a, 0) / testArr.length));
-  // redirect to page again
+// const testArr = [];
+function handleRate(e, { rating }) {
+  currRating = rating;
+}
 
-  // get id
-  // collection.update or collection.updateOne()
+function addRating(usrID) {
+  const _id = usrID;
+  if (currRating !== 0) {
+    if (Users.collection.findOne({ _id: usrID }).rating.length === 1 &&
+        Users.collection.findOne({ _id: usrID }).rating[0] === 0) {
+      // Users.collection.update(_id, { $set: { rating: [currRating] } }, (error) => (error ?
+      // swal('Error', error.message, 'error') :
+      // swal('Success', 'You added this users first review', 'success')));
+      Users.collection.update(_id, { $pop: { rating: -1 } });
+      Users.collection.update(_id, { $push: { rating: currRating } }, (error) => (error ?
+        swal('Error', error.message, 'error') : swal('Success', 'You rated this user!', 'success')));
+    } else {
+      Users.collection.update(_id, { $push: { rating: currRating } }, (error) => (error ?
+        swal('Error', error.message, 'error') : swal('Success', 'You rated this user!', 'success')));
+    }
+  }
+}
+
+function displayRating(usrID) {
+  const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
+    Users.collection.findOne({ _id: usrID }).rating.length;
+  console.log(mappedRating.toFixed(2));
+  return mappedRating.toFixed(2);
+}
+
+function amountOfRatings(usrID) {
+  if (Users.collection.findOne({ _id: usrID }).rating.length === 1 &&
+      Users.collection.findOne({ _id: usrID }).rating[0] === 0) {
+    return Users.collection.findOne({ _id: usrID }).rating.length - 1;
+  }
+  return Users.collection.findOne({ _id: usrID }).rating.length;
 }
 
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
@@ -42,7 +69,7 @@ const MakeCard = (props) => (
   <Grid centered padded style={{ paddingTop: '30px', paddingBottom: '30px' }}>
     <Grid.Row columns={2}>
       <Grid.Column>
-        {props.profile.rating === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Image label={{
             as: 'a',
             color: 'green',
@@ -51,7 +78,7 @@ const MakeCard = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : ''}
-        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Image label={{
             as: 'a',
             color: 'red',
@@ -60,10 +87,10 @@ const MakeCard = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : '' }
-        {props.profile.rating > 2 && props.profile.rating < 5 ? (
+        {displayRating(props.profile._id) > 2 && displayRating(props.profile._id) <= 4 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
-        {props.profile.rating === 0 ? (
+        {displayRating(props.profile._id) === 0 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
       </Grid.Column>
@@ -75,8 +102,12 @@ const MakeCard = (props) => (
         <Header as="h5">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
-        <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
+        <Header as="h4">Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></Header>
+        {amountOfRatings(props.profile._id) === 1 ? (
+          <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
+        ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
         <Rating maxRating={5} onRate={handleRate} />
+        <Button onClick={() => addRating(props.profile._id)}>Submit Rating</Button>
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
           <div style={{ paddingTop: '20px' }}>
             <Button basic color='blue' id='edit-button' size='tiny' as={Link}
@@ -100,7 +131,7 @@ const MyAcc = (props) => (
   <Grid centered padded style={{ paddingTop: '30px', paddingBottom: '30px' }}>
     <Grid.Row columns={2}>
       <Grid.Column>
-        {props.profile.rating === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Image label={{
             as: 'a',
             color: 'green',
@@ -109,16 +140,16 @@ const MyAcc = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : ''}
-        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Image label={{
             as: 'a', color: 'red', content: 'Low Star Rating', icon: 'star',
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : '' }
-        {props.profile.rating > 2 && props.profile.rating < 5 ? (
+        {displayRating(props.profile._id) > 2 && displayRating(props.profile._id) <= 4 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
-        {props.profile.rating === 0 ? (
+        {displayRating(props.profile._id) === 0 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
       </Grid.Column>
@@ -130,7 +161,10 @@ const MyAcc = (props) => (
         <Header as="h5">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
-        <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
+        <Header as="h4">Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></Header>
+        {amountOfRatings(props.profile._id) ? (
+          <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
+        ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
         <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
            Edit my profile</Button>
         <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/user'}>
@@ -147,7 +181,6 @@ MyAcc.propTypes = {
 
 /** Renders the Profile Collection as a set of Cards. */
 class UserView extends React.Component {
-
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;

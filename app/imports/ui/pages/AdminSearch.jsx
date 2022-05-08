@@ -44,6 +44,12 @@ function deleteCard(usrID) {
   // console.log(acc);
 }
 
+function displayRating(usrID) {
+  const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
+      Users.collection.findOne({ _id: usrID }).rating.length;
+  return mappedRating.toFixed(2);
+}
+
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card link color='green'>
@@ -60,9 +66,9 @@ const MakeCard = (props) => (
       </Card.Description>
       <Rating maxRating={5}/>
       <Card.Description>
-        {props.profile.rating === 5 ? (
+        {displayRating(props.profile._id) === 5 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
     </Card.Content>
@@ -78,7 +84,8 @@ const MakeCard = (props) => (
           <Link id='edit-button' color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
         </List.Item>
         <List.Item>
-          <Link id='delete-button' to="/adminsearch" refresh="true"><Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
+          <Link id='delete-button' to="/adminsearch" refresh="true"><Icon color='red'
+            name='user delete' onClick={() => deleteCard(props.profile._id)}/>
           </Link>
         </List.Item>
       </List>
@@ -101,9 +108,9 @@ const MakeAdminCard = (props) => (
         {props.thatprofile.bio}
       </Card.Description>
       <Card.Description>
-        {props.thatprofile.rating === 5 ? (
+        {displayRating(props.thatprofile._id) === 5 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {props.thatprofile.rating <= 2 && props.thatprofile.rating !== 0 ? (
+        {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
     </Card.Content>

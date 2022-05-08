@@ -26,13 +26,27 @@ function deleteCard(usrID) {
   UsersLocations.collection.remove({ _id: usrLocID[0] });
   swal('Success', 'Account Deleted Successfully', 'success');
 }
+
+function displayRating(usrID) {
+  const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
+      Users.collection.findOne({ _id: usrID }).rating.length;
+  return mappedRating.toFixed(2);
+}
+
+function amountOfRatings(usrID) {
+  if (Users.collection.findOne({ _id: usrID }).rating.length === 1 &&
+      Users.collection.findOne({ _id: usrID }).rating[0] === 0) {
+    return Users.collection.findOne({ _id: usrID }).rating.length - 1;
+  }
+  return Users.collection.findOne({ _id: usrID }).rating.length;
+}
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
   <Grid centered padded style={{ paddingTop: '30px', paddingBottom: '30px' }}>
     <Grid.Row columns={2}>
       <Grid.Column>
-        {props.profile.rating === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Image label={{
             as: 'a',
             color: 'green',
@@ -41,7 +55,7 @@ const MakeCard = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : ''}
-        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Image label={{
             as: 'a',
             color: 'red',
@@ -50,10 +64,10 @@ const MakeCard = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : '' }
-        {props.profile.rating > 2 && props.profile.rating < 5 ? (
+        {displayRating(props.profile._id) > 2 && displayRating(props.profile._id) <= 4 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
-        {props.profile.rating === 0 ? (
+        {displayRating(props.profile._id) === 0 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
       </Grid.Column>
@@ -65,7 +79,10 @@ const MakeCard = (props) => (
         <Header as="h5">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
-        <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
+        <Header as="h4">Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></Header>
+        {amountOfRatings(props.profile._id) === 1 ? (
+          <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
+        ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
         <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
           Edit my profile</Button>
         <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/user'}>

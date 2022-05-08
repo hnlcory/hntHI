@@ -1,11 +1,20 @@
 import React from 'react';
-import { Feed, Icon } from 'semantic-ui-react';
+import { Feed } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { Users } from '../../api/users/Users';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class Request extends React.Component {
+  displayRating(usrID) {
+    const acc = Users.collection.findOne({ _id: usrID });
+    console.log(acc);
+    // const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
+    // Users.collection.findOne({ _id: usrID }).rating.length;
+    const mappedRating = 2;
+    return mappedRating.toFixed(2);
+  }
+
   render() {
     return (
       <Feed.Event>
@@ -26,18 +35,9 @@ class Request extends React.Component {
           <Feed.Extra text>
             {this.props.request.description}
           </Feed.Extra>
-          { (Users.collection.findOne({ email: this.props.request.creator }).rating > 1) ||
-          (Users.collection.findOne({ email: this.props.request.creator }).rating < 1) ? (
-              <Feed.Meta>
-                <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} stars |
-                Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
-              </Feed.Meta>
-            ) :
-            <Feed.Meta>
-              <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} star |
-              Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
-            </Feed.Meta>
-          }
+          <Feed.Meta>
+            Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
+          </Feed.Meta>
         </Feed.Content>
       </Feed.Event>
     );
@@ -48,6 +48,21 @@ class Request extends React.Component {
 Request.propTypes = {
   request: PropTypes.object.isRequired,
 };
+
+/** Add later if there is time
+ * {this.displayRating((Users.collection.findOne({ email: this.props.request.creator })._id) > 1) ||
+ *           this.displayRating((Users.collection.findOne({ email: this.props.request.creator })._id) < 1) ? (
+ *               <Feed.Meta>
+ *                 <Icon name='star' /> {this.displayRating(Users.collection.findOne({ email: this.props.request.creator })._id)} stars |
+ *                 Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
+ *               </Feed.Meta>
+ *             ) :
+ *             <Feed.Meta>
+ *               <Icon name='star' /> {Users.collection.findOne({ email: this.props.request.creator }).rating} star |
+ *               Contact: {Users.collection.findOne({ email: this.props.request.creator }).contact}
+ *             </Feed.Meta>
+ *           }
+ */
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
 export default withRouter(Request);
