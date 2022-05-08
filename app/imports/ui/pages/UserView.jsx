@@ -108,16 +108,18 @@ const MakeCard = (props) => (
         ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
         <Rating maxRating={5} onRate={handleRate} />
         <Button basic color='blue' id='rating-submit-button' size='tiny' onClick={() => addRating(props.profile._id)}>Submit Rating</Button>
-        {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-          <div style={{ paddingTop: '20px' }}>
-            <Button basic color='blue' id='edit-button' size='tiny' as={Link}
-              to={`/useredit/${props.profile._id}`}>
-              <Icon name='edit outline'/>
-                Admin Edit Profile</Button>
-            <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/homedr'}>
-              <Icon name='trash alternate outline'/>
-              Admin Delete Profile</Button></div>
-        ) : ''}
+        <Button.Group>
+          {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
+            <div style={{ paddingTop: '20px' }}>
+              <Button basic color='blue' id='edit-button' size='tiny' as={Link}
+                to={`/useredit/${props.profile._id}`}>
+                <Icon name='edit outline'/>
+                  Admin Edit Profile</Button>
+              <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/homedr'}>
+                <Icon name='trash alternate outline'/>
+                  Admin Delete Profile</Button></div>
+          ) : ''}
+        </Button.Group>
       </Grid.Column>
     </Grid.Row>
   </Grid>
@@ -165,11 +167,13 @@ const MyAcc = (props) => (
         {amountOfRatings(props.profile._id) ? (
           <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
         ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
-        <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
-           Edit my profile</Button>
-        <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/user'}>
-          <Icon name='trash alternate outline'/>
-          Delete my profile</Button>
+        <Button.Group>
+          <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
+              Edit my profile</Button>
+          <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/user'}>
+            <Icon name='trash alternate outline'/>
+            Delete my profile</Button>
+        </Button.Group>
       </Grid.Column>
     </Grid.Row>
   </Grid>
