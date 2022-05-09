@@ -42,13 +42,14 @@
   z-index: 500;
 }
 
-.darkmode--activated .ui.menu .item {
+.darkmode--activated p, .darkmode--activated .ui.rating .active.icon:before, .darkmode--activated .ui.header, .darkmode--activated .ui.menu .item   {
   color: #fffefeb3;
 }
 
-.darkmode--activated .ui.header {
-  color: #fffefeb3;
+.darkmode--activated .ui.rating .icon:before {
+  color: rgba(112, 112, 112, 0.7);
 }
+
 
 #account-page, h2.ui.header, h4.ui.header, h5.ui.header, h1.ui.header, .ui.sub.header, p {
   font-family: Barlow, serif;

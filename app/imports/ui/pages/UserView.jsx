@@ -51,7 +51,6 @@ function addRating(usrID) {
 function displayRating(usrID) {
   const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
     Users.collection.findOne({ _id: usrID }).rating.length;
-  // console.log(mappedRating.toFixed(2));
   return mappedRating.toFixed(2);
 }
 
@@ -104,7 +103,7 @@ const MakeCard = (props) => (
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
         <Header as="h4">Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></Header>
         {amountOfRatings(props.profile._id) === 1 ? (
-          <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
+          <p>(Out of {amountOfRatings(props.profile._id)} review)</p>
         ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
         <Rating id='rate-button' maxRating={5} onRate={handleRate} />
         <Button basic color='blue' id='rate-submit-button' size='tiny' onClick={() => addRating(props.profile._id)}>Submit Rating</Button>
