@@ -83,11 +83,13 @@ const MakeCard = (props) => (
         {amountOfRatings(props.profile._id) === 1 ? (
           <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
         ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
-        <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
+        <Button.Group size='tiny'>
+          <Button basic color='blue' id='edit-button' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
           Edit my profile</Button>
-        <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/user'}>
-          <Icon name='trash alternate outline'/>
+          <Button basic color='red' id='delete-button' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/user'}>
+            <Icon name='trash alternate outline'/>
           Delete my profile</Button>
+        </Button.Group>
       </Grid.Column>
     </Grid.Row>
   </Grid>
