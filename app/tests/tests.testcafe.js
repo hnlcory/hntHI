@@ -14,7 +14,7 @@ import { navBar } from './navbar.component';
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
-const credentials = { username: 'kenji@gmail.com', password: 'changeme', firstName: 'Kenji', lastName: 'Sanehira' };
+const credentials = { username: 'kenji@carpoolngo.com', password: 'changeme', firstName: 'Kenji', lastName: 'Sanehira' };
 
 fixture('Bowfolios localhost test with default db')
   .page('http://localhost:3000');
@@ -68,25 +68,42 @@ test('Test home page links work', async (testController) => {
   await signoutPage.isDisplayed(testController);
 });
 
-// test account page displays and account edit page works
-test('Test that account page displays and account edit page works', async (testController) => {
+// test account page displays, account edit, account delete, and account create works
+test('Test that account page displays, edit works, delete works, and create works', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoAccountPage(testController);
   await accountPage.isDisplayed(testController);
   await accountPage.gotoEditPage(testController);
-  await editPage.editAccount(testController, credentials.firstName);
+  await editPage.editAccount(testController, credentials.firstName, 'Aiea');
+  await navBar.gotoAccountPage(testController);
+  await accountPage.deleteAccount(testController);
+  await accountPage.createAccount(testController);
+  await editPage.createAccount(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
 
-// test drivers page displays and driver page filter works
-test('Test that drivers page displays', async (testController) => {
+// test drivers page displays, driver page filter works, admin rate, admin edit works, and admin delete works
+test('Test that drivers page displays and filters, admin edit, admin rate, and admin delete works', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoDriverPage(testController);
   await driverSearchPage.isDisplayed(testController);
-  await driverSearchPage.filter(testController);
+
+  // test filter and admin delete
+  await driverSearchPage.filter(testController, 4);
+  await driverSearchPage.gotoCard(testController);
+  await accountPage.deleteAccount(testController);
+
+  // test proper delete and admin edit
+  await navBar.gotoDriverPage(testController);
+  await driverSearchPage.isDisplayed(testController);
+  await driverSearchPage.filter(testController, 3);
+  await driverSearchPage.gotoCard(testController);
+  await accountPage.rateUser(testController);
+  await accountPage.gotoEditPage(testController);
+  await editPage.editAccount(testController, 'John', 'Kalihi');
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
@@ -115,23 +132,27 @@ test('Test that form page displays and form page adds correctly', async (testCon
   await signoutPage.isDisplayed(testController);
 });
 
-// test feed page displays and add timestamped note adds correctly
-test('Test that feed page displays and timestamped note adds correctly', async (testController) => {
+// test feed page displays
+test('Test that feed page displays and has existing fast ride forms', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoFeedPage(testController);
-  // await fastRideFeedPage.addNote(testController); ** no longer an option
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });
 
-// test admin page displays and admin page has default accounts
-test('Test that admin page displays and admin page has default accounts', async (testController) => {
+// test admin page displays, edits, deletes, and has default accounts
+test('Test that admin page displays, edits, and deletes, and has default accounts', async (testController) => {
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoAdminPage(testController);
   await adminSearchPage.isDisplayed(testController);
   await adminSearchPage.hasDefaultAccounts(testController);
+  await adminSearchPage.filter(testController, 40);
+  await accountPage.gotoEditPage(testController);
+  await editPage.editAccount(testController, 'John', 'Kalihi');
+  await navBar.gotoAdminPage(testController);
+  await accountPage.deleteAccount(testController);
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
 });

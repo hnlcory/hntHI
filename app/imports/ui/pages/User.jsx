@@ -5,6 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
@@ -12,13 +13,40 @@ import { Projects } from '../../api/projects/Projects';
 import { Users } from '../../api/users/Users';
 import { UsersLocations } from '../../api/users/UsersLocations';
 
+function deleteCard(usrID) {
+  // find email from id in users collection
+  const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
+  // remove from user
+  Users.collection.update({ _id: usrID }, { $unset: { firstName: 1, lastName: 1,
+    role: 1, profilePicture: 1, bio: 1, arriveTime: 1,
+    leaveTime: 1, location: 1, contact: 1, rating: 1 } }, false, true);
+  // find location id with email
+  // remove from location
+  const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
+  UsersLocations.collection.remove({ _id: usrLocID[0] });
+  swal('Success', 'Account Deleted Successfully', 'success');
+}
+
+function displayRating(usrID) {
+  const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
+      Users.collection.findOne({ _id: usrID }).rating.length;
+  return mappedRating.toFixed(2);
+}
+
+function amountOfRatings(usrID) {
+  if (Users.collection.findOne({ _id: usrID }).rating.length === 1 &&
+      Users.collection.findOne({ _id: usrID }).rating[0] === 0) {
+    return Users.collection.findOne({ _id: usrID }).rating.length - 1;
+  }
+  return Users.collection.findOne({ _id: usrID }).rating.length;
+}
 /** Returns the Profile and associated Projects and Interests associated with the passed user email. */
 /** get email of user in users collection, find matching email in profiles collection, when found display that data */
 const MakeCard = (props) => (
   <Grid centered padded style={{ paddingTop: '30px', paddingBottom: '30px' }}>
     <Grid.Row columns={2}>
       <Grid.Column>
-        {props.profile.rating === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Image label={{
             as: 'a',
             color: 'green',
@@ -27,7 +55,7 @@ const MakeCard = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : ''}
-        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Image label={{
             as: 'a',
             color: 'red',
@@ -36,10 +64,10 @@ const MakeCard = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : '' }
-        {props.profile.rating > 2 && props.profile.rating < 5 ? (
+        {displayRating(props.profile._id) > 2 && displayRating(props.profile._id) <= 4 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
-        {props.profile.rating === 0 ? (
+        {displayRating(props.profile._id) === 0 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
       </Grid.Column>
@@ -51,9 +79,15 @@ const MakeCard = (props) => (
         <Header as="h5">  {props.profile.bio}</Header>
         <Header as="h4"> Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}</Header>
         <Header as="h4"> Contact me: {props.profile.contact}</Header>
-        <Header as="h4">Star Rating: {props.profile.rating} <Icon name='star'/></Header>
+        <Header as="h4">Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></Header>
+        {amountOfRatings(props.profile._id) === 1 ? (
+          <p>(Out of {amountOfRatings(props.profile._id)} review )</p>
+        ) : <p>(Out of {amountOfRatings(props.profile._id)} reviews)</p>}
         <Button basic color='blue' id='edit-button' size='tiny' as={Link} to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>
           Edit my profile</Button>
+        <Button basic color='red' id='delete-button' size='tiny' as={Link} onClick={() => deleteCard(props.profile._id)} to={'/user'}>
+          <Icon name='trash alternate outline'/>
+          Delete my profile</Button>
       </Grid.Column>
     </Grid.Row>
   </Grid>
@@ -76,13 +110,12 @@ class ProfilesPage extends React.Component {
     const usrEmail = Meteor.users.findOne({ _id: Meteor.userId() }).username;
     const usrAccount = Users.collection.findOne({ email: usrEmail });
     const myId = usrAccount._id;
-
     if (typeof usrAccount === 'undefined' || typeof usrAccount.firstName === 'undefined') {
       return (
         <Container id="account-page">
           <Header as="h1" textAlign='center'>Your Profile</Header>
           <Segment textAlign='center'>It seems you do not have a profile yet! Click
-            <Link color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
+            <Link id='create-button' color='blue' to={`/useredit/${myId}`}> here</Link> to create your profile.</Segment>
         </Container>
       );
     }

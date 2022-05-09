@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
@@ -24,17 +25,31 @@ class Signup extends React.Component {
   submit= () => {
     const { email, password } = this.state;
     Accounts.createUser({ email, username: email, password }, (err) => {
-      if (err) {
-        this.setState({ error: err.reason });
-      } else {
-        Users.collection.insert({ email }, (err2) => {
-          if (err2) {
-            this.setState({ error: err2.reason });
+      if (email.includes('carpoolngo.com')) {
+        Meteor.call('addAdminToUser', { email: email }, (errr) => {
+          if (errr) {
+            this.setState({ error: errr.reason });
+          } else if (err) {
+            this.setState({ error: err.reason });
           } else {
-            this.setState({ error: '', redirectToReferer: true });
+            Users.collection.insert({ email }, (err2) => {
+              if (err2) {
+                this.setState({ error: err2.reason });
+              } else {
+                this.setState({ error: '', redirectToReferer: true });
+              }
+            });
+
           }
         });
       }
+      Users.collection.insert({ email }, (err2) => {
+        if (err2) {
+          this.setState({ error: err2.reason });
+        } else {
+          this.setState({ error: '', redirectToReferer: true });
+        }
+      });
     });
   }
 

@@ -4,6 +4,14 @@ import { Roles } from 'meteor/alanning:roles';
 
 /* eslint-disable no-console */
 
+Meteor.methods({ 'addAdminToUser'({ email }) {
+  const usrAccount = Meteor.users.findOne({ username: email });
+  console.log(usrAccount);
+  const thisId = usrAccount._id;
+  Roles.addUsersToRoles(thisId, 'admin');
+},
+});
+
 function createUser(email, password, role) {
   console.log(`  Creating user ${email}.`);
   const userID = Accounts.createUser({
@@ -11,7 +19,12 @@ function createUser(email, password, role) {
     email: email,
     password: password,
   });
-  if (role === 'admin') {
+  // let newRole = role;
+  // if (email.includes('carpoolngo.com')) {
+    // console.log('true');
+    // newRole = 'admin';
+  // }
+  if (role === 'admin' || email.includes('carpoolngo.com')) {
     Roles.createRole(role, { unlessExists: true });
     Roles.addUsersToRoles(userID, 'admin');
   }

@@ -3,7 +3,7 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import swal from 'sweetalert';
-import { Container, Loader, Card, Image, Segment, Header, Rating, Label, Icon, List } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Segment, Header, Label, Icon, List } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -30,8 +30,10 @@ function getProfileData(email) {
 function deleteCard(usrID) {
   // find email from id in users collection
   const usrEmail = _.pluck(Users.collection.find({ _id: usrID }).fetch(), 'email');
-  // remove from user
-  Users.collection.remove({ _id: usrID });
+  // remove the added fields from user so the user is prompted to make another profile.
+  Users.collection.update({ _id: usrID }, { $unset: { firstName: 1, lastName: 1,
+    role: 1, profilePicture: 1, bio: 1, arriveTime: 1,
+    leaveTime: 1, location: 1, contact: 1, rating: 1 } }, false, true);
   // find location id with email
   // remove from location
   const usrLocID = _.pluck(UsersLocations.collection.find({ profile: usrEmail[0] }).fetch(), '_id');
@@ -40,6 +42,12 @@ function deleteCard(usrID) {
   // setup to possibly delete the default account signing data
   // const acc = _.pluck(Users.collection.find({ username: usrEmail[0] }).fetch(), '_id');
   // console.log(acc);
+}
+
+function displayRating(usrID) {
+  const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
+      Users.collection.findOne({ _id: usrID }).rating.length;
+  return mappedRating.toFixed(2);
 }
 
 /** Component for layout out a Profile Card. */
@@ -56,13 +64,15 @@ const MakeCard = (props) => (
       <Card.Description>
         {props.profile.bio}
       </Card.Description>
-      <Rating maxRating={5}/>
       <Card.Description>
-        {props.profile.rating === 5 ? (
+        {displayRating(props.profile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {props.profile.rating <= 2 && props.profile.rating !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.profile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
         Arrives: {props.profile.arriveTime} | Leaves {props.profile.leaveTime}
@@ -73,10 +83,11 @@ const MakeCard = (props) => (
     <Card.Content textAlign='center'>
       <List celled horizontal>
         <List.Item>
-          <Link color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
+          <Link id='edit-button' color='blue' to={`/useredit/${props.profile._id}`}><Icon name='edit outline'/>Edit profile</Link>
         </List.Item>
         <List.Item>
-          <Link to="/adminsearch" refresh="true"><Icon color='red' name='user delete' onClick={() => deleteCard(props.profile._id)}/>
+          <Link id='delete-button' to="/adminsearch" refresh="true"><Icon color='red'
+            name='user delete' onClick={() => deleteCard(props.profile._id)}/>
           </Link>
         </List.Item>
       </List>
@@ -99,11 +110,14 @@ const MakeAdminCard = (props) => (
         {props.thatprofile.bio}
       </Card.Description>
       <Card.Description>
-        {props.thatprofile.rating === 5 ? (
+        {displayRating(props.thatprofile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {props.thatprofile.rating <= 2 && props.thatprofile.rating !== 0 ? (
+        {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) !== 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
+    </Card.Content>
+    <Card.Content>
+      <p>Star Rating: {displayRating(props.thatprofile._id)} <Icon name='star'/></p>
     </Card.Content>
     <Card.Content extra>
         Arrives: {props.thatprofile.arriveTime} | Leaves {props.thatprofile.leaveTime}
@@ -112,7 +126,7 @@ const MakeAdminCard = (props) => (
         Contact me: {props.thatprofile.contact}
     </Card.Content>
     <Card.Content textAlign='center'>
-      <Link color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
+      <Link id='edit-button' color='blue' to={`/useredit/${props.thatprofile._id}`}><Icon name='edit outline'/>Edit my profile</Link>
     </Card.Content>
   </Card>
 );
