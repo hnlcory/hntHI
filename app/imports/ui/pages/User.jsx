@@ -55,7 +55,7 @@ const MakeCard = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : ''}
-        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) > 0 ? (
           <Image label={{
             as: 'a',
             color: 'red',
@@ -67,9 +67,10 @@ const MakeCard = (props) => (
         {displayRating(props.profile._id) > 2 && displayRating(props.profile._id) <= 4 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
-        {displayRating(props.profile._id) === 0 ? (
+        {displayRating(props.profile._id) < 1 && amountOfRatings(props.profile._id) === 0 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
+
       </Grid.Column>
       <Grid.Column>
         <Header as="h2">{props.profile.firstName} {props.profile.lastName}</Header>

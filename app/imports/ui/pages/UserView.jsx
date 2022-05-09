@@ -51,7 +51,6 @@ function addRating(usrID) {
 function displayRating(usrID) {
   const mappedRating = Users.collection.findOne({ _id: usrID }).rating.reduce((add, a) => add + a, 0) /
     Users.collection.findOne({ _id: usrID }).rating.length;
-  // console.log(mappedRating.toFixed(2));
   return mappedRating.toFixed(2);
 }
 
@@ -78,7 +77,7 @@ const MakeCard = (props) => (
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
         ) : ''}
-        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) > 0 ? (
           <Image label={{
             as: 'a',
             color: 'red',
@@ -90,7 +89,7 @@ const MakeCard = (props) => (
         {displayRating(props.profile._id) > 2 && displayRating(props.profile._id) <= 4 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
-        {displayRating(props.profile._id) === 0 ? (
+        {displayRating(props.profile._id) < 1 && amountOfRatings(props.profile._id) === 0 ? (
           <Image src={props.profile.profilePicture} fluid rounded className='userImg'/>
         ) : '' }
       </Grid.Column>

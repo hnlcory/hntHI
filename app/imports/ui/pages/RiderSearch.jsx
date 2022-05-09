@@ -48,7 +48,7 @@ const MakeCard = (props) => (
       <Card.Description>
         {displayRating(props.profile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) !== 0 ? (
+        {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) > 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
     </Card.Content>
@@ -85,9 +85,9 @@ const MakeUPCard = (props) => (
         {props.thatprofile.bio}
       </Card.Description>
       <Card.Description>
-        {displayRating(props.thatprofile._id) === 5 ? (
+        {displayRating(props.thatprofile._id) > 4 ? (
           <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
-        {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) !== 0 ? (
+        {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) > 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
     </Card.Content>
@@ -139,7 +139,7 @@ class RiderSearch extends React.Component {
       return (
         <Container id="rider-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Header as="h1" textAlign='center'>Search for Riders in your Area!</Header>
-          <Header as="h4" textAlign='center'>Browse through a list of riders or search by location!</Header>
+          <Header as="h4" textAlign='center'>Search for suitable riders by location!</Header>
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
             <Segment>
               <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
@@ -154,7 +154,7 @@ class RiderSearch extends React.Component {
     return (
       <Container id="rider-page" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
         <Header as="h1" textAlign='center'>Search for Riders in your Area!</Header>
-        <Header as="h4" textAlign='center'>Browse through a list of riders or search by location!</Header>
+        <Header as="h4" textAlign='center'>Search for suitable riders by location!</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)} >
           <Segment>
             <MultiSelectField id='locations' name='locations' showInlineError={true} placeholder={'Locations'}/>
