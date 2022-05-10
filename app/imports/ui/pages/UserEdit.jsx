@@ -83,7 +83,7 @@ class EditContact extends React.Component {
       );
     }
     if (typeof Users.collection.findOne({ email: Meteor.users.findOne({ _id: Meteor.userId() }).username }).firstName ===
-        'undefined') {
+        'undefined' && !Roles.userIsInRole(Meteor.userId(), 'admin')) { // the user logged in is not an admin?
       return (
         <Grid container centered id='edit-page' style={{ paddingTop: '30px', paddingBottom: '30px' }}>
           <Grid.Column>
