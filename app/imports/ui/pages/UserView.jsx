@@ -72,7 +72,7 @@ const MakeCard = (props) => (
           <Image label={{
             as: 'a',
             color: 'green',
-            content: '5 Star Rating',
+            content: 'High Star Rating',
             icon: 'star',
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />
@@ -137,7 +137,7 @@ const MyAcc = (props) => (
           <Image label={{
             as: 'a',
             color: 'green',
-            content: '5 Star Rating',
+            content: 'High Star Rating',
             icon: 'star',
             ribbon: true,
           }} src={props.profile.profilePicture} fluid rounded />

@@ -47,7 +47,7 @@ const MakeCard = (props) => (
       </Card.Description>
       <Card.Description>
         {displayRating(props.profile._id) > 4 ? (
-          <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
+          <Label color='green' size='tiny'><Icon name='star'/>High Star Rating</Label>) : ''}
         {displayRating(props.profile._id) <= 2 && displayRating(props.profile._id) > 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
@@ -86,7 +86,7 @@ const MakeUPCard = (props) => (
       </Card.Description>
       <Card.Description>
         {displayRating(props.thatprofile._id) > 4 ? (
-          <Label color='green' size='tiny'><Icon name='star'/>5 Star Rating</Label>) : ''}
+          <Label color='green' size='tiny'><Icon name='star'/>High Star Rating</Label>) : ''}
         {displayRating(props.thatprofile._id) <= 2 && displayRating(props.thatprofile._id) > 0 ? (
           <Label color='red' size='tiny'><Icon name='star'/>Low Star Rating</Label>) : '' }
       </Card.Description>
