@@ -75,6 +75,7 @@ test('Test that account page displays, edit works, delete works, and create work
   await navBar.gotoAccountPage(testController);
   await accountPage.isDisplayed(testController);
   await accountPage.gotoEditPage(testController);
+  await editPage.isDisplayed(testController)
   await editPage.editAccount(testController, credentials.firstName, 'Aiea');
   await navBar.gotoAccountPage(testController);
   await accountPage.deleteAccount(testController);

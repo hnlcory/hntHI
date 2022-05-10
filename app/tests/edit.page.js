@@ -13,7 +13,6 @@ class EditPage {
 
   async editAccount(testController, firstName, location) {
     const newFirstName = 'New First Name';
-    await this.isDisplayed(testController);
     // Delete text from first name field.
     await testController.selectText('#firstName').pressKey('delete');
     // Type in new first name.
