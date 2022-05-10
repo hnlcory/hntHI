@@ -49,7 +49,7 @@ class EditPage {
     // Type in new first name.
     await testController.typeText('#firstName', firstName);
     await testController.typeText('#lastName', lastName);
-    await testController.typeText('#profilePic', profilePic);
+    await testController.typeText('#profilePicture', profilePic);
     await testController.typeText('#bio', bio);
     await testController.typeText('#arriveTime', arriveTime);
     await testController.typeText('#leaveTime', leaveTime);
