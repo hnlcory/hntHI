@@ -19,9 +19,13 @@ class NavBar extends React.Component {
     return (
       <Menu style={{ marginBottom: '0px', fontFamily: 'Barlow' }} borderless>
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
-          <Image size='mini' src="/images/logov1.jpeg" circular spaced='right'/>
-          <span className='bowfolio-green' style={{ fontWeight: 800, fontSize: '24px' }}>Carpool-And-Go</span>
+          <Image size='mini' circular spaced='right' src="/images/logo.jpeg"/>
+          <span style={{ fontWeight: 800, fontSize: '24px' }}>hntHI</span>
         </Menu.Item>
+        {this.props.currentUser ? (
+          [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Hotspot</Menu.Item>,
+            <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>List Hotspot</Menu.Item>]
+        ) : ''}
         {this.props.currentUser ? (
           [<Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/homedr" key='homeD'>Home</Menu.Item>,
             <Menu.Item as={NavLink} id="accountPage" activeClassName="active" exact to="/user" key='profile'>My Account</Menu.Item>,
