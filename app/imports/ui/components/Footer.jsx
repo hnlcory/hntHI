@@ -8,10 +8,10 @@ class Footer extends React.Component {
       <div className='landing-green-background' style={divStyle}>
         <footer>
           <div className="ui center aligned container">
-            Carpool-And-Go <br />
+            hntHI<br />
               University of Hawaii<br />
-            Kenji, Robin, Cory, Johanan, Kaialii, Michael <br />
-            <a style={{ color: 'white' }} href="https://carpool-and-go.github.io">carpool-and-go.github.io</a>
+            Cory Parker <br />
+            <a style={{ color: 'white' }} href="https://hnlcory.github.io">GitHub Profile</a>
           </div>
         </footer>
       </div>

@@ -44,10 +44,10 @@ export default class Signin extends React.Component {
     return (
       <Container id="signin-page">
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
-          <Grid.Column>
-            <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '5px' }}/>
+          <Grid.Column style={{ paddingBottom: '30px' }}>
+            <Image size='small' src='/images/hnt-landing-logo.png' centered style={{ paddingTop: '5px' }}/>
             <Header as="h2" textAlign="center">
-                Login to your Carpool-And-Go account
+                Login to your hntHI account
             </Header>
             <Form onSubmit={this.submit}>
               <Segment stacked>
@@ -75,7 +75,7 @@ export default class Signin extends React.Component {
               </Segment>
             </Form>
             <Message>
-              <Link to="/signup">Click here to register a carpool-and-go account</Link>
+              <Link to="/signup">Click here to register a hntHI account</Link>
             </Message>
             {this.state.error === '' ? (
               ''

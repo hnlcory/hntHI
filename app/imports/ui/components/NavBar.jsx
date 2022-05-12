@@ -19,7 +19,7 @@ class NavBar extends React.Component {
     return (
       <Menu style={{ marginBottom: '0px', fontFamily: 'Barlow' }} borderless>
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
-          <Image size='mini' circular spaced='right' src="/images/logo.jpeg"/>
+          <Image size='mini' circular spaced='right' src="/images/hnt-navbar-logo.jpeg"/>
           <span style={{ fontWeight: 800, fontSize: '24px' }}>hntHI</span>
         </Menu.Item>
         {this.props.currentUser ? (
@@ -44,7 +44,7 @@ class NavBar extends React.Component {
         ) : ''}
         <Menu.Item position="right">
           {this.props.currentUser === '' ? (
-            <Dropdown id="login-dropdown" className='bowfolio-green' text="Login" pointing="top right" icon={'id badge'}>
+            <Dropdown id="login-dropdown" className='bowfolio-green' text="Login" pointing="top right" icon={'user circle'}>
               <Dropdown.Menu>
                 <Dropdown.Item id="login-dropdown-sign-in" icon="user" text="Sign In" as={NavLink} exact to="/signin"/>
                 <Dropdown.Item id="login-dropdown-sign-up" icon="add user" text="Sign Up" as={NavLink} exact to="/signup"/>

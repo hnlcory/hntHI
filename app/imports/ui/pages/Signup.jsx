@@ -63,10 +63,10 @@ class Signup extends React.Component {
     return (
       <Container id="signup-page">
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
-          <Grid.Column>
-            <Image src='/images/logov1.jpeg' size='small' centered circular style={{ paddingTop: '5px' }}/>
+          <Grid.Column style={{ paddingBottom: '30px' }}>
+            <Image size='small' src='/images/hnt-landing-logo.png' centered style={{ paddingTop: '5px' }}/>
             <Header as="h2" textAlign="center">
-                Sign up for a new Carpool-And-Go account
+                Sign up for a new hntHI account
             </Header>
             <Form onSubmit={this.submit}>
               <Segment stacked>
@@ -94,7 +94,7 @@ class Signup extends React.Component {
               </Segment>
             </Form>
             <Message>
-                Already have a carpool-and-go account? Login <Link to="/signin">here</Link>
+                Already have a hntHI account? Login <Link to="/signin">here</Link>
             </Message>
             {this.state.error === '' ? (
               '') : (

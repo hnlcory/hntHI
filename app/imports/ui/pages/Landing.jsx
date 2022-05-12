@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Image, Container, Header, Button } from 'semantic-ui-react';
+import { Grid, Image, Header, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 
@@ -9,18 +9,27 @@ class Landing extends React.Component {
     return (
       <div id="landing-page">
         <div className='landing-picture-background'>
-          <Container textAlign='center' style={{ paddingTop: '20px' }}>
-            <Image src='/images/logov1.jpeg' size='small' centered circular/>
-            <Header style={{ color: 'white', fontSize: '45pt', fontFamily: 'Barlow' }} as='h1'>
-                Welcome to Carpool-And-Go
-            </Header>
-            <Header style={{ paddingBottom: '45px', color: 'white', fontFamily: 'Barlow' }} as='h3'>
-              Connecting Drivers and Riders with Carpool Partners
-            </Header>
-          </Container>
+          <Grid id='landing-page' verticalAlign='middle' textAlign='center' divided='vertically'>
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Image size='small' src='/images/hnt-landing-logo.png' centered/>
+                <h1 id='font-type-inter-header'>hntHI</h1>
+                <p id='font-type-inter-sub'>Data Visualization for Helium LoRaWAN Miners</p>
+                <Link to='/signin'>
+                  <button className="ui button black" >Login</button>
+                </Link>
+                <Link to='/signup'>
+                  <button className="ui button black" >Signup</button>
+                </Link>
+              </Grid.Column>
+              <Grid.Column>
+                <Image size='huge' src='/images/hnt-landing-picture.png' />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </div>
-        <div className='landing-white-background'>
-          <Header style={{ color: '#376551', fontFamily: 'Barlow' }} as='h2' textAlign='center'>Create your profile as a Driver or Rider</Header>
+        <div className='landing-green-background'>
+          <Header style={{ color: 'white', fontFamily: 'Barlow' }} as='h2' textAlign='center'>Create your profile as a Driver or Rider</Header>
           <Grid container stackable columns='equal' textAlign='center'>
             <Grid.Column>
               <Image src="/images/profile-page.png"/>

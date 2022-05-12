@@ -6,15 +6,22 @@
 }
 
 .landing-green-background {
-  background-color: #104732;
+  background-color: #0d400b;
   color: white;
   padding-top: 20px;
-  isolation: isolate;
 }
 .landing-picture-background {
-  background: url("https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/EyvF0jkPg/videoblocks-drone-turns-right-over-beautiful-mountain-road-aerial-top-view-of-summer-serpentine-empty-driveway-4k-background-shot_hx7f8hidg_thumbnail-1080_01.png") no-repeat center center fixed;
-  background-size: cover;
-  isolation: isolate;
+  background-color: white;
+}
+
+#font-type-inter-header {
+  font-family: 'Inter', sans-serif;
+  font-size: 10em;
+}
+
+#font-type-inter-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5em;
 }
 
 .homedr-picture-background {
